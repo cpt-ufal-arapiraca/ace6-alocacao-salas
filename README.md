@@ -23,7 +23,7 @@ Uma série de exemplos passo-a-passo que informam o que você deve executar para
 Diga como essa etapa será:
 
 ```
-Dar exemplos
+Dar exemplos,
 ```
 
 E repita:

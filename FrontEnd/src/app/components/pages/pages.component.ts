@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-pages',
   standalone: true,
   imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  templateUrl: './pages.component.html',
+  styleUrl: './pages.component.css'
 })
-export class AppComponent {
-  title = 'AlocSalas';
+export class PagesComponent {
+
 }

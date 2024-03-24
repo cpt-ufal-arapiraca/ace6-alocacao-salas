@@ -9,6 +9,7 @@ export const PagesRoutes: Routes = [
         children: [
             { path: 'inicio', component: HomeComponent},
             { path: 'entrar', component: LoginComponent},
+            { path: 'cadastrar', loadComponent: () => import('./register/register.component').then((m) => m.RegisterComponent)},
             { path: '', redirectTo: 'inicio', pathMatch: 'prefix'}
         ]
     },

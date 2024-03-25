@@ -1,75 +1,190 @@
-<div class="grid grid-cols-1 py-16" >
+<div class="grid grid-cols-1 py-16">
   <div class="col-span-1 flex justify-center">
-      <form class="w-full max-w-lg">
-          <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-first-name">
-                Nome
-              </label>
-              <input class="appearance-none block w-full bg-white text-gray-2 border border-error rounded py-3 px-4 mb-2 leading-tight focus:outline-none focus:bg-white" id="nome" type="text" placeholder="Nome completo">
-              <p class="text-error text-xs">Por favor, selecione um nome válido!</p>
+    <form novalidate class="w-full max-w-lg group" (ngSubmit)="cadastrar()" #formDir="ngForm" [formGroup]="cadastro"
+      enctype="multipart/form-data">
+      <div class="flex flex-wrap -mx-3 mb-6">
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-first-name">
+            Nome
+          </label>
+          <input required
+            class="block w-full mb-2 bg-white text-gray-2 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-3"
+            [ngClass]="{
+              'border-error': nome.invalid && nome.touched,
+              'border-success': nome.valid && nome.touched
+            }"
+            id="nome" type="text" placeholder="Nome completo"
+            formControlName="nome" (keydown.enter)="formDir.control.get('nome')!.markAsTouched()">
+          @if (nome.invalid && nome.touched) {
+            <div class="text-error text-xs">
+              @if (nome.errors?.['required']) {
+                <p>O nome é obrigatório!</p>
+              }@if (nome.errors?.['minlength']) {
+                <p>O nome deve ter pelo menos 7 caracteres!</p>
+              }@if (nome.errors?.['pattern']) {
+                <p>Por favor, insira apenas letras!</p>
+              }@if (nome.errors?.['whitespace']) {
+                <p>O nome não pode conter apenas espaços em branco!</p>
+              }@if (nome.errors?.['multipleSpaces']) {
+                <p>O nome não pode conter múltiplos espaços em branco consecutivos!</p>
+              }
             </div>
-            <div class="w-full md:w-1/2 px-3">
-              <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-last-name">
-                CPF
-              </label>
-              <input class="appearance-none block w-full mb-2 bg-white text-gray-2 border border-success rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="cpf" type="number" placeholder="Número do CPF">
-              <p class="text-success text-xs">Feito!</p>
-          </div>
-          </div>
-          <div class="flex flex-wrap -mx-3 mb-6">
-              <div class="w-full md:w-1/2 px-3  mb-6">
-                  <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-last-name">
-                    E-mail
-                  </label>
-                  <input class="appearance-none block w-full bg-white text-gray-2 border border-gray-4 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="email" type="text" placeholder="Seu e-mail">
-                </div>
-                
-                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                  <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-state">
-                    Tipo de usuário
-                  </label>
-                  <div class="relative">
-                    <select class="block appearance-none w-full bg-white border border-warning text-gray-2 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="tipo_usuario">
-                      <option selected disabled>Selecione uma opção</option>
-                      <option>Administrador</option>
-                      <option>Diretor</option>
-                      <option>Professor</option>
-                    </select>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-2">
-                      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                    </div>
-                  </div>
-                </div>
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-password">
-                Crie uma senha
-              </label>
-              <input class="appearance-none block w-full bg-white text-gray-2 border border-error rounded py-3 px-4 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="senha" type="password" placeholder="******************">
+          }@else if (nome.valid && nome.touched){
+            <p class="text-success text-xs">Feito!</p>
+          }
+
+        </div>
+        <div class="w-full md:w-1/2 px-3">
+          <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-last-name">
+            CPF
+          </label>
+          <input required
+            class="block w-full mb-2 bg-white text-gray-2 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-3"
+            id="cpf" type="number" maxlength="11" placeholder="Número do CPF" formControlName="cpf" 
+            (keydown.enter)="formDir.control.get('cpf')!.markAsTouched()"
+            [ngClass]="{
+              'border-error': cpf.invalid && cpf.touched,
+              'border-success': cpf.valid && cpf.touched
+            }"
+            (input)="processInput('cpf' ,$event, 11)">
+            @if (cpf.invalid && cpf.touched) {
               <div class="text-error text-xs">
-                  <!-- <p>A senha é obrigatória</p> -->
-                  <span>A senha deve conter:</span>
-                   <ul class="max-w-md space-y-1 text-error list-disc list-inside dark:text-error">
-                        <li>Pelo menos uma letra maiúscula</li>
-                        <li>Pelo menos um caractere especial</li>
-                        <li>Pelo menos um número</li>
-                        <li>A senha precisa no mínimo 8 caracteres</li>
-                    </ul> 
+                @if (cpf.errors?.['required']) {
+                  <p>O CPF é obrigatório!</p>
+                }@if (cpf.errors?.['pattern']) {
+                  <p>Por favor, insira um CPF válido com apenas números!</p>
+                }@if (cpf.errors?.['cpfNotValid']) {
+                  <p>CPF não é válido!</p>
+                }@if (cpf.errors?.['maxLength']) {
+                  <p>CPF deve conter 11 digitos!</p>
+                }
               </div>
-            </div>
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-password">
-                Repita a senha
-              </label>
-              <input class="appearance-none block w-full bg-white text-gray-2 border border-error rounded py-3 px-4 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="repetir_senha" type="password" placeholder="******************">
-              <p class="text-error text-xs">As senhas não coincidem!</p>
-            </div>
+            }@else if (cpf.valid && cpf.touched){
+              <p class="text-success text-xs">Feito!</p>
+            }
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-6">
+        <div class="w-full md:w-1/2 px-3  mb-6">
+          <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-last-name">
+            E-mail
+          </label>
+          <input required
+            class="block w-full mb-2 bg-white text-gray-2 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-3"
+            id="email" type="text" placeholder="Seu e-mail" formControlName="email"
+            (keydown.enter)="formDir.control.get('email')!.markAsTouched()"
+            [ngClass]="{
+              'border-error': email.invalid && email.touched,
+              'border-success': email.valid && email.touched
+            }">
+            @if (email.invalid && email.touched) {
+              <div class="text-error text-xs">
+                @if (email.errors?.['required']) {
+                  <p>O E-mail é obrigatório!</p>
+                }@if (email.errors?.['pattern']) {
+                  <p>O E-mail deve estar no formato correto!</p>
+                }@if (cadastro.get('email')?.errors && cadastro.get('email')?.errors?.['whitespace']) {
+                  <p>O E-mail não pode conter espaços em branco!</p>
+                }
+              </div>
+            }@else if (email.valid && email.touched){
+              <p class="text-success text-xs">Feito!</p>
+            }
           </div>
-          <div>
-              <button routerLink="/" class="bg-primary hover:bg-hover-primary text-white w-full py-3 px-8 rounded-md">
-                  Cadastrar
-              </button>
-          </div>           
-        </form>
+
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-state">
+            Tipo de usuário
+          </label>
+          <div class="relative">
+            <select required
+              class="block w-full mb-2 bg-white text-gray-2 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-3"
+              id="tipo_usuario" formControlName="tipo_usuario" 
+              [ngClass]="{
+                'border-error': tipo_usuario.invalid && tipo_usuario.touched,
+                'border-success': tipo_usuario.valid && tipo_usuario.touched
+              }">
+              <option selected disabled>Selecione uma opção</option>
+              <option value="1">Administrador</option>
+              <option value="2">Diretor</option>
+              <option value="3">Professor</option>
+            </select>
+            @if (tipo_usuario.invalid && tipo_usuario.touched) {
+              <div class="text-error text-xs">
+                @if (tipo_usuario.errors?.['required']) {
+                  <p>O tipo de usuário é obrigatório!</p>
+                }
+              </div>
+            }@else if (tipo_usuario.valid && tipo_usuario.touched){
+              <p class="text-success text-xs">Feito!</p>
+            }
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="senha">
+            Crie uma senha
+          </label>
+          <input required
+            class="block w-full mb-2 bg-white text-gray-2 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-3"
+            id="senha" type="text" placeholder="Crie uma senha" formControlName="senha"
+            (keydown.enter)="formDir.control.get('senha')!.markAsTouched()"
+            [ngClass]="{
+              'border-error': senha.invalid && senha.touched,
+              'border-success': senha.valid && senha.touched
+            }">
+          <div class="text-error text-xs">
+            @if (senha.invalid && senha.touched) {
+              @if (cadastro.get('senha')!.errors?.['required']) {
+                <p>A senha é obrigatória!</p>
+              }
+                <span>A senha deve conter:</span>
+                <ul class="max-w-md space-y-1 list-disc list-inside">
+                  @if (!hasUppercase()) {
+                    <p>Pelo menos uma letra maiúscula!</p>
+                  }@if (!hasSpecialCharacter()) {
+                    <p>Pelo menos um caractere especial!</p>
+                  }@if (!hasNumber()) {
+                    <p>Pelo menos um número!</p>
+                  }@if (!hasMinLength()) {
+                    <p>A senha precisa no mínimo 8 caracteres!</p>
+                  }
+                </ul>
+            }@else if (senha.valid && senha.touched){
+              <p class="text-success text-xs">Feito!</p>
+            }
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-password">
+            Repita a senha
+          </label>
+          <input required
+            class="block w-full mb-2 bg-white text-gray-2 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-3"
+            id="confirmaSenha" formControlName="confirmaSenha" type="text" placeholder="Repita a senha"
+            (keydown.enter)="formDir.control.get('confirmaSenha')!.markAsTouched()"
+            [ngClass]="{
+              'border-error': confirmaSenha.invalid && confirmaSenha.touched,
+              'border-success': confirmaSenha.valid && confirmaSenha.touched
+            }">
+          @if (confirmaSenha.invalid && confirmaSenha.touched) {
+            <div class="text-error text-xs">
+              @if (confirmaSenha.errors?.['required']) {
+                <p>A senha é obrigatória!</p>
+              }@if (confirmaSenha.errors?.['notSame']) {
+                <p>As senhas não coincidem!</p>
+              }
+            </div>
+          }@else if (confirmaSenha.valid && confirmaSenha.touched){
+            <p class="text-success text-xs">Feito!</p>
+          }
+        </div>
+      </div>
+      <div>
+        <button type="submit" routerLink="/" (click)="cadastrar()"
+          class="bg-primary hover:bg-hover-primary text-white w-full py-3 px-8 rounded-md">
+          Cadastrar
+        </button>
+      </div>
+    </form>
   </div>
 </div>

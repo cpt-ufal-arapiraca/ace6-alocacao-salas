@@ -1,84 +1,75 @@
-<div class="grid justify-center grid-cols-12 h-screen">
-    <div class="col-span-12 hidden sm:block bg-primary sm:col-span-4 justify-center items-center">
-        <img class="object-cover h-screen w-screen" src="./../../../../../assets/images/cadastro.webp" alt="erro 404">
-        
-    </div>
-    <div class="p-8 col-span-12 sm:col-span-8 bg-white flex justify-center items-center">
-        <div class="grid grid-cols-3">
-            <h1 class="col-span-3 text-4xl font-bold text-gray-1 mb-4">Cadastro</h1>
-            <div class="col-span-3 pt-4">
-                <form class="w-full max-w-lg">
-                    <div class="flex flex-wrap -mx-3 mb-6">
-                      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-first-name">
-                          Nome
-                        </label>
-                        <input class="appearance-none block w-full bg-white text-gray-2 border border-error rounded py-3 px-4 mb-2 leading-tight focus:outline-none focus:bg-white" id="nome" type="text" placeholder="Nome completo">
-                        <p class="text-error text-xs">Por favor, selecione um nome válido!</p>
-                      </div>
-                      <div class="w-full md:w-1/2 px-3">
-                        <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-last-name">
-                          CPF
-                        </label>
-                        <input class="appearance-none block w-full mb-2 bg-white text-gray-2 border border-success rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="cpf" type="number" placeholder="Número do CPF">
-                        <p class="text-success text-xs">Feito!</p>
-                    </div>
-                    </div>
-                    <div class="flex flex-wrap -mx-3 mb-6">
-                        <div class="w-full md:w-1/2 px-3  mb-6">
-                            <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-last-name">
-                              E-mail
-                            </label>
-                            <input class="appearance-none block w-full bg-white text-gray-2 border border-gray-4 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="email" type="text" placeholder="Seu e-mail">
-                          </div>
-                          
-                          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                            <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-state">
-                              Tipo de usuário
-                            </label>
-                            <div class="relative">
-                              <select class="block appearance-none w-full bg-white border border-warning text-gray-2 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="tipo_usuario">
-                                <option selected disabled>Selecione uma opção</option>
-                                <option>Administrador</option>
-                                <option>Diretor</option>
-                                <option>Professor</option>
-                              </select>
-                              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-2">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                              </div>
-                            </div>
-                          </div>
-                      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-password">
-                          Crie uma senha
-                        </label>
-                        <input class="appearance-none block w-full bg-white text-gray-2 border border-error rounded py-3 px-4 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="senha" type="password" placeholder="******************">
-                        <div class="text-error text-xs">
-                            <!-- <p>A senha é obrigatória</p> -->
-                            <span>A senha deve conter:</span>
-                             <ul class="max-w-md space-y-1 text-error list-disc list-inside dark:text-error">
-                                  <li>Pelo menos uma letra maiúscula</li>
-                                  <li>Pelo menos um caractere especial</li>
-                                  <li>Pelo menos um número</li>
-                                  <li>A senha precisa no mínimo 8 caracteres</li>
-                              </ul> 
-                        </div>
-                      </div>
-                      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-password">
-                          Repita a senha
-                        </label>
-                        <input class="appearance-none block w-full bg-white text-gray-2 border border-error rounded py-3 px-4 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="repetir_senha" type="password" placeholder="******************">
-                        <p class="text-error text-xs">As senhas não coincidem!</p>
-                      </div>
-                    </div>
-                    <div>
-                        <button routerLink="/" class="bg-primary hover:bg-hover-primary text-white w-full py-3 px-8 rounded-md">
-                            Cadastrar
-                        </button>
-                    </div>           
-                  </form>
+<div class="grid grid-cols-1 py-16" >
+  <div class="col-span-1 flex justify-center">
+      <form class="w-full max-w-lg">
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-first-name">
+                Nome
+              </label>
+              <input class="appearance-none block w-full bg-white text-gray-2 border border-error rounded py-3 px-4 mb-2 leading-tight focus:outline-none focus:bg-white" id="nome" type="text" placeholder="Nome completo">
+              <p class="text-error text-xs">Por favor, selecione um nome válido!</p>
             </div>
-        </div>
-    </div>
+            <div class="w-full md:w-1/2 px-3">
+              <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-last-name">
+                CPF
+              </label>
+              <input class="appearance-none block w-full mb-2 bg-white text-gray-2 border border-success rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="cpf" type="number" placeholder="Número do CPF">
+              <p class="text-success text-xs">Feito!</p>
+          </div>
+          </div>
+          <div class="flex flex-wrap -mx-3 mb-6">
+              <div class="w-full md:w-1/2 px-3  mb-6">
+                  <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-last-name">
+                    E-mail
+                  </label>
+                  <input class="appearance-none block w-full bg-white text-gray-2 border border-gray-4 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="email" type="text" placeholder="Seu e-mail">
+                </div>
+                
+                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-state">
+                    Tipo de usuário
+                  </label>
+                  <div class="relative">
+                    <select class="block appearance-none w-full bg-white border border-warning text-gray-2 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="tipo_usuario">
+                      <option selected disabled>Selecione uma opção</option>
+                      <option>Administrador</option>
+                      <option>Diretor</option>
+                      <option>Professor</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-2">
+                      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
+                  </div>
+                </div>
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-password">
+                Crie uma senha
+              </label>
+              <input class="appearance-none block w-full bg-white text-gray-2 border border-error rounded py-3 px-4 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="senha" type="password" placeholder="******************">
+              <div class="text-error text-xs">
+                  <!-- <p>A senha é obrigatória</p> -->
+                  <span>A senha deve conter:</span>
+                   <ul class="max-w-md space-y-1 text-error list-disc list-inside dark:text-error">
+                        <li>Pelo menos uma letra maiúscula</li>
+                        <li>Pelo menos um caractere especial</li>
+                        <li>Pelo menos um número</li>
+                        <li>A senha precisa no mínimo 8 caracteres</li>
+                    </ul> 
+              </div>
+            </div>
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block tracking-wide text-gray-2 text-xs font-bold mb-2" for="grid-password">
+                Repita a senha
+              </label>
+              <input class="appearance-none block w-full bg-white text-gray-2 border border-error rounded py-3 px-4 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="repetir_senha" type="password" placeholder="******************">
+              <p class="text-error text-xs">As senhas não coincidem!</p>
+            </div>
+          </div>
+          <div>
+              <button routerLink="/" class="bg-primary hover:bg-hover-primary text-white w-full py-3 px-8 rounded-md">
+                  Cadastrar
+              </button>
+          </div>           
+        </form>
+  </div>
 </div>

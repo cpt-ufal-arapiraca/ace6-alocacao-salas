@@ -1,1 +1,57 @@
-<router-outlet></router-outlet>
+
+
+
+<aside [ngClass]="{'-translate-x-full': !isSidebarOpen}" id="sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform  sm:translate-x-0"  aria-label="Sidebar">
+    <div class="h-full py-4 overflow-y-auto bg-primary">
+       <div class="grid grid-cols-1 justify-items-center mt-16">
+          <div class="h-16 w-16 bg-gray-5 rounded-full"></div>
+          <h1 class="text-white mt-2 text-xl font-light"><span class="font-semibold">Olá,</span> Raquel</h1>
+       </div>
+       <ul  class="space-y-2 text-sm mt-6">
+          <li routerLinkActive="active">
+             <a routerLink="/alocsalas" href="#" class="flex items-center p-3 text-white hover:bg-hover-primary group"  [ngClass]="{ 'bg-active': isActive('/alocsalas') }">
+                <img class="ms-3" src="./../../../../assets/icons/home.svg" alt="home">
+                <span class="ms-3">Início</span>
+             </a>
+             @if (!isActive('/alocsalas')) {
+                <hr class="mx-3 border border-active">
+             }
+             
+          </li>
+          <li routerLinkActive="active">
+             <a routerLink="cadastrar" href="#" class="flex items-center p-3 text-white hover:bg-hover-primary group"  [ngClass]="{ 'bg-active': isActive('/alocsalas/cadastrar') }">
+                <img class="ms-3" src="./../../../../assets/icons/user-plus.svg" alt="home">
+                <span class="ms-3">Cadastrar</span>
+             </a>
+             @if (!isActive('/alocsalas/cadastrar')) {
+                <hr class="mx-3 border border-active">
+             }
+          </li>
+       </ul>
+       <div class="h-64 grid grid-cols-1 content-end">
+          <hr class="mx-3 border border-active">
+          <ul class="mt-2">
+             <li routerLinkActive="active">
+                <a routerLink="/" href="#" class="flex items-center p-3 text-white hover:bg-hover-primary group"  [ngClass]="{ 'bg-active': isActive('/') }">
+                   <img class="ms-3" src="./../../../../assets/icons/sign-out.svg" alt="home">
+                   <span class="ms-3">Sair</span>
+                </a>
+             </li>
+          </ul>
+        </div>
+    </div>
+ </aside>
+ 
+ <div [ngClass]="{'bg-gray-3': isSidebarOpen}">
+    <button (click)="isSidebarOpen = true" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+       <span class="sr-only">Open sidebar</span>
+       <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+       <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+       </svg>
+    </button>  
+    <div  class="p-4 h-screen sm:ml-64" (click)="isSidebarOpen = false" >
+       <router-outlet></router-outlet>
+    </div> 
+ </div>
+ 
+ 

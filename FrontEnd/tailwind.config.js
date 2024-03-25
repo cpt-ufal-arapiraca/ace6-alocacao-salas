@@ -17,6 +17,7 @@ module.exports = {
         "gray-5": "#E0E0E0",
         "primary": "#0095DA",
         "secondary": "#ED1C24",
+        "active": "#00AEFF",
         "hover-primary": "#092C4C",
         "hover-secondary": "#7c0509",
         "info": "#2F80ED",

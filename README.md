@@ -1,6 +1,6 @@
-# Título do projeto
+# Alocação de Salas
 
-Um parágrafo da descrição do projeto vai aqui.
+O sistema tem o objetivo de analisar/encontrar a melhor ordenação de salas com base em cadas nova turmas do ano letivo.
 
 ## 🚀 Começando
 
@@ -10,49 +10,77 @@ Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar 
 
 ### 📋 Pré-requisitos
 
-De que coisas você precisa para instalar o software e como instalá-lo?
+Para a execursão do sistema em maquina local, é necessário instalar alguns programas/depeondecias, elas sãos:
 
+Banco de Dados
 ```
-Dar exemplos.
+MariaDb
+```
+
+Back-End
+```
+Nodejs - 20
+```
+
+Front-End
+```
+Angular - 17
+Nodejs - 20
 ```
 
 ### 🔧 Instalação
 
-Uma série de exemplos passo-a-passo que informam o que você deve executar para ter um ambiente de desenvolvimento em execução.
+#### Instalação e Configuração do Front-end com tecnologias usadas.
 
-Diga como essa etapa será:
+Este guia fornece instruções detalhadas para a instalação e configuração do Front-end usando (Angular, Node.js, Bootstrap). O Node.js é uma solução fácil e rápida para instalar todas as dependências necessárias para rodar o ambiente de desenvolvimento.
 
-```
-Dar exemplos,
-```
+#### Instalação do Node.js
 
-E repita:
+1. **Download do Node.js:**
+   - Acesse [o site oficial do Node.js](https://nodejs.org/en) e faça o download da versão 20 LTS ou superior.
 
-```
-Até finalizar
-```
+2. **Instale o Node.js:**
+   - Após a instalação, verifique com o seguinte comando no terminal:
+   ```bash
+     node -v
+     ```
 
-Termine com um exemplo de como obter dados do sistema ou como usá-los para uma pequena demonstração.
+#### Instalação do Angular
 
-## ⚙️ Executando os testes.
+1. **Instalação:**
+   - Acesse [o site oficial do Angular na tela de instalação](https://angular.io/guide/setup-local), ou execute o seguinte comando no terminal.
+    ```bash
+     npm install -g @angular/cli@17
+     ```
+   - Perceba que usamos a tag '-g', isso indica que estamos instalando o Angular globalmente, em toda a máquina.
+   - Perceba que instalamos a versão 17, pois o projeto foi desenvolvido nesta versão.
 
-Explicar como executar os testes automatizados para este sistema.
 
-### 🔩 Analise os testes de ponta a ponta
+3. **Instalando dependências.**
+   - Após clonar este repositório, entre na pasta com o seguinte comando:
+   ```bash
+     cd ace6-alocacao-salas/
+   ```
+   - Agora, execute o seguinte comando:
+   ```bash
+     npm install
+   ```
+   - Com isso, todas as dependências serão baixadas.
 
-Explique que eles verificam esses testes e porquê.
 
-```
-Dar exemplos
-```
+5. **Execução, modo desenvolvimento:**
+   - Para executar em modo de desenvolvimento, execute o seguinte comando:
+   ```bash
+     ng server
+   ```
 
-### ⌨️ E testes de estilo de codificação
 
-Explique que eles verificam esses testes e porquê.
-
-```
-Dar exemplos
-```
+6. **Build, modo produção:**
+   - Para fazer o Build em modo produção, execute o seguinte comando:
+   ```bash
+     ng build --aot --configuration=production
+   ```
+#
 
 ## 📦 Implantação
 
@@ -72,7 +100,7 @@ Por favor, leia o [COLABORACAO.md](https://gist.github.com/usuario/linkParaInfoS
 
 ## 📌 Versão
 
-Nós usamos [SemVer](http://semver.org/) para controle de versão. Para as versões disponíveis, observe as [tags neste repositório](https://github.com/suas/tags/do/projeto). 
+Nós usamos [GitFlow](https://git-scm.com/) para controle de versão. Para as versões disponíveis, observe as [tags neste repositório](https://github.com/cpt-ufal-arapiraca/ace6-alocacao-salas/releases). 
 
 ## ✒️ Autores
 

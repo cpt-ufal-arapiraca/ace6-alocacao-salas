@@ -19,7 +19,8 @@ MariaDb
 
 Back-End
 ```
-Nodejs - 20
+Java - 17
+Spring Boot - 3.2.3
 ```
 
 Front-End
@@ -32,7 +33,7 @@ Nodejs - 20
 
 #### Instalação e Configuração do Front-end com tecnologias usadas.
 
-Este guia fornece instruções detalhadas para a instalação e configuração do Front-end usando (Angular, Node.js, Bootstrap). O Node.js é uma solução fácil e rápida para instalar todas as dependências necessárias para rodar o ambiente de desenvolvimento.
+Este guia fornece instruções detalhadas para a instalação e configuração do Front-end usando (Angular, Node.js, Tailwind CSS). O Node.js é uma solução fácil e rápida para instalar todas as dependências necessárias para rodar o ambiente de desenvolvimento.
 
 #### Instalação do Node.js
 
@@ -82,21 +83,52 @@ Este guia fornece instruções detalhadas para a instalação e configuração d
    ```
 #
 
+#### Instalação e Configuração do Back-end com tecnologias usadas.
+
+Este guia fornece instruções detalhadas para a instalação e configuração do Back-end usando (Java, Spring Boot).O Java Spring Framework (Spring Framework) é um framework bastante conhecido de nível empresarial, de software livre, para criar aplicativos independentes de nível de produção que são executados na Java Virtual Machine (JVM).
+
+#### Instalação do Java 17
+
+1. **Download do Java 17**
+   - Acesse [o site oficial do Node.js](https://www.oracle.com/br/java/technologies/downloads/) e faça o download.
+
+2. **Instale o Java 17**
+   - Siga as instruções do seu sistema operacional.
+
+### Instalação do Spring Boot
+
+Primeiramente, faça o clone do repositório:
+```
+https://github.com/cpt-ufal-arapiraca/ace6-alocacao-salas.git
+```
+Feito isso, acesse o projeto:
+```
+cd ace6-alocacao-salas/BackEnd
+```
+É preciso compilar o código e baixar as dependências do projeto:
+```
+mvn clean package
+```
+Finalizado esse passo, vamos iniciar a aplicação:
+```
+mvn spring-boot:run
+```
+Pronto. A aplicação está disponível em http://localhost:8080
+```
+Tomcat started on port(s): 8080 (http)
+Started AppConfig in xxxx seconds (JVM running for xxxx)
+```
+#
+
 ## 📦 Implantação
 
-Adicione notas adicionais sobre como implantar isso em um sistema ativo
+%%
 
 ## 🛠️ Construído com
 
 Mencione as ferramentas que você usou para criar seu projeto
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - O framework web usado
 * [Maven](https://maven.apache.org/) - Gerente de Dependência
-* [ROME](https://rometools.github.io/rome/) - Usada para gerar RSS
-
-## 🖇️ Colaborando
-
-Por favor, leia o [COLABORACAO.md](https://gist.github.com/usuario/linkParaInfoSobreContribuicoes) para obter detalhes sobre o nosso código de conduta e o processo para nos enviar pedidos de solicitação.
 
 ## 📌 Versão
 
@@ -106,22 +138,10 @@ Nós usamos [GitFlow](https://git-scm.com/) para controle de versão. Para as ve
 
 Mencione todos aqueles que ajudaram a levantar o projeto desde o seu início
 
-* **Um desenvolvedor** - *Trabalho Inicial* - [umdesenvolvedor](https://github.com/linkParaPerfil)
-* **Fulano De Tal** - *Documentação* - [fulanodetal](https://github.com/linkParaPerfil)
+* **Douglas** - *Java e Spring Boot* - [https://github.com/Douglas-Alv3s](https://github.com/Douglas-Alv3s)
+* **Roberto** - *Banco de dados* - [https://github.com/jrobertogram](https://github.com/jrobertogram)
+* **Luckas** - *Font end* - [https://github.com/Luckas-Ferreira](https://github.com/Luckas-Ferreira)
+* **Wellington** - *Documentação e UI/UX* - 
 
-Você também pode ver a lista de todos os [colaboradores](https://github.com/usuario/projeto/colaboradores) que participaram deste projeto.
+Você também pode ver a lista de todos os [colaboradores](https://github.com/cpt-ufal-arapiraca/ace6-alocacao-salas/colaboradores) que participaram deste projeto.
 
-## 📄 Licença
-
-Este projeto está sob a licença (sua licença) - veja o arquivo [LICENSE.md](https://github.com/usuario/projeto/licenca) para detalhes.
-
-## 🎁 Expressões de gratidão
-
-* Conte a outras pessoas sobre este projeto 📢;
-* Convide alguém da equipe para uma cerveja 🍺;
-* Um agradecimento publicamente 🫂;
-* etc.
-
-
----
-⌨️ com ❤️ por [Armstrong Lohãns](https://gist.github.com/lohhans) 😊

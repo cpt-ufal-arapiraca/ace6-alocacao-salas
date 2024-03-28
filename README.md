@@ -122,7 +122,6 @@ Started AppConfig in xxxx seconds (JVM running for xxxx)
 
 ## 📦 Implantação
 
-%%
 
 ## 🛠️ Construído com
 
@@ -140,7 +139,7 @@ Mencione todos aqueles que ajudaram a levantar o projeto desde o seu início
 
 * **Douglas** - *Java e Spring Boot* - [https://github.com/Douglas-Alv3s](https://github.com/Douglas-Alv3s)
 * **Roberto** - *Banco de dados* - [https://github.com/jrobertogram](https://github.com/jrobertogram)
-* **Luckas** - *Font end* - [https://github.com/Luckas-Ferreira](https://github.com/Luckas-Ferreira)
+* **Luckas** - *Front end* - [https://github.com/Luckas-Ferreira](https://github.com/Luckas-Ferreira)
 * **Wellington** - *Documentação e UI/UX* - 
 
 Você também pode ver a lista de todos os [colaboradores](https://github.com/cpt-ufal-arapiraca/ace6-alocacao-salas/colaboradores) que participaram deste projeto.

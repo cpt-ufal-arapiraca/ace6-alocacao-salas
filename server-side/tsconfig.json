@@ -10,6 +10,12 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "paths": {
+      "@faker-custom": ["src/utils/faker/faker-custom"],
+      "@validate-custom" : ["src/utils/pipes/validator"],
+      "@decorators-custom" : ["src/utils/generate/decorators/"],
+      "@swagger-custom" : ["src/utils/swagger/"]
+    },
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,

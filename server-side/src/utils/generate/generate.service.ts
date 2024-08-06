@@ -28,8 +28,8 @@ export class GenerateService {
 
     async onModuleInit() {
         const result = this.Generate(EntrarAutenticacaoDTO);
-        result.enf_id = 1;
-        console.log(result.enf_id)
+        //result.enf_id = 1;
+        //console.log(result.enf_id)
         console.log(result);
     }
 }

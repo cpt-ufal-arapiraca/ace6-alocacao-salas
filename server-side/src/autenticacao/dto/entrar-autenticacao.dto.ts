@@ -7,22 +7,13 @@ import {CpfValido} from "@validate-custom";
 export class EntrarAutenticacaoDTO {
 
     @CustomApiProperty({
-        description: 'CPF do enfermeiro',
+        description: 'CPF do usuário',
         required: true,
     })
     @Generate(() => faker.custom.cpf())
     @IsNotEmpty()
     @Validate(CpfValido)
-    enf_cpf: string;
-
-    @CustomApiProperty({
-        description: 'CPF do enfermeiro',
-        required: false,
-    })
-    @Generate(() => faker.person.fullName())
-    @IsNotEmpty()
-    @IsString()
-    enf_nome: string;
+    usuario_cpf: string;
 
     @Generate(() => faker.custom.senha(8))
     @IsNotEmpty()
@@ -33,8 +24,6 @@ export class EntrarAutenticacaoDTO {
         minNumbers: 1,
         minSymbols: 1,
     })
-    enf_senha: string;
+    login_senha: string;
 
-
-    enf_id: number;
 }

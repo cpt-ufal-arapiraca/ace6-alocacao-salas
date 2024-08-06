@@ -10,7 +10,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { jwtConstants } from './constants';
 import { ROLES_KEY } from './decorators/roles.decorator';
-import { TipoUsuarioEnum } from "./enum/tipos-usuarios-autenticacao.enum";
+import { TipoUsuarioEnum } from "./enum/tipo-usuario-autenticacao.enum";
 import { PrismaService } from "../utils/prisma/prisma.service";
 
 @Injectable()

@@ -16,10 +16,11 @@ import {RedefinirSenhaAutenticacaoDTO} from "./dto/redefinir-senha-autenticacao.
 
 @Controller('autenticacao')
 export class AutenticacaoController {
-    constructor(private autenticacaoService: AutenticacaoService) {}
+    constructor(
+        private autenticacaoService: AutenticacaoService,
+    ) {}
     
     @Post('entrar')
-    @Roles()
     @EntrarAutenticacaoDocs()
     async entrar(
         @Body() entrarAutenticacaoDTO: EntrarAutenticacaoDTO,

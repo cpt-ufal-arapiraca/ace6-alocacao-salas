@@ -1,10 +1,10 @@
-import {Body, Controller, Get, Post, Put, Query, Request} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Post, Put, Query, Request} from '@nestjs/common';
 import {UsuarioService} from "./usuario.service";
 import {AdicionarUsuarioDTO} from "./dto/adicionar-usuario.dto";
 import {
     AdicionarUsuarioDocs,
     AtualizarUsuarioDocs,
-    CadastrarUsuarioDocs,
+    CadastrarUsuarioDocs, DeletarUsuarioDocs,
     ListarUsuarioDocs,
     ObterUsuarioDocs
 } from "./usuario.swagger";
@@ -14,6 +14,7 @@ import {TipoUsuarioEnum} from "../autenticacao/enum/tipo-usuario-autenticacao.en
 import {AtualizarUsuarioDTO} from "./dto/atualizar-usuario.dto";
 import {ObterUsuarioDTO} from "./dto/obter-usuario.dto";
 import {ListarUsuarioDTO} from "./dto/listar-usuario.dto";
+import {DeletarUsuarioDTO} from "./dto/deletar-usuario.dto";
 
 @Controller('usuario')
 export class UsuarioController {
@@ -72,6 +73,23 @@ export class UsuarioController {
         @Query() listarUsuarioDTO: ListarUsuarioDTO,
     ): Promise<any> {
         return await this.usuarioService.listar(listarUsuarioDTO);
+    }
+
+    @Delete('')
+    @DeletarUsuarioDocs()
+    @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.GERENTE, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.PROFESSOR)
+    async deletar(
+        @Body() deletarUsuarioDTO: DeletarUsuarioDTO,
+        @Request() req,
+    ): Promise<any> {
+        if(req.usuario_tipo !== TipoUsuarioEnum.ADMIN){
+                deletarUsuarioDTO.usuario_id = req.usuario_id;
+        }else{
+            if(!deletarUsuarioDTO.usuario_id){
+                deletarUsuarioDTO.usuario_id = req.usuario_id;
+            }
+        }
+        return await this.usuarioService.deletar(deletarUsuarioDTO);
     }
 
 }

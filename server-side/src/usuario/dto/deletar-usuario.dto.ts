@@ -13,6 +13,4 @@ export class DeletarUsuarioDTO {
     @IsInt()
     usuario_id : number;
 
-    tipo_usuario_logado: string;
-
 }

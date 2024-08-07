@@ -1,8 +1,8 @@
 export enum TipoUsuarioEnum {
-    ADMIN = 'administrador',
-    GERENTE = 'gerente',
-    COORDENADOR = 'coordenador',
-    PROFESSOR = 'professor',
+    ADMIN = 'Administrador',
+    GERENTE = 'Gerente',
+    COORDENADOR = 'Coordenador',
+    PROFESSOR = 'Professor',
 }
 
 export enum TipoUsuarioIndexEnum {

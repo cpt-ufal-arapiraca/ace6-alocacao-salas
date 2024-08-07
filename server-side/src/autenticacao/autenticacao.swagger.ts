@@ -3,27 +3,18 @@ import {ApiBearerAuth, ApiOperation, ApiProperty, ApiResponse, ApiTags} from '@n
 class EntrarAutenticacao200DTO {
 
     @ApiProperty({
-        description: 'ID do enfermeiro',
+        description: 'Token JWT da sessão',
     })
-    enf_id: number;
+    access_token: string;
 
-    @ApiProperty({
-        description: 'CPF do enfermeiro',
-    })
-    enf_cpf: string;
-
-    @ApiProperty({
-        description: 'Nome do enfermeiro',
-    })
-    enf_nome: string;
 }
 export function EntrarAutenticacaoDocs() {
     return applyDecorators(
         ApiTags('Autenticacao'),
-        ApiOperation({ summary: 'Realizar login do enfermeiro' }),
+        ApiOperation({ summary: 'Realizar login do usuário' }),
         ApiResponse({
             status: 201,
-            description: 'Enfermeiro logado',
+            description: 'Usuário logado',
             type: EntrarAutenticacao200DTO,
         }),
     );

@@ -1,9 +1,10 @@
-import {Body, Controller, Get, Post} from '@nestjs/common';
+import {Body, Controller, Get, Post, Request as NestRequest} from '@nestjs/common';
 import {Roles} from "./decorators/roles.decorator";
 import {TipoUsuarioEnum} from "./enum/tipo-usuario-autenticacao.enum";
-import {EntrarAutenticacaoDocs} from "./autenticacao.swagger";
+import {EntrarAutenticacaoDocs, SairAutenticacaoDocs} from "./autenticacao.swagger";
 import {EntrarAutenticacaoDTO} from "./dto/entrar-autenticacao.dto";
 import {AutenticacaoService} from "./autenticacao.service";
+import {SairAutenticacaoDTO} from "./dto/sair-autenticacao.dto";
 
 @Controller('autenticacao')
 export class AutenticacaoController {
@@ -16,6 +17,14 @@ export class AutenticacaoController {
         @Body() entrarAutenticacaoDTO: EntrarAutenticacaoDTO,
     ): Promise<any> {
         return await this.autenticacaoService.entrar(entrarAutenticacaoDTO);
+    }
+
+    @Get('sair')
+    @SairAutenticacaoDocs()
+    async sair(
+        @NestRequest() sairAutenticacaoDTO: SairAutenticacaoDTO,
+    ): Promise<any> {
+        return this.autenticacaoService.sair(sairAutenticacaoDTO);
     }
 
 }

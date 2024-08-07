@@ -33,3 +33,15 @@ export function SairAutenticacaoDocs() {
     );
 }
 
+export function AlterarSenhaAutenticacaoDocs() {
+    return applyDecorators(
+        ApiTags('Autenticacao'),
+        ApiBearerAuth(),
+        ApiOperation({ summary: 'Alterar senha do usuário' }),
+        ApiResponse({
+            status: 201,
+            description: 'Senha alterada com sucesso',
+        }),
+    );
+}
+

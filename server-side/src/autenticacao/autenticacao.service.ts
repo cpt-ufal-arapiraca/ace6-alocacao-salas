@@ -5,6 +5,7 @@ import { SituacaoLoginEnum } from './enum/situacao-login-autenticacao.enum';
 import {JwtService} from "@nestjs/jwt";
 import * as bcrypt from 'bcrypt';
 import {SairAutenticacaoDTO} from "./dto/sair-autenticacao.dto";
+import {AlterarSenhaAutenticacaoDTO} from "./dto/alterar-senha-autenticacao.dto";
 
 @Injectable()
 export class AutenticacaoService {
@@ -98,6 +99,55 @@ export class AutenticacaoService {
             throw this.prisma.tratamentoErros(e)
         });
         return {};
+    }
+
+    async alterarSenha(alterarSenhaAutenticacaoDTO : AlterarSenhaAutenticacaoDTO): Promise<any> {
+
+        if(alterarSenhaAutenticacaoDTO.autenticacao_senha !== alterarSenhaAutenticacaoDTO.autenticacao_senha_antiga){
+            throw new HttpException(
+                `As senhas são diferentes.`,
+                HttpStatus.BAD_REQUEST,
+            );
+        }
+
+        const autenticacaoBD = await this.prisma.autenticacao.findUnique({
+            where:{
+                usuario_id_fk: alterarSenhaAutenticacaoDTO.usuario_id_fk
+            },
+            select:{
+                autenticacao_id: true,
+                autenticacao_senha: true,
+            }
+        }).catch((e) => {
+            throw this.prisma.tratamentoErros(e)
+        });
+
+        const senhaAntigaValida: boolean = await bcrypt.compare(
+            alterarSenhaAutenticacaoDTO.autenticacao_senha_antiga,
+            autenticacaoBD?.autenticacao_senha,
+        );
+
+        if(!senhaAntigaValida){
+            throw new HttpException(
+                `Senha antiga incorreta.`,
+                HttpStatus.BAD_REQUEST,
+            );
+        }
+
+        const saltOrRounds = 10;
+        const hash = await bcrypt.hash(alterarSenhaAutenticacaoDTO.autenticacao_senha, saltOrRounds);
+
+        const autenticacao =  this.prisma.autenticacao.update({
+            data: {
+                autenticacao_senha: hash,
+            },
+            where: { autenticacao_id: autenticacaoBD.autenticacao_id },
+        }).catch((e) => {
+            throw this.prisma.tratamentoErros(e)
+        });
+
+        return {};
+
     }
     
 

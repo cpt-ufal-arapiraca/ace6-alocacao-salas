@@ -2,11 +2,16 @@ import { Injectable, HttpException, HttpStatus} from '@nestjs/common';
 import { PrismaService } from 'src/utils/prisma/prisma.service';
 import { EntrarAutenticacaoDTO } from './dto/entrar-autenticacao.dto';
 import { SituacaoLoginEnum } from './enum/situacao-login-autenticacao.enum';
+import {JwtService} from "@nestjs/jwt";
+import {jwtConstants} from "./constants";
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AutenticacaoService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+      private prisma: PrismaService,
+      private jwtService: JwtService,
+  ) {}
 
     async entrar(
         entrarAutenticacaoDTO: EntrarAutenticacaoDTO,
@@ -19,10 +24,10 @@ export class AutenticacaoService {
             select:{
                 usuario_cpf: true,
                 usuario_id: true,
-                login:{
+                autenticacao:{
                     select:{
-                        login_senha: true,
-                        login_situacao: true,
+                        autenticacao_senha: true,
+                        autenticacao_situacao: true,
                     },
                 },
                 tipo_usuario:{
@@ -31,44 +36,54 @@ export class AutenticacaoService {
                     }
                 }
             }
-        })
+        }).catch((e) => {
+            throw this.prisma.tratamentoErros(e)
+        });
 
-        if(!usuario || usuario.login.login_situacao !== SituacaoLoginEnum.ATIVO || !await bcrypt.compare(entrarAutenticacaoDTO.login_senha,  usuario.login.login_senha)){
+        if(!usuario || usuario.autenticacao.autenticacao_situacao !== SituacaoLoginEnum.ATIVO || !await bcrypt.compare(entrarAutenticacaoDTO.login_senha,  usuario.autenticacao.autenticacao_senha)){
             throw new HttpException('Dados de login incorretos', HttpStatus.UNAUTHORIZED);
         }
 
         const usuario_id: number = usuario.usuario_id;
 
-        const login = await this.prisma.login.findUnique({
+        const autenticacao = await this.prisma.autenticacao.findUnique({
             where:{
                 usuario_id_fk: usuario_id,
             },
+            select:{
+                usuario_id_fk: true,
+                autenticacao_id: true,
+            }
+        }).catch((e) => {
+            throw this.prisma.tratamentoErros(e)
         });
     
-        const payload = { sub: login.usuario_id_fk };
+        const payload = {
+            sub: autenticacao.usuario_id_fk,
+            role: usuario.tipo_usuario.tipo_usuario_nome,
+        };
+
         const access_token: string = await this.jwtService.signAsync(payload);
-    
-        /*
-        const dataExpiracao = new Date();
-        dataExpiracao.setHours(dataExpiracao.getHours() + 24);
-    
-        const criarSessaoDTO: CriarSessaoDTO = new CriarSessaoDTO(
-          entrarAutenticacaoDTO.sess_sistema_operacional,
-          access_token,
-          new Date(),
-          dataExpiracao,
-          autenticacao.autenticacao_id,
-          entrarAutenticacaoDTO.sess_ip,
-        );
-    
-        const sessao = await this.sessaoService.criar(
-            criarSessaoDTO
-        ).catch((e) => {
-          throw this.prisma.tratamentoErros(e)
+
+        const sessao = await this.prisma.sessao.create({
+            data: {
+                sessao_ip: '', // Insira o IP aqui
+                sessao_so: '', // Insira o SO aqui
+                sessao_jwt: access_token,
+                data_hora_login: new Date(),
+                autenticacao: {
+                    connect: { autenticacao_id: autenticacao.autenticacao_id },
+                },
+            },
+            select:{
+                sessao_jwt: true,
+            }
+        }).catch((e) => {
+            throw this.prisma.tratamentoErros(e)
         });
-    
-        */
-        return { id_sessao: sessao.sess_id_sessao, access_token: access_token };
+
+
+        return { access_token: sessao.sessao_jwt};
   
     }
     

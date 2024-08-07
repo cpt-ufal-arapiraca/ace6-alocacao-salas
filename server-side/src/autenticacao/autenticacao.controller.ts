@@ -10,12 +10,12 @@ export class AutenticacaoController {
     constructor(private autenticacaoService: AutenticacaoService) {}
     
     @Post('entrar')
-    @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.COORDENADOR)
+    @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.PROFESSOR)
     @EntrarAutenticacaoDocs()
     async entrar(
         @Body() entrarAutenticacaoDTO: EntrarAutenticacaoDTO,
     ): Promise<any> {
-        return entrarAutenticacaoDTO;
+        return await this.autenticacaoService.entrar(entrarAutenticacaoDTO);
     }
 
 }

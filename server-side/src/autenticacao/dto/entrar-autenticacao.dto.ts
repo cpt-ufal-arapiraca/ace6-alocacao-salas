@@ -15,6 +15,10 @@ export class EntrarAutenticacaoDTO {
     @Validate(CpfValido)
     usuario_cpf: string;
 
+    @CustomApiProperty({
+        description: 'Senha do usuário',
+        required: true,
+    })
     @Generate(() => faker.custom.senha(8))
     @IsNotEmpty()
     @IsStrongPassword({

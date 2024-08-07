@@ -8,38 +8,38 @@ generator client {
 }
 
 model tipo_usuario {
-  tipo_usuario_id Int       @id @default(autoincrement())
+  tipo_usuario_id   Int       @id @default(autoincrement())
   tipo_usuario_nome String    @db.VarChar(15)
-  usuarios        usuario[] @relation("TipoUsuarioUsuarios")
+  usuarios          usuario[] @relation("TipoUsuarioUsuarios")
 }
 
 model usuario {
-  usuario_id       Int          @id @default(autoincrement())
-  usuario_nome     String       @db.VarChar(255)
-  usuario_cpf      String       @unique(map: "idx_cpf_UNIQUE") @db.VarChar(11)
-  usuario_email    String       @db.VarChar(255)
+  usuario_id       Int           @id @default(autoincrement())
+  usuario_nome     String        @db.VarChar(255)
+  usuario_cpf      String        @unique(map: "idx_cpf_UNIQUE") @db.VarChar(11)
+  usuario_email    String        @db.VarChar(255)
   tipo_usuario_id  Int
-  usuario_situacao String       @db.VarChar(10)
-  tipo_usuario     tipo_usuario @relation("TipoUsuarioUsuarios", fields: [tipo_usuario_id], references: [tipo_usuario_id])
-  login            login?       @relation("UsuarioLogin") 
+  usuario_situacao String        @db.VarChar(10)
+  tipo_usuario     tipo_usuario  @relation("TipoUsuarioUsuarios", fields: [tipo_usuario_id], references: [tipo_usuario_id])
+  autenticacao     autenticacao? @relation("UsuarioAutenticacao")
 }
 
-model login {
-  login_id       Int      @id @default(autoincrement())
-  usuario_id_fk     Int      @unique
-  login_senha    String   @db.VarChar(255)
-  login_token    String?  @db.VarChar(255)
-  login_situacao String   @db.VarChar(10)
-  sessao         sessao[]
-  usuario        usuario  @relation("UsuarioLogin", fields: [usuario_id], references: [usuario_id], onDelete: Cascade)
+model autenticacao {
+  autenticacao_id       Int      @id @default(autoincrement())
+  usuario_id_fk         Int      @unique
+  autenticacao_senha    String   @db.VarChar(255)
+  autenticacao_token    String?  @db.VarChar(255)
+  autenticacao_situacao String   @db.VarChar(10)
+  sessao                sessao[]
+  usuario               usuario  @relation("UsuarioAutenticacao", fields: [usuario_id_fk], references: [usuario_id], onDelete: Cascade)
 }
 
 model sessao {
-  secao_id        Int      @id @default(autoincrement())
-  login_id_fk     Int
-  sessao_ip       String   @db.VarChar(15)
-  sessao_so       String   @db.VarChar(25)
-  sessao_jwt      String   @unique(map: "idx_jwt_UNIQUE") @db.VarChar(256)
-  data_hora_login DateTime @default(now()) @db.DateTime(0)
-  login           login    @relation(fields: [login_id_fk], references: [login_id])
+  sessao_id          Int          @id @default(autoincrement())
+  autenticacao_id_fk Int
+  sessao_ip          String       @db.VarChar(15)
+  sessao_so          String       @db.VarChar(25)
+  sessao_jwt         String       @unique(map: "idx_jwt_UNIQUE") @db.VarChar(256)
+  data_hora_login    DateTime     @default(now()) @db.DateTime(0)
+  autenticacao       autenticacao @relation(fields: [autenticacao_id_fk], references: [autenticacao_id])
 }

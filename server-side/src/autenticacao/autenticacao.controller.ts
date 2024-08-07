@@ -1,11 +1,17 @@
-import {Body, Controller, Get, Post, Put, Request} from '@nestjs/common';
+import {Body, Controller, Get, Post, Put, Query, Request} from '@nestjs/common';
 import {Roles} from "./decorators/roles.decorator";
 import {TipoUsuarioEnum} from "./enum/tipo-usuario-autenticacao.enum";
-import {AlterarSenhaAutenticacaoDocs, EntrarAutenticacaoDocs, SairAutenticacaoDocs} from "./autenticacao.swagger";
+import {
+    AlterarSenhaAutenticacaoDocs,
+    EntrarAutenticacaoDocs,
+    RecuperarSenhaAutenticacaoDocs,
+    SairAutenticacaoDocs
+} from "./autenticacao.swagger";
 import {EntrarAutenticacaoDTO} from "./dto/entrar-autenticacao.dto";
 import {AutenticacaoService} from "./autenticacao.service";
 import {SairAutenticacaoDTO} from "./dto/sair-autenticacao.dto";
 import {AlterarSenhaAutenticacaoDTO} from "./dto/alterar-senha-autenticacao.dto";
+import {RecuperarSenhaAutenticacaoDTO} from "./dto/recuperar-senha-autenticacao.dto";
 
 @Controller('autenticacao')
 export class AutenticacaoController {
@@ -38,6 +44,14 @@ export class AutenticacaoController {
     ): Promise<any> {
         alterarSenhaAutenticacaoDTO.usuario_id_fk = req.usuario_id;
         return await this.autenticacaoService.alterarSenha(alterarSenhaAutenticacaoDTO);
+    }
+
+    @Get('recuperarSenha')
+    @RecuperarSenhaAutenticacaoDocs()
+    async recuperarSenha(
+        @Query() recuperarSenhaAutenticacaoDTO: RecuperarSenhaAutenticacaoDTO,
+    ): Promise<any> {
+        return await this.autenticacaoService.recuperarSenha(recuperarSenhaAutenticacaoDTO);
     }
 
 }

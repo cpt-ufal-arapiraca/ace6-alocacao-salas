@@ -59,7 +59,6 @@ export function AlterarSenhaAutenticacaoDocs() {
 export function RecuperarSenhaAutenticacaoDocs() {
     return applyDecorators(
         ApiTags('Autenticacao'),
-        ApiBearerAuth(),
         ApiOperation({ summary: 'Gerar token para redefinição de senha do usuário' }),
         ApiResponse({
             status: 200,

@@ -1,12 +1,19 @@
-import {Body, Controller, Get, Post, Put, Request} from '@nestjs/common';
+import {Body, Controller, Get, Post, Put, Query, Request} from '@nestjs/common';
 import {UsuarioService} from "./usuario.service";
 import {AdicionarUsuarioDTO} from "./dto/adicionar-usuario.dto";
-import {AdicionarUsuarioDocs, AtualizarUsuarioDocs, CadastrarUsuarioDocs, ObterUsuarioDocs} from "./usuario.swagger";
+import {
+    AdicionarUsuarioDocs,
+    AtualizarUsuarioDocs,
+    CadastrarUsuarioDocs,
+    ListarUsuarioDocs,
+    ObterUsuarioDocs
+} from "./usuario.swagger";
 import {CadastrarUsuarioDTO} from "./dto/cadastrar-usuario.dto";
 import {Roles} from "../autenticacao/decorators/roles.decorator";
 import {TipoUsuarioEnum} from "../autenticacao/enum/tipo-usuario-autenticacao.enum";
 import {AtualizarUsuarioDTO} from "./dto/atualizar-usuario.dto";
 import {ObterUsuarioDTO} from "./dto/obter-usuario.dto";
+import {ListarUsuarioDTO} from "./dto/listar-usuario.dto";
 
 @Controller('usuario')
 export class UsuarioController {
@@ -56,6 +63,15 @@ export class UsuarioController {
             obterUsuarioDTO.usuario_id = req.usuario_id;
         }
         return await this.usuarioService.obter(obterUsuarioDTO);
+    }
+
+    @Get('listar')
+    @ListarUsuarioDocs()
+    @Roles(TipoUsuarioEnum.ADMIN)
+    async listar(
+        @Query() listarUsuarioDTO: ListarUsuarioDTO,
+    ): Promise<any> {
+        return await this.usuarioService.listar(listarUsuarioDTO);
     }
 
 }

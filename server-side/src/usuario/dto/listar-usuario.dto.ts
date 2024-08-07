@@ -1,8 +1,9 @@
-import {IsIn, IsInt, IsNotEmpty, IsOptional, Validate} from 'class-validator';
+import {IsEnum, IsIn, IsInt, IsOptional, Validate} from 'class-validator';
 import {CustomApiProperty, Generate} from "@decorators-custom";
 import faker from "@faker-custom";
 import {CpfValido, NomeValido} from "@validate-custom";
 import {Type} from "class-transformer";
+import {TipoUsuarioIndexEnum} from "../../autenticacao/enum/tipo-usuario-autenticacao.enum";
 
 export class ListarUsuarioDTO {
 
@@ -23,6 +24,16 @@ export class ListarUsuarioDTO {
     @IsOptional()
     @Validate(CpfValido, [{ complet: true }])
     usuario_cpf ?: string;
+
+    @CustomApiProperty({
+        description: 'Tipo do usuário (Administrador, Gerente, Coordenador, Professor)',
+        enum: TipoUsuarioIndexEnum,
+        required: false,
+    })
+    @Generate(() => faker.helpers.arrayElement([...Object.values(TipoUsuarioIndexEnum)]))
+    @IsOptional()
+    @IsEnum(TipoUsuarioIndexEnum)
+    tipo_usuario_id ?: TipoUsuarioIndexEnum;
 
     @CustomApiProperty({
         description: 'cursor para rolagem infinita',

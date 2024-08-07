@@ -101,9 +101,10 @@ class ListarUsuarioAutenticacao200DTO {
     cursor: number;
 
     @CustomApiProperty({
+        type: [ObterAutenticacao200DTO],
         description: 'Listar de usuários',
     })
-    data: [ObterAutenticacao200DTO];
+    data: ObterAutenticacao200DTO[];
 }
 
 export function ListarUsuarioDocs() {

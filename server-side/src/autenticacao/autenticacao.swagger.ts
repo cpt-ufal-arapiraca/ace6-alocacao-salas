@@ -39,7 +39,7 @@ export function AlterarSenhaAutenticacaoDocs() {
         ApiBearerAuth(),
         ApiOperation({ summary: 'Alterar senha do usuário' }),
         ApiResponse({
-            status: 201,
+            status: 200,
             description: 'Senha alterada com sucesso',
         }),
     );

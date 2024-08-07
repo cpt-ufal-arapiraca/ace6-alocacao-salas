@@ -119,3 +119,15 @@ export function ListarUsuarioDocs() {
         }),
     );
 }
+
+export function DeletarUsuarioDocs() {
+    return applyDecorators(
+        ApiTags('Usuario'),
+        ApiBearerAuth(),
+        ApiOperation({ summary: 'Deletar usuário' }),
+        ApiResponse({
+            status: 200,
+            description: 'Usuário deletado com sucesso',
+        }),
+    );
+}

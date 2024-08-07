@@ -1,7 +1,8 @@
 import {Body, Controller, Post} from '@nestjs/common';
 import {UsuarioService} from "./usuario.service";
+import {AdicionarUsuarioDTO} from "./dto/adicionar-usuario.dto";
+import {AdicionarUsuarioDocs} from "./usuario.swagger";
 import {CadastrarUsuarioDTO} from "./dto/cadastrar-usuario.dto";
-import {CadastrarUsuarioDocs} from "./usuario.swagger";
 
 @Controller('usuario')
 export class UsuarioController {
@@ -9,12 +10,12 @@ export class UsuarioController {
         private usuarioService: UsuarioService,
     ) {}
 
-    @Post('')
-    @CadastrarUsuarioDocs()
+    @Post('adicionar')
+    @AdicionarUsuarioDocs()
     async adicionar(
-        @Body() cadastrarUsuarioDTO: CadastrarUsuarioDTO,
+        @Body() adicionarUsuarioDTO: AdicionarUsuarioDTO,
     ): Promise<any> {
-        return await this.usuarioService.cadastrar(cadastrarUsuarioDTO);
+        return await this.usuarioService.adicionar(adicionarUsuarioDTO);
     }
 
 }

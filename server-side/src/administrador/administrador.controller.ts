@@ -4,7 +4,7 @@ import {
     CadastrarAdministradorDocs,
     ObterExistenciaAdministradorDocs
 } from "./administrador.swagger";
-import {AdministradorCadastrarDTO} from "./dto/administrador-cadastrar.dto";
+import {CadastrarAdministradorDto} from "./dto/cadastrar-administrador.dto";
 
 @Controller('administrador')
 export class AdministradorController {
@@ -15,9 +15,9 @@ export class AdministradorController {
     @Post('')
     @CadastrarAdministradorDocs()
     async cadastrar(
-        @Body() administradorCadastrarDTO: AdministradorCadastrarDTO,
+        @Body() cadastrarAdministradorDto: CadastrarAdministradorDto,
     ): Promise<any> {
-        return await this.administradorService.cadastrar(administradorCadastrarDTO);
+        return await this.administradorService.cadastrar(cadastrarAdministradorDto);
     }
 
     @Get('verificar')

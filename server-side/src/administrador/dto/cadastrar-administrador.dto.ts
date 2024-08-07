@@ -3,7 +3,7 @@ import {CustomApiProperty, Generate} from "@decorators-custom";
 import faker from "@faker-custom";
 import {CpfValido, NomeValido} from "@validate-custom";
 
-export class AdministradorCadastrarDTO {
+export class CadastrarAdministradorDto {
 
     @CustomApiProperty({
         description: 'Nome do administrador',

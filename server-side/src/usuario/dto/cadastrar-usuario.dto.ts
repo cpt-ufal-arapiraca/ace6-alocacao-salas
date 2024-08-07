@@ -1,10 +1,18 @@
-import {IsEmail, IsEnum, IsNotEmpty, IsStrongPassword, Validate} from 'class-validator';
+import {IsEmail, IsNotEmpty, IsStrongPassword, Validate} from 'class-validator';
 import {CustomApiProperty, Generate} from "@decorators-custom";
 import faker from "@faker-custom";
-import {CpfValido} from "@validate-custom";
-import {TipoUsuarioEnum, TipoUsuarioIndexEnum} from "../../autenticacao/enum/tipo-usuario-autenticacao.enum";
+import {CpfValido, NomeValido} from "@validate-custom";
 
 export class CadastrarUsuarioDTO {
+
+    @CustomApiProperty({
+        description: 'Nome do usuário',
+        required: true,
+    })
+    @Generate(() => faker.person.fullName())
+    @IsNotEmpty()
+    @Validate(NomeValido)
+    usuario_nome : string;
 
     @CustomApiProperty({
         description: 'CPF do usuário',
@@ -16,13 +24,28 @@ export class CadastrarUsuarioDTO {
     usuario_cpf : string;
 
     @CustomApiProperty({
-        description: 'Tipo do usuário',
-        enum: TipoUsuarioEnum,
+        description: 'Email do usuário',
         required: true,
     })
-    @Generate(() => faker.helpers.arrayElement([...Object.values(TipoUsuarioIndexEnum)]))
-    @IsEnum(TipoUsuarioIndexEnum)
-    tipo_usuario_id : TipoUsuarioIndexEnum;
+    @Generate(() => faker.internet.email())
+    @IsNotEmpty()
+    @IsEmail()
+    usuario_email : string;
+
+    @CustomApiProperty({
+        description: 'Senha do usuário',
+        required: true,
+    })
+    @Generate(() => 'Teste123@')
+    @IsNotEmpty()
+    @IsStrongPassword({
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+    })
+    autenticacao_senha: string;
 
     usuario_situacao: string;
 

@@ -4,6 +4,7 @@ import { EntrarAutenticacaoDTO } from './dto/entrar-autenticacao.dto';
 import { SituacaoLoginEnum } from './enum/situacao-login-autenticacao.enum';
 import {JwtService} from "@nestjs/jwt";
 import * as bcrypt from 'bcrypt';
+import * as useragent from 'useragent';
 import {SairAutenticacaoDTO} from "./dto/sair-autenticacao.dto";
 import {AlterarSenhaAutenticacaoDTO} from "./dto/alterar-senha-autenticacao.dto";
 import {RecuperarSenhaAutenticacaoDTO} from "./dto/recuperar-senha-autenticacao.dto";
@@ -68,10 +69,11 @@ export class AutenticacaoService {
 
         const access_token: string = await this.jwtService.signAsync(payload);
 
+
         const sessao = await this.prisma.sessao.create({
             data: {
-                sessao_ip: '', // Insira o IP aqui
-                sessao_so: '', // Insira o SO aqui
+                sessao_ip: entrarAutenticacaoDTO.sessao_ip,
+                sessao_so: useragent.parse(entrarAutenticacaoDTO.sessao_so).os.toString(),
                 sessao_jwt: access_token,
                 data_hora_login: new Date(),
                 autenticacao: {

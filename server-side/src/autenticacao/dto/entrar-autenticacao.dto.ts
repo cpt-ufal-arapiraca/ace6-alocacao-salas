@@ -30,4 +30,8 @@ export class EntrarAutenticacaoDTO {
     })
     autenticacao_senha: string;
 
+    sessao_so: string;
+
+    sessao_ip: string;
+
 }

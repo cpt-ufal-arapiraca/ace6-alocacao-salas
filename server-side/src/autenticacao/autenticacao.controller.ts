@@ -1,5 +1,6 @@
-import {Body, Controller, Get, Patch, Post, Query, Request} from '@nestjs/common';
+import {Body, Controller, Get, Patch, Post, Query, Req, Request} from '@nestjs/common';
 import {Roles} from "./decorators/roles.decorator";
+import { Request as ExpRequest } from 'express';
 import {TipoUsuarioEnum} from "./enum/tipo-usuario-autenticacao.enum";
 import {
     AlterarSenhaAutenticacaoDocs,
@@ -23,8 +24,11 @@ export class AutenticacaoController {
     @Post('entrar')
     @EntrarAutenticacaoDocs()
     async entrar(
+        @Req() request: ExpRequest,
         @Body() entrarAutenticacaoDTO: EntrarAutenticacaoDTO,
     ): Promise<any> {
+        entrarAutenticacaoDTO.sessao_so = request.headers['user-agent'];;
+        entrarAutenticacaoDTO.sessao_ip = request.ip;
         return await this.autenticacaoService.entrar(entrarAutenticacaoDTO);
     }
 

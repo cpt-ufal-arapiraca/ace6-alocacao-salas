@@ -7,6 +7,7 @@ import {AtualizarUsuarioDTO} from "./dto/atualizar-usuario.dto";
 import {TipoUsuarioEnum, TipoUsuarioIndexEnum} from "../autenticacao/enum/tipo-usuario-autenticacao.enum";
 import {ObterUsuarioDTO} from "./dto/obter-usuario.dto";
 import {ListarUsuarioDTO} from "./dto/listar-usuario.dto";
+import {DeletarUsuarioDTO} from "./dto/deletar-usuario.dto";
 
 @Injectable()
 export class UsuarioService {
@@ -193,6 +194,23 @@ export class UsuarioService {
         }).catch((e) => {
             throw this.prisma.tratamentoErros(e);
         });
+
+    }
+
+    async deletar(deletarUsuarioDTO: DeletarUsuarioDTO ): Promise<any> {
+
+        const usuario = await this.prisma.usuario.delete({
+            where:{
+                usuario_id: deletarUsuarioDTO.usuario_id,
+            },
+            select:{
+                usuario_id: true,
+            }
+        }).catch((e) => {
+            throw this.prisma.tratamentoErros(e)
+        });
+
+        return {};
 
     }
 

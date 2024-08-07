@@ -5,6 +5,7 @@ import {AdicionarUsuarioDTO} from "./dto/adicionar-usuario.dto";
 import {CadastrarUsuarioDTO} from "./dto/cadastrar-usuario.dto";
 import {AtualizarUsuarioDTO} from "./dto/atualizar-usuario.dto";
 import {TipoUsuarioEnum, TipoUsuarioIndexEnum} from "../autenticacao/enum/tipo-usuario-autenticacao.enum";
+import {ObterUsuarioDTO} from "./dto/obter-usuario.dto";
 
 @Injectable()
 export class UsuarioService {
@@ -100,6 +101,54 @@ export class UsuarioService {
         });
 
         return {};
+
+    }
+
+    async obter(obterUsuarioDTO: ObterUsuarioDTO): Promise<any> {
+
+        const  is_usuario_pendente = await  this.prisma.usuario.findUnique({
+            where:{
+                usuario_id: obterUsuarioDTO.usuario_id,
+                usuario_situacao: SituacaoLoginEnum.PENDENTE,
+            },
+        }).catch((e) => {
+            throw this.prisma.tratamentoErros(e)
+        });
+
+        if(!is_usuario_pendente){
+            throw new HttpException(
+                `Não é possível obter esse usuário`,
+                HttpStatus.BAD_REQUEST,
+            );
+        }
+
+        const usuario = await this.prisma.usuario.findUnique({
+            where:{
+                usuario_id: obterUsuarioDTO.usuario_id,
+            },
+            select:{
+                usuario_id: true,
+                usuario_nome: true,
+                usuario_cpf: true,
+                usuario_email: true,
+                tipo_usuario:{
+                    select:{
+                        tipo_usuario_nome: true,
+                    }
+                }
+            }
+        }).catch((e) => {
+            throw this.prisma.tratamentoErros(e)
+        });
+
+        if(!usuario){
+            throw new HttpException(
+                `Não é possível obter esse usuário`,
+                HttpStatus.NOT_FOUND,
+            );
+        }
+
+        return usuario;
 
     }
 

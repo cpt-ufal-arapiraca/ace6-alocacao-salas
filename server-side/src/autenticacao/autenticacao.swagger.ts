@@ -1,5 +1,6 @@
 import { applyDecorators } from '@nestjs/common';
 import {ApiBearerAuth, ApiOperation, ApiProperty, ApiResponse, ApiTags} from '@nestjs/swagger';
+
 class EntrarAutenticacao200DTO {
 
     @ApiProperty({
@@ -8,6 +9,7 @@ class EntrarAutenticacao200DTO {
     access_token: string;
 
 }
+
 export function EntrarAutenticacaoDocs() {
     return applyDecorators(
         ApiTags('Autenticacao'),
@@ -16,6 +18,17 @@ export function EntrarAutenticacaoDocs() {
             status: 201,
             description: 'Usuário logado',
             type: EntrarAutenticacao200DTO,
+        }),
+    );
+}
+
+export function SairAutenticacaoDocs() {
+    return applyDecorators(
+        ApiTags('Autenticacao'),
+        ApiOperation({ summary: 'Realizar logout do usuário' }),
+        ApiResponse({
+            status: 200,
+            description: 'Sessão removida com sucesso',
         }),
     );
 }

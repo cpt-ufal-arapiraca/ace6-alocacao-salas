@@ -1,7 +1,9 @@
-import {Validate} from 'class-validator';
-import {ApiProperty} from "@nestjs/swagger";
+import {IsJWT, IsNotEmpty} from 'class-validator';
 
-export class SairAutenticacaoDto {
+export class SairAutenticacaoDTO {
 
+    @IsNotEmpty()
+    @IsJWT()
+    sessao_jwt: string;
     
 }

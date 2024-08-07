@@ -3,8 +3,8 @@ import { PrismaService } from 'src/utils/prisma/prisma.service';
 import { EntrarAutenticacaoDTO } from './dto/entrar-autenticacao.dto';
 import { SituacaoLoginEnum } from './enum/situacao-login-autenticacao.enum';
 import {JwtService} from "@nestjs/jwt";
-import {jwtConstants} from "./constants";
 import * as bcrypt from 'bcrypt';
+import {SairAutenticacaoDTO} from "./dto/sair-autenticacao.dto";
 
 @Injectable()
 export class AutenticacaoService {
@@ -82,9 +82,22 @@ export class AutenticacaoService {
             throw this.prisma.tratamentoErros(e)
         });
 
-
         return { access_token: sessao.sessao_jwt};
-  
+
+    }
+
+    async sair(sairAutenticacaoDTO: SairAutenticacaoDTO): Promise<any> {
+        const sessao = await this.prisma.sessao.delete({
+            where:{
+                sessao_jwt: sairAutenticacaoDTO.sessao_jwt,
+            },
+            select:{
+                sessao_id: true,
+            }
+        }).catch((e) => {
+            throw this.prisma.tratamentoErros(e)
+        });
+        return {};
     }
     
 

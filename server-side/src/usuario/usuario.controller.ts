@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, Post, Put, Query, Request} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, Post, Put, Query, Request} from '@nestjs/common';
 import {UsuarioService} from "./usuario.service";
 import {AdicionarUsuarioDTO} from "./dto/adicionar-usuario.dto";
 import {
@@ -53,20 +53,25 @@ export class UsuarioController {
         return await this.usuarioService.atualizar(atualizarUsuarioDTO);
     }
 
-    @Get('')
+    @Get('eu')
+    @ObterUsuarioDocs()
+    @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.GERENTE, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.PROFESSOR)
+    async obterMe(
+        @Request() req,
+    ): Promise<any> {
+        return await this.usuarioService.obter({usuario_id: req.usuario_id});
+    }
+
+    @Get(':usuario_id')
     @ObterUsuarioDocs()
     @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.GERENTE, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.PROFESSOR)
     async obter(
-        @Body() obterUsuarioDTO: ObterUsuarioDTO,
-        @Request() req,
+        @Param() obterUsuarioDTO: ObterUsuarioDTO,
     ): Promise<any> {
-        if(!obterUsuarioDTO.usuario_id){
-            obterUsuarioDTO.usuario_id = req.usuario_id;
-        }
         return await this.usuarioService.obter(obterUsuarioDTO);
     }
 
-    @Get('listar')
+    @Get('')
     @ListarUsuarioDocs()
     @Roles(TipoUsuarioEnum.ADMIN)
     async listar(
@@ -75,15 +80,24 @@ export class UsuarioController {
         return await this.usuarioService.listar(listarUsuarioDTO);
     }
 
-    @Delete('')
+    @Delete('eu')
+    @DeletarUsuarioDocs()
+    @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.GERENTE, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.PROFESSOR)
+    async deletarMe(
+        @Request() req,
+    ): Promise<any> {
+        return await this.usuarioService.deletar({usuario_id: req.usuario_id});
+    }
+
+    @Delete(':usuario_id')
     @DeletarUsuarioDocs()
     @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.GERENTE, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.PROFESSOR)
     async deletar(
-        @Body() deletarUsuarioDTO: DeletarUsuarioDTO,
+        @Param() deletarUsuarioDTO: DeletarUsuarioDTO,
         @Request() req,
     ): Promise<any> {
         if(req.usuario_tipo !== TipoUsuarioEnum.ADMIN){
-                deletarUsuarioDTO.usuario_id = req.usuario_id;
+            deletarUsuarioDTO.usuario_id = req.usuario_id;
         }else{
             if(!deletarUsuarioDTO.usuario_id){
                 deletarUsuarioDTO.usuario_id = req.usuario_id;

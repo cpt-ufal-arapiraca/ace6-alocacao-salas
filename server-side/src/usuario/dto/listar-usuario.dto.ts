@@ -12,6 +12,7 @@ export class ListarUsuarioDTO {
         required: false,
     })
     @Generate(() => faker.person.fullName())
+    @Type(() => Number)
     @IsOptional()
     @Validate(NomeValido)
     usuario_nome?: string;
@@ -31,6 +32,7 @@ export class ListarUsuarioDTO {
         required: false,
     })
     @Generate(() => faker.helpers.arrayElement([...Object.values(TipoUsuarioIndexEnum)]))
+    @Type(() => Number)
     @IsOptional()
     @IsEnum(TipoUsuarioIndexEnum)
     tipo_usuario_id ?: TipoUsuarioIndexEnum;

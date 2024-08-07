@@ -1,11 +1,12 @@
-import {Body, Controller, Post, Put, Request} from '@nestjs/common';
+import {Body, Controller, Get, Post, Put, Request} from '@nestjs/common';
 import {UsuarioService} from "./usuario.service";
 import {AdicionarUsuarioDTO} from "./dto/adicionar-usuario.dto";
-import {AdicionarUsuarioDocs, AtualizarUsuarioDocs, CadastrarUsuarioDocs} from "./usuario.swagger";
+import {AdicionarUsuarioDocs, AtualizarUsuarioDocs, CadastrarUsuarioDocs, ObterUsuarioDocs} from "./usuario.swagger";
 import {CadastrarUsuarioDTO} from "./dto/cadastrar-usuario.dto";
 import {Roles} from "../autenticacao/decorators/roles.decorator";
 import {TipoUsuarioEnum} from "../autenticacao/enum/tipo-usuario-autenticacao.enum";
 import {AtualizarUsuarioDTO} from "./dto/atualizar-usuario.dto";
+import {ObterUsuarioDTO} from "./dto/obter-usuario.dto";
 
 @Controller('usuario')
 export class UsuarioController {
@@ -42,6 +43,19 @@ export class UsuarioController {
         }
         atualizarUsuarioDTO.tipo_usuario_logado = req.usuario_tipo;
         return await this.usuarioService.atualizar(atualizarUsuarioDTO);
+    }
+
+    @Get('')
+    @ObterUsuarioDocs()
+    @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.GERENTE, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.PROFESSOR)
+    async obter(
+        @Body() obterUsuarioDTO: ObterUsuarioDTO,
+        @Request() req,
+    ): Promise<any> {
+        if(!obterUsuarioDTO.usuario_id){
+            obterUsuarioDTO.usuario_id = req.usuario_id;
+        }
+        return await this.usuarioService.obter(obterUsuarioDTO);
     }
 
 }

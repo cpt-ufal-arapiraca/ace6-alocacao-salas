@@ -131,6 +131,11 @@ export class UsuarioService {
                 usuario_nome: true,
                 usuario_cpf: true,
                 usuario_email: true,
+                tipo_usuario:{
+                    select:{
+                        tipo_usuario_nome: true,
+                    }
+                }
             }
         }).catch((e) => {
             throw this.prisma.tratamentoErros(e)

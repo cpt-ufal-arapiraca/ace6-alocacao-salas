@@ -7,6 +7,7 @@ import * as bcrypt from 'bcrypt';
 import {SairAutenticacaoDTO} from "./dto/sair-autenticacao.dto";
 import {AlterarSenhaAutenticacaoDTO} from "./dto/alterar-senha-autenticacao.dto";
 import {RecuperarSenhaAutenticacaoDTO} from "./dto/recuperar-senha-autenticacao.dto";
+import {RedefinirSenhaAutenticacaoDTO} from "./dto/redefinir-senha-autenticacao.dto";
 
 @Injectable()
 export class AutenticacaoService {
@@ -42,7 +43,7 @@ export class AutenticacaoService {
             throw this.prisma.tratamentoErros(e)
         });
 
-        if(!usuario || usuario.autenticacao.autenticacao_situacao !== SituacaoLoginEnum.ATIVO || !await bcrypt.compare(entrarAutenticacaoDTO.login_senha,  usuario.autenticacao.autenticacao_senha)){
+        if(!usuario || usuario.autenticacao.autenticacao_situacao !== SituacaoLoginEnum.ATIVO || !await bcrypt.compare(entrarAutenticacaoDTO.autenticacao_senha,  usuario.autenticacao.autenticacao_senha)){
             throw new HttpException('Dados de login incorretos', HttpStatus.UNAUTHORIZED);
         }
 
@@ -216,6 +217,57 @@ export class AutenticacaoService {
         }
 
         return {autenticacao_token:  token};
+
+    }
+
+    async redefinirSenha(redefinirSenhaAutenticacaoDTO : RedefinirSenhaAutenticacaoDTO): Promise<any> {
+
+        const autenticacao_token: string = redefinirSenhaAutenticacaoDTO.autenticacao_token;
+
+        const decodedToken = this.jwtService.decode(autenticacao_token);
+
+        if (!decodedToken) {
+            throw new HttpException(
+                `Token inválido.`,
+                HttpStatus.BAD_REQUEST,
+            );
+        }
+
+        const usuario_id = decodedToken.sub;
+
+        const autenticacaoBD = await this.prisma.autenticacao.findUnique({
+            where:{
+              usuario_id_fk: usuario_id,
+              autenticacao_token: autenticacao_token,
+            },
+            select:{
+                autenticacao_id: true,
+            }
+        }).catch((e) => {
+            throw this.prisma.tratamentoErros(e)
+        });
+
+        if(!autenticacaoBD){
+            throw new HttpException(
+                `Token não existe.`,
+                HttpStatus.NOT_FOUND,
+            );
+        }
+
+        const saltOrRounds = 10;
+        const hash = await bcrypt.hash(redefinirSenhaAutenticacaoDTO.autenticacao_senha, saltOrRounds);
+
+        const autenticacao =  this.prisma.autenticacao.update({
+            data: {
+                autenticacao_senha: hash,
+                autenticacao_token: null,
+            },
+            where: { autenticacao_id: autenticacaoBD.autenticacao_id },
+        }).catch((e) => {
+            throw this.prisma.tratamentoErros(e)
+        });
+
+        return {};
 
     }
     

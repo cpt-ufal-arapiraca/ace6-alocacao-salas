@@ -68,3 +68,14 @@ export function RecuperarSenhaAutenticacaoDocs() {
     );
 }
 
+export function RedefinirSenhaAutenticacaoDocs() {
+    return applyDecorators(
+        ApiTags('Autenticacao'),
+        ApiOperation({ summary: 'ALterar a senha do usuário' }),
+        ApiResponse({
+            status: 201,
+            description: 'Senha alteradao com sucesso',
+        }),
+    );
+}
+

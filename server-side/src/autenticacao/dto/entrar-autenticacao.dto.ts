@@ -28,6 +28,6 @@ export class EntrarAutenticacaoDTO {
         minNumbers: 1,
         minSymbols: 1,
     })
-    login_senha: string;
+    autenticacao_senha: string;
 
 }

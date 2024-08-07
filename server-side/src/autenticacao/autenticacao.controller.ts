@@ -4,7 +4,7 @@ import {TipoUsuarioEnum} from "./enum/tipo-usuario-autenticacao.enum";
 import {
     AlterarSenhaAutenticacaoDocs,
     EntrarAutenticacaoDocs,
-    RecuperarSenhaAutenticacaoDocs,
+    RecuperarSenhaAutenticacaoDocs, RedefinirSenhaAutenticacaoDocs,
     SairAutenticacaoDocs
 } from "./autenticacao.swagger";
 import {EntrarAutenticacaoDTO} from "./dto/entrar-autenticacao.dto";
@@ -12,6 +12,7 @@ import {AutenticacaoService} from "./autenticacao.service";
 import {SairAutenticacaoDTO} from "./dto/sair-autenticacao.dto";
 import {AlterarSenhaAutenticacaoDTO} from "./dto/alterar-senha-autenticacao.dto";
 import {RecuperarSenhaAutenticacaoDTO} from "./dto/recuperar-senha-autenticacao.dto";
+import {RedefinirSenhaAutenticacaoDTO} from "./dto/redefinir-senha-autenticacao.dto";
 
 @Controller('autenticacao')
 export class AutenticacaoController {
@@ -52,6 +53,14 @@ export class AutenticacaoController {
         @Query() recuperarSenhaAutenticacaoDTO: RecuperarSenhaAutenticacaoDTO,
     ): Promise<any> {
         return await this.autenticacaoService.recuperarSenha(recuperarSenhaAutenticacaoDTO);
+    }
+
+    @Post('redefinirSenha')
+    @RedefinirSenhaAutenticacaoDocs()
+    async redefinirSenha(
+        @Body() redefinirSenhaAutenticacaoDTO: RedefinirSenhaAutenticacaoDTO,
+    ): Promise<any> {
+        return await this.autenticacaoService.redefinirSenha(redefinirSenhaAutenticacaoDTO);
     }
 
 }

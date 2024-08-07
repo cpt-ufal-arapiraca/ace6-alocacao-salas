@@ -35,3 +35,15 @@ export function AtualizarUsuarioDocs() {
         }),
     );
 }
+
+export function ObterUsuarioDocs() {
+    return applyDecorators(
+        ApiTags('Usuario'),
+        ApiBearerAuth(),
+        ApiOperation({ summary: 'Obter usuário' }),
+        ApiResponse({
+            status: 200,
+            description: 'Usuário obtido com sucesso',
+        }),
+    );
+}

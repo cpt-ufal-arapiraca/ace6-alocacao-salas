@@ -1,14 +1,14 @@
 import { applyDecorators } from '@nestjs/common';
 import {ApiBearerAuth, ApiOperation, ApiResponse, ApiTags} from '@nestjs/swagger';
 
-export function AdicionarUsuarioDocs() {
+export function CadastrarUsuarioDocs() {
     return applyDecorators(
-        ApiTags('Usuário'),
+        ApiTags('Usuario'),
         ApiBearerAuth(),
-        ApiOperation({ summary: 'Adicionar usuário ao sistema' }),
+        ApiOperation({ summary: 'Cadastrar usuário ao sistema' }),
         ApiResponse({
             status: 201,
-            description: 'Usuário adicionado com sucesso',
+            description: 'Usuário cadastrar com sucesso',
         }),
     );
 }

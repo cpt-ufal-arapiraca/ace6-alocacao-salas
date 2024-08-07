@@ -1,8 +1,7 @@
-import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {PrismaService} from "../utils/prisma/prisma.service";
-import {TipoUsuarioIndexEnum} from "../autenticacao/enum/tipo-usuario-autenticacao.enum";
 import {SituacaoLoginEnum} from "../autenticacao/enum/situacao-login-autenticacao.enum";
-import {UsuarioAdicionarDTO} from "./dto/usuario-adicionar.dto";
+import {CadastrarUsuarioDTO} from "./dto/cadastrar-usuario.dto";
 
 @Injectable()
 export class UsuarioService {
@@ -10,12 +9,12 @@ export class UsuarioService {
         private prisma: PrismaService,
     ) {}
 
-    async adicionar(usuarioAdicionarDTO: UsuarioAdicionarDTO): Promise<any> {
+    async cadastrar(cadastrarUsuarioDTO: CadastrarUsuarioDTO): Promise<any> {
 
-        usuarioAdicionarDTO.usuario_situacao = SituacaoLoginEnum.PENDENTE;
+        cadastrarUsuarioDTO.usuario_situacao = SituacaoLoginEnum.PENDENTE;
 
         const usuario = await this.prisma.usuario.create({
-            data: usuarioAdicionarDTO,
+            data: cadastrarUsuarioDTO,
             select:{
                 usuario_id: true,
             }
@@ -24,7 +23,7 @@ export class UsuarioService {
         });
 
         return {};
-        
+
     }
 
 }

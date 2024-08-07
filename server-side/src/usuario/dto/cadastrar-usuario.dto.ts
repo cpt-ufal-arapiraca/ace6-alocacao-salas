@@ -4,7 +4,7 @@ import faker from "@faker-custom";
 import {CpfValido} from "@validate-custom";
 import {TipoUsuarioEnum, TipoUsuarioIndexEnum} from "../../autenticacao/enum/tipo-usuario-autenticacao.enum";
 
-export class UsuarioAdicionarDTO {
+export class CadastrarUsuarioDTO {
 
     @CustomApiProperty({
         description: 'CPF do usuário',
@@ -17,7 +17,7 @@ export class UsuarioAdicionarDTO {
 
     @CustomApiProperty({
         description: 'Tipo do usuário',
-        enum: TipoUsuarioIndexEnum,
+        enum: TipoUsuarioEnum,
         required: true,
     })
     @Generate(() => faker.helpers.arrayElement([...Object.values(TipoUsuarioIndexEnum)]))

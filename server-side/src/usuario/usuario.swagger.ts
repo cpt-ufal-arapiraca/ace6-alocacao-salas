@@ -23,3 +23,14 @@ export function CadastrarUsuarioDocs() {
         }),
     );
 }
+
+export function AtualizarUsuarioDocs() {
+    return applyDecorators(
+        ApiTags('Usuario'),
+        ApiOperation({ summary: 'Atualizar usuário' }),
+        ApiResponse({
+            status: 200,
+            description: 'Usuário atualizar com sucesso',
+        }),
+    );
+}

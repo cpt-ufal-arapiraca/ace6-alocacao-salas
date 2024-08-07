@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post, Put, Query, Request} from '@nestjs/common';
+import {Body, Controller, Get, Patch, Post, Query, Request} from '@nestjs/common';
 import {Roles} from "./decorators/roles.decorator";
 import {TipoUsuarioEnum} from "./enum/tipo-usuario-autenticacao.enum";
 import {
@@ -37,7 +37,7 @@ export class AutenticacaoController {
         return this.autenticacaoService.sair(sairAutenticacaoDTO);
     }
 
-    @Put('alterarSenha')
+    @Patch('alterarSenha')
     @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.PROFESSOR)
     @AlterarSenhaAutenticacaoDocs()
     async alterarSenha(
@@ -56,7 +56,7 @@ export class AutenticacaoController {
         return await this.autenticacaoService.recuperarSenha(recuperarSenhaAutenticacaoDTO);
     }
 
-    @Post('redefinirSenha')
+    @Patch('redefinirSenha')
     @RedefinirSenhaAutenticacaoDocs()
     async redefinirSenha(
         @Body() redefinirSenhaAutenticacaoDTO: RedefinirSenhaAutenticacaoDTO,

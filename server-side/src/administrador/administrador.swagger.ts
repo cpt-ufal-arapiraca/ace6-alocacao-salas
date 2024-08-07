@@ -1,8 +1,7 @@
 import { applyDecorators } from '@nestjs/common';
 import {ApiOperation, ApiResponse, ApiTags} from '@nestjs/swagger';
-import {AdministradorCadastrarDTO} from "./dto/administrador-cadastrar.dto";
 
-export function CasdastrarAdministradorDocs() {
+export function CadastrarAdministradorDocs() {
     return applyDecorators(
         ApiTags('Administrador'),
         ApiOperation({ summary: 'Realizar cadastro do administrador' }),
@@ -15,7 +14,7 @@ export function CasdastrarAdministradorDocs() {
 
 export function ObterExistenciaAdministradorDocs() {
     return applyDecorators(
-        ApiTags('Administrador/verificar'),
+        ApiTags('Administrador'),
         ApiOperation({ summary: 'Verificar se existe um administrador no sistema' }),
         ApiResponse({
             status: 200,

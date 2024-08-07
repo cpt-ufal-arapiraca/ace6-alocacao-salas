@@ -3,6 +3,7 @@ import {PrismaService} from "../utils/prisma/prisma.service";
 import {AdministradorCadastrarDTO} from "./dto/administrador-cadastrar.dto";
 import {SituacaoLoginEnum} from "../autenticacao/enum/situacao-login-autenticacao.enum";
 import {TipoUsuarioIndexEnum} from "../autenticacao/enum/tipo-usuario-autenticacao.enum";
+import {SairAutenticacaoDTO} from "../autenticacao/dto/sair-autenticacao.dto";
 
 @Injectable()
 export class AdministradorService {
@@ -37,6 +38,30 @@ export class AdministradorService {
         }).catch((e) => {
             throw this.prisma.tratamentoErros(e)
         });
+
+        return {};
+    }
+
+    async verificar(): Promise<any> {
+
+        const administrador = await this.prisma.usuario.findFirst({
+            where:{
+                tipo_usuario_id: TipoUsuarioIndexEnum.ADMIN,
+                usuario_situacao: SituacaoLoginEnum.ATIVO,
+            },
+            select:{
+                usuario_id: true,
+            }
+        }).catch((e) => {
+            throw this.prisma.tratamentoErros(e)
+        });
+
+        if(!administrador){
+            throw new HttpException(
+                `Não existe administrador cadastrado no sistema`,
+                HttpStatus.NOT_FOUND,
+            );
+        }
 
         return {};
     }

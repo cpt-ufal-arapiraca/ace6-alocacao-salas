@@ -9,7 +9,17 @@ export function CasdastrarAdministradorDocs() {
         ApiResponse({
             status: 201,
             description: 'Administrador cadastrado com sucesso',
-            type: AdministradorCadastrarDTO,
+        }),
+    );
+}
+
+export function ObterExistenciaAdministradorDocs() {
+    return applyDecorators(
+        ApiTags('Administrador/verificar'),
+        ApiOperation({ summary: 'Verificar se existe um administrador no sistema' }),
+        ApiResponse({
+            status: 200,
+            description: 'Administrador verificado com sucesso',
         }),
     );
 }

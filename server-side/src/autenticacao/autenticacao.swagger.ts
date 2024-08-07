@@ -37,6 +37,7 @@ export function EntrarAutenticacaoDocs() {
 export function SairAutenticacaoDocs() {
     return applyDecorators(
         ApiTags('Autenticacao'),
+        ApiBearerAuth(),
         ApiOperation({ summary: 'Realizar logout do usuário' }),
         ApiResponse({
             status: 200,

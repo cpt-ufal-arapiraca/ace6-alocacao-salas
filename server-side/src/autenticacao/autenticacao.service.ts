@@ -6,6 +6,7 @@ import {JwtService} from "@nestjs/jwt";
 import * as bcrypt from 'bcrypt';
 import {SairAutenticacaoDTO} from "./dto/sair-autenticacao.dto";
 import {AlterarSenhaAutenticacaoDTO} from "./dto/alterar-senha-autenticacao.dto";
+import {RecuperarSenhaAutenticacaoDTO} from "./dto/recuperar-senha-autenticacao.dto";
 
 @Injectable()
 export class AutenticacaoService {
@@ -147,6 +148,74 @@ export class AutenticacaoService {
         });
 
         return {};
+
+    }
+
+    async recuperarSenha(recuperarSenhaAutenticacaoDTO : RecuperarSenhaAutenticacaoDTO): Promise<any> {
+
+        const usuario = await this.prisma.usuario.findUnique({
+            where:{
+                usuario_cpf: recuperarSenhaAutenticacaoDTO.usuario_cpf,
+            },
+            select:{
+                usuario_cpf: true,
+                usuario_id: true,
+                autenticacao:{
+                    select:{
+                        autenticacao_senha: true,
+                        autenticacao_situacao: true,
+                        autenticacao_token: true,
+                    },
+                },
+                tipo_usuario:{
+                    select:{
+                        tipo_usuario_nome: true,
+                    }
+                }
+            }
+        }).catch((e) => {
+            throw this.prisma.tratamentoErros(e)
+        });
+
+        if(!usuario || usuario.autenticacao.autenticacao_situacao !== SituacaoLoginEnum.ATIVO){
+            throw new HttpException('CPF incorreto ou inexistente', HttpStatus.UNAUTHORIZED);
+        }
+
+        let token: string = null;
+
+        if(usuario){
+            try {
+                this.jwtService.verify(usuario.autenticacao.autenticacao_token);
+                token = usuario.autenticacao.autenticacao_token;
+            }catch(e){
+                const payload = { sub: usuario.usuario_id };
+                token = await this.jwtService.signAsync(payload);
+
+                const autenticacao =  this.prisma.autenticacao.update({
+                    data: {
+                        autenticacao_token: token,
+                    },
+                    where: { usuario_id_fk: usuario.usuario_id},
+                }).catch((e) => {
+                    throw this.prisma.tratamentoErros(e)
+                });
+            }
+        }else{
+            const payload = { sub: usuario.usuario_id };
+            token = await this.jwtService.signAsync(payload);
+
+            const autenticacao =  this.prisma.autenticacao.update({
+                data: {
+                    autenticacao_token: token,
+                },
+                where: { usuario_id_fk: usuario.usuario_id},
+            }).catch((e) => {
+                throw this.prisma.tratamentoErros(e)
+            });
+
+        }
+
+        return {autenticacao_token:  token};
 
     }
     

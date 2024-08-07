@@ -90,3 +90,31 @@ export function ObterUsuarioDocs() {
         }),
     );
 }
+
+
+class ListarUsuarioAutenticacao200DTO {
+
+    @CustomApiProperty({
+        description: 'Cursor para rolagem infinita',
+    })
+    @Generate(() => faker.number.int({min:1, max: 10}))
+    cursor: number;
+
+    @CustomApiProperty({
+        description: 'Listar de usuários',
+    })
+    data: [ObterAutenticacao200DTO];
+}
+
+export function ListarUsuarioDocs() {
+    return applyDecorators(
+        ApiTags('Usuario'),
+        ApiBearerAuth(),
+        ApiOperation({ summary: 'Listar usuários' }),
+        ApiResponse({
+            status: 200,
+            description: 'Usuário listados com sucesso',
+            type: ListarUsuarioAutenticacao200DTO,
+        }),
+    );
+}

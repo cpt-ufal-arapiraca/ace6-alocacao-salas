@@ -6,6 +6,7 @@ import {CadastrarUsuarioDTO} from "./dto/cadastrar-usuario.dto";
 import {AtualizarUsuarioDTO} from "./dto/atualizar-usuario.dto";
 import {TipoUsuarioEnum, TipoUsuarioIndexEnum} from "../autenticacao/enum/tipo-usuario-autenticacao.enum";
 import {ObterUsuarioDTO} from "./dto/obter-usuario.dto";
+import {ListarUsuarioDTO} from "./dto/listar-usuario.dto";
 
 @Injectable()
 export class UsuarioService {
@@ -151,5 +152,46 @@ export class UsuarioService {
         return usuario;
 
     }
+
+
+    async listar(listarUsuarioDTO: ListarUsuarioDTO): Promise<any> {
+        return  await this.prisma.usuario.findMany({
+            where: {
+                AND: [
+                    listarUsuarioDTO.usuario_cpf ? {
+                        usuario_cpf: {
+                            startsWith: listarUsuarioDTO.usuario_cpf,
+                        },
+                    } : {},
+                    listarUsuarioDTO.usuario_nome ? {
+                        usuario_nome: {
+                            contains: listarUsuarioDTO.usuario_nome,
+                        },
+                    } : {},
+                ],
+            },
+            skip: listarUsuarioDTO.cursor ? 1 : undefined,
+            take: 10,
+            cursor: listarUsuarioDTO.cursor ? { usuario_id: listarUsuarioDTO.cursor } : undefined,
+            orderBy: {
+                usuario_nome: listarUsuarioDTO.ordenacao,
+            },
+            select: {
+                usuario_id: true,
+                usuario_nome: true,
+                usuario_cpf: true,
+                usuario_email: true,
+                tipo_usuario: {
+                    select: {
+                        tipo_usuario_nome: true,
+                    }
+                },
+            }
+        }).catch((e) => {
+            throw this.prisma.tratamentoErros(e);
+        });
+
+    }
+
 
 }

@@ -16,7 +16,6 @@ export function AdicionarUsuarioDocs() {
 export function CadastrarUsuarioDocs() {
     return applyDecorators(
         ApiTags('Usuario'),
-        ApiBearerAuth(),
         ApiOperation({ summary: 'Cadastrar usuário' }),
         ApiResponse({
             status: 201,

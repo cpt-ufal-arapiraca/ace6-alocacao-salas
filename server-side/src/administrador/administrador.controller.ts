@@ -1,9 +1,9 @@
-import {Body, Controller, Post} from '@nestjs/common';
+import {Body, Controller, Get, Post} from '@nestjs/common';
 import {AdministradorService} from "./administrador.service";
-import {Roles} from "../autenticacao/decorators/roles.decorator";
-import {EntrarAutenticacaoDocs} from "../autenticacao/autenticacao.swagger";
-import {EntrarAutenticacaoDTO} from "../autenticacao/dto/entrar-autenticacao.dto";
-import {CasdastrarAdministradorDocs} from "./administrador.swagger";
+import {
+    CadastrarAdministradorDocs,
+    ObterExistenciaAdministradorDocs
+} from "./administrador.swagger";
 import {AdministradorCadastrarDTO} from "./dto/administrador-cadastrar.dto";
 
 @Controller('administrador')
@@ -13,11 +13,19 @@ export class AdministradorController {
     ) {}
 
     @Post('')
-    @CasdastrarAdministradorDocs()
-    async entrar(
+    @CadastrarAdministradorDocs()
+    async cadastrar(
         @Body() administradorCadastrarDTO: AdministradorCadastrarDTO,
     ): Promise<any> {
         return await this.administradorService.cadastrar(administradorCadastrarDTO);
+    }
+
+    @Get('verificar')
+    @ObterExistenciaAdministradorDocs()
+    async verificar(
+
+    ): Promise<any> {
+        return await this.administradorService.verificar();
     }
 
 }

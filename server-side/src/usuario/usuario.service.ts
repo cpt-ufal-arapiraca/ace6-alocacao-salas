@@ -3,6 +3,8 @@ import {PrismaService} from "../utils/prisma/prisma.service";
 import {SituacaoLoginEnum} from "../autenticacao/enum/situacao-login-autenticacao.enum";
 import {AdicionarUsuarioDTO} from "./dto/adicionar-usuario.dto";
 import {CadastrarUsuarioDTO} from "./dto/cadastrar-usuario.dto";
+import {AtualizarUsuarioDTO} from "./dto/atualizar-usuario.dto";
+import {TipoUsuarioEnum, TipoUsuarioIndexEnum} from "../autenticacao/enum/tipo-usuario-autenticacao.enum";
 
 @Injectable()
 export class UsuarioService {
@@ -52,6 +54,44 @@ export class UsuarioService {
                 usuario_cpf: cadastrarUsuarioDTO.usuario_cpf,
             },
             data: cadastrarUsuarioDTO,
+            select:{
+                usuario_id: true,
+            }
+        }).catch((e) => {
+            throw this.prisma.tratamentoErros(e)
+        });
+
+        return {};
+
+    }
+
+    async atualizar(atualizarUsuarioDTO: AtualizarUsuarioDTO, ): Promise<any> {
+
+        if( atualizarUsuarioDTO.tipo_usuario_logado !== TipoUsuarioEnum.ADMIN ){
+            delete atualizarUsuarioDTO.tipo_usuario_id;
+        }
+
+        const  is_usuario_pendente = await  this.prisma.usuario.findUnique({
+            where:{
+                usuario_id: atualizarUsuarioDTO.usuario_id,
+                usuario_situacao: SituacaoLoginEnum.PENDENTE,
+            },
+        }).catch((e) => {
+            throw this.prisma.tratamentoErros(e)
+        });
+
+        if(!is_usuario_pendente){
+            throw new HttpException(
+                `Não é possível atualizar esse usuário`,
+                HttpStatus.BAD_REQUEST,
+            );
+        }
+
+        const usuario = await this.prisma.usuario.update({
+            where:{
+                usuario_id: atualizarUsuarioDTO.usuario_id,
+            },
+            data: atualizarUsuarioDTO,
             select:{
                 usuario_id: true,
             }

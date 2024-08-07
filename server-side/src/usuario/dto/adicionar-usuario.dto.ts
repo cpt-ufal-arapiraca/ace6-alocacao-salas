@@ -1,4 +1,4 @@
-import {IsEnum, IsNotEmpty, IsStrongPassword, Validate} from 'class-validator';
+import {IsEnum, IsNotEmpty, Validate} from 'class-validator';
 import {CustomApiProperty, Generate} from "@decorators-custom";
 import faker from "@faker-custom";
 import {CpfValido} from "@validate-custom";

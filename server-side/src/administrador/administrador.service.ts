@@ -1,6 +1,6 @@
 import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {PrismaService} from "../utils/prisma/prisma.service";
-import {AdministradorCadastrarDTO} from "./dto/administrador-cadastrar.dto";
+import {CadastrarAdministradorDto} from "./dto/cadastrar-administrador.dto";
 import {SituacaoLoginEnum} from "../autenticacao/enum/situacao-login-autenticacao.enum";
 import {TipoUsuarioIndexEnum} from "../autenticacao/enum/tipo-usuario-autenticacao.enum";
 import {SairAutenticacaoDTO} from "../autenticacao/dto/sair-autenticacao.dto";
@@ -11,13 +11,13 @@ export class AdministradorService {
         private prisma: PrismaService,
     ) {}
 
-    async cadastrar(administradorCadastrarDTO: AdministradorCadastrarDTO): Promise<any> {
-        administradorCadastrarDTO.usuario_situacao = SituacaoLoginEnum.ATIVO;
-        administradorCadastrarDTO.tipo_usuario_id = TipoUsuarioIndexEnum.ADMIN;
+    async cadastrar(cadastrarAdministradorDto: CadastrarAdministradorDto): Promise<any> {
+        cadastrarAdministradorDto.usuario_situacao = SituacaoLoginEnum.ATIVO;
+        cadastrarAdministradorDto.tipo_usuario_id = TipoUsuarioIndexEnum.ADMIN;
 
         const is_administrador = await this.prisma.usuario.findUnique({
             where:{
-                usuario_cpf: administradorCadastrarDTO.usuario_cpf,
+                usuario_cpf: cadastrarAdministradorDto.usuario_cpf,
             },
         }).catch((e) => {
             throw this.prisma.tratamentoErros(e)
@@ -31,7 +31,7 @@ export class AdministradorService {
         }
 
         const administrador = await this.prisma.usuario.create({
-            data: administradorCadastrarDTO,
+            data: cadastrarAdministradorDto,
             select:{
                 usuario_id: true,
             }

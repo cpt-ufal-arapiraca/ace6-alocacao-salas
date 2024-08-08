@@ -214,5 +214,14 @@ export class UsuarioService {
 
     }
 
+    async listarTipo(): Promise<any> {
+
+        return await this.prisma.tipo_usuario.findMany({
+        }).catch((e) => {
+            throw this.prisma.tratamentoErros(e)
+        });
+
+    }
+
 
 }

@@ -2,7 +2,7 @@ import { applyDecorators } from '@nestjs/common';
 import {ApiBearerAuth, ApiOperation, ApiResponse, ApiTags} from '@nestjs/swagger';
 import {CustomApiProperty, Generate} from "@decorators-custom";
 import faker from "@faker-custom";
-import {TipoUsuarioEnum} from "../autenticacao/enum/tipo-usuario-autenticacao.enum";
+import {TipoUsuarioEnum, TipoUsuarioIndexEnum} from "../autenticacao/enum/tipo-usuario-autenticacao.enum";
 
 export function AdicionarUsuarioDocs() {
     return applyDecorators(
@@ -128,6 +128,34 @@ export function DeletarUsuarioDocs() {
         ApiResponse({
             status: 200,
             description: 'Usuário deletado com sucesso',
+        }),
+    );
+}
+
+class TipoUsuario2Autenticacao200DTO {
+
+    @CustomApiProperty({
+        description: 'Tipo do usuário ID',
+    })
+    @Generate(() => faker.helpers.arrayElement([...Object.values(TipoUsuarioIndexEnum)]))
+    tipo_usuario_id: number;
+
+    @CustomApiProperty({
+        description: 'Tipo do usuário nome',
+    })
+    @Generate(() => faker.helpers.arrayElement([...Object.values(TipoUsuarioEnum)]))
+    tipo_usuario_nome: string;
+
+}
+export function ListarTipoUsuarioDocs() {
+    return applyDecorators(
+        ApiTags('Usuario'),
+        ApiBearerAuth(),
+        ApiOperation({ summary: 'Listar tipos de usuários' }),
+        ApiResponse({
+            status: 200,
+            description: 'Tipos de usuário listados com sucesso',
+            type: [TipoUsuario2Autenticacao200DTO],
         }),
     );
 }

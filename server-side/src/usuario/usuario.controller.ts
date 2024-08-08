@@ -4,7 +4,7 @@ import {AdicionarUsuarioDTO} from "./dto/adicionar-usuario.dto";
 import {
     AdicionarUsuarioDocs,
     AtualizarUsuarioDocs,
-    CadastrarUsuarioDocs, DeletarUsuarioDocs,
+    CadastrarUsuarioDocs, DeletarUsuarioDocs, ListarTipoUsuarioDocs,
     ListarUsuarioDocs,
     ObterUsuarioDocs
 } from "./usuario.swagger";
@@ -104,6 +104,15 @@ export class UsuarioController {
             }
         }
         return await this.usuarioService.deletar(deletarUsuarioDTO);
+    }
+
+    @Get('tipos')
+    @ListarTipoUsuarioDocs()
+    @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.GERENTE, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.PROFESSOR)
+    async listarTipo(
+
+    ): Promise<any> {
+        return await this.usuarioService.listarTipo();
     }
 
 }

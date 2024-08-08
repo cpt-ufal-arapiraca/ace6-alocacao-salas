@@ -7,6 +7,12 @@ CREATE TABLE tipo_usuario (
     tipo_usuario_nome VARCHAR(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+INSERT INTO tipo_usuario (tipo_usuario_nome) VALUES
+('Administrador'),
+('Gerente'),
+('Coordenador'),
+('Professor');
+
 CREATE TABLE usuario (
     usuario_id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_nome VARCHAR(255),

@@ -48,7 +48,7 @@ export class CadastrarAdministradorDto {
     })
     autenticacao_senha: string;
 
-    tipo_usuario_id: number;
+    tipo_usuario_id_fk: number;
 
     usuario_situacao: string;
 

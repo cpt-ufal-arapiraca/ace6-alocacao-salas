@@ -13,7 +13,7 @@ export class AdministradorService {
 
     async cadastrar(cadastrarAdministradorDto: CadastrarAdministradorDto): Promise<any> {
         cadastrarAdministradorDto.usuario_situacao = SituacaoLoginEnum.ATIVO;
-        cadastrarAdministradorDto.tipo_usuario_id = TipoUsuarioIndexEnum.ADMIN;
+        cadastrarAdministradorDto.tipo_usuario_id_fk = TipoUsuarioIndexEnum.ADMIN;
 
         const is_administrador = await this.prisma.usuario.findUnique({
             where:{
@@ -46,7 +46,7 @@ export class AdministradorService {
 
         const administrador = await this.prisma.usuario.findFirst({
             where:{
-                tipo_usuario_id: TipoUsuarioIndexEnum.ADMIN,
+                tipo_usuario_id_fk: TipoUsuarioIndexEnum.ADMIN,
                 usuario_situacao: SituacaoLoginEnum.ATIVO,
             },
             select:{

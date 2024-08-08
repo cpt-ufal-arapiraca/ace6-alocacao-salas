@@ -159,8 +159,8 @@ export class UsuarioService {
         return  await this.prisma.usuario.findMany({
             where: {
                 AND: [
-                    listarUsuarioDTO.tipo_usuario_id ? {
-                        tipo_usuario_id: listarUsuarioDTO.tipo_usuario_id,
+                    listarUsuarioDTO.tipo_usuario_id_fk ? {
+                        tipo_usuario_id_fk: listarUsuarioDTO.tipo_usuario_id_fk,
                     } : {},
                     listarUsuarioDTO.usuario_cpf ? {
                         usuario_cpf: {

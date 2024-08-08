@@ -15,12 +15,14 @@ INSERT INTO tipo_usuario (tipo_usuario_nome) VALUES
 
 CREATE TABLE usuario (
     usuario_id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_iuud VARCHAR(36) NOT NULL UNIQUE,
     usuario_nome VARCHAR(255),
     usuario_cpf VARCHAR(11) NOT NULL UNIQUE,
     usuario_email VARCHAR(255) UNIQUE,
-    tipo_usuario_id INT NOT NULL,
+    usuario_siape INT UNIQUE,
+    tipo_usuario_id_fk INT NOT NULL,
     usuario_situacao VARCHAR(10) NOT NULL,
-    FOREIGN KEY (tipo_usuario_id) REFERENCES tipo_usuario(tipo_usuario_id)
+    FOREIGN KEY (tipo_usuario_id_fk) REFERENCES tipo_usuario(tipo_usuario_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE autenticacao (
@@ -44,5 +46,6 @@ CREATE TABLE sessao (
 
 
 CREATE UNIQUE INDEX idx_cpf_UNIQUE ON usuario (usuario_cpf);
+CREATE UNIQUE INDEX idx_siape_UNIQUE ON usuario (usuario_siape);
 CREATE UNIQUE INDEX idx_email_UNIQUE ON usuario (usuario_email);
 CREATE UNIQUE INDEX idx_jwt_UNIQUE ON sessao (sessao_jwt);

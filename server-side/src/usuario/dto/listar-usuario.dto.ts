@@ -35,7 +35,7 @@ export class ListarUsuarioDTO {
     @Type(() => Number)
     @IsOptional()
     @IsEnum(TipoUsuarioIndexEnum)
-    tipo_usuario_id ?: TipoUsuarioIndexEnum;
+    tipo_usuario_id_fk ?: TipoUsuarioIndexEnum;
 
     @CustomApiProperty({
         description: 'cursor para rolagem infinita',

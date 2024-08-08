@@ -14,14 +14,16 @@ model tipo_usuario {
 }
 
 model usuario {
-  usuario_id       Int           @id @default(autoincrement())
-  usuario_nome     String?       @db.VarChar(255)
-  usuario_cpf      String        @unique(map: "idx_cpf_UNIQUE") @db.VarChar(11)
-  usuario_email    String?       @unique(map: "idx_email_UNIQUE") @db.VarChar(255)
-  tipo_usuario_id  Int
-  usuario_situacao String        @db.VarChar(10)
-  tipo_usuario     tipo_usuario  @relation("TipoUsuarioUsuarios", fields: [tipo_usuario_id], references: [tipo_usuario_id])
-  autenticacao     autenticacao? @relation("UsuarioAutenticacao")
+  usuario_id         Int           @id @default(autoincrement())
+  usuario_uuid       String        @default(uuid()) @db.VarChar(36)
+  usuario_nome       String?       @db.VarChar(255)
+  usuario_cpf        String        @unique(map: "idx_cpf_UNIQUE") @db.VarChar(11)
+  usuario_siape      Int?          @unique(map: "idx_siape_UNIQUE")
+  usuario_email      String?       @unique(map: "idx_email_UNIQUE") @db.VarChar(255)
+  tipo_usuario_id_fk Int
+  usuario_situacao   String        @db.VarChar(10)
+  tipo_usuario       tipo_usuario  @relation("TipoUsuarioUsuarios", fields: [tipo_usuario_id_fk], references: [tipo_usuario_id])
+  autenticacao       autenticacao? @relation("UsuarioAutenticacao")
 }
 
 model autenticacao {

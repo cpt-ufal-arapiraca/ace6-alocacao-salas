@@ -22,7 +22,7 @@ export class AdicionarUsuarioDTO {
     })
     @Generate(() => faker.helpers.arrayElement([...Object.values(TipoUsuarioIndexEnum)]))
     @IsEnum(TipoUsuarioIndexEnum)
-    tipo_usuario_id : TipoUsuarioIndexEnum;
+    tipo_usuario_id_fk : TipoUsuarioIndexEnum;
 
     usuario_situacao: string;
 

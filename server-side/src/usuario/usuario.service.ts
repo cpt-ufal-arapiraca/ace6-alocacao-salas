@@ -8,6 +8,7 @@ import { TipoUsuarioEnum } from '../autenticacao/enum/tipo-usuario-autenticacao.
 import { ObterUsuarioDTO } from './dto/obter-usuario.dto';
 import { ListarUsuarioDTO } from './dto/listar-usuario.dto';
 import { DeletarUsuarioDTO } from './dto/deletar-usuario.dto';
+import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class UsuarioService {
@@ -51,12 +52,15 @@ export class UsuarioService {
       );
     }
 
+      const { autenticacao_senha, ...cadastrarUsuarioBDDTO } =
+          cadastrarUsuarioDTO;
+
     const usuario = await this.prisma.usuario
       .update({
         where: {
-          usuario_cpf: cadastrarUsuarioDTO.usuario_cpf,
+          usuario_cpf: cadastrarUsuarioBDDTO.usuario_cpf,
         },
-        data: cadastrarUsuarioDTO,
+        data: cadastrarUsuarioBDDTO,
         select: {
           usuario_id: true,
         },
@@ -65,7 +69,28 @@ export class UsuarioService {
         throw this.prisma.tratamentoErros(e);
       });
 
-    return {};
+      const saltOrRounds = 10;
+      const hash = await bcrypt.hash(autenticacao_senha, saltOrRounds);
+
+      const autenticacao = await this.prisma.autenticacao
+          .create({
+              data: {
+                  autenticacao_senha: hash,
+                  autenticacao_situacao: SituacaoLoginEnum.ATIVO,
+                  usuario: {
+                      connect: { usuario_id: usuario.usuario_id },
+                  },
+              },
+              select: {
+                  autenticacao_id: true,
+              },
+          })
+          .catch((e) => {
+              throw this.prisma.tratamentoErros(e);
+          });
+
+
+      return {};
   }
 
   async atualizar(atualizarUsuarioDTO: AtualizarUsuarioDTO): Promise<any> {

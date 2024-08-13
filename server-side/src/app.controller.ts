@@ -4,7 +4,7 @@ import * as DTO from "@swagger-custom";
 
 @Controller()
 @ApiTags('Erros')
-export class AppContoller {
+export class AppController {
     @Post('')
     @ApiOperation({ summary: 'tipos de retornos de erros disponíveis e padronizados para todos os endpoints.'})
     @ApiResponse({

@@ -145,7 +145,7 @@ export class UsuarioService {
         throw this.prisma.tratamentoErros(e);
       });
 
-    if (!is_usuario_pendente) {
+    if (is_usuario_pendente) {
       throw new HttpException(
         `Não é possível obter esse usuário`,
         HttpStatus.BAD_REQUEST,

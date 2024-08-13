@@ -41,7 +41,7 @@ CREATE TABLE sessao (
     sessao_so VARCHAR(25) NOT NULL,
     sessao_jwt VARCHAR(256) NOT NULL UNIQUE,
     data_hora_login DATETIME(0) DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (autenticacao_id_fk) REFERENCES autenticacao(autenticacao_id)
+    FOREIGN KEY (autenticacao_id_fk) REFERENCES autenticacao(autenticacao_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 

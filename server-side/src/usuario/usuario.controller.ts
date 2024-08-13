@@ -79,7 +79,7 @@ export class UsuarioController {
         return await this.usuarioService.listar(listarUsuarioDTO);
     }
 
-    @Delete('eu')
+    @Delete('')
     @DeletarUsuarioDocs()
     @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.GERENTE, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.PROFESSOR)
     async deletarMe(
@@ -90,18 +90,10 @@ export class UsuarioController {
 
     @Delete(':usuario_id')
     @DeletarUsuarioDocs()
-    @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.GERENTE, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.PROFESSOR)
+    @Roles(TipoUsuarioEnum.ADMIN)
     async deletar(
         @Param() deletarUsuarioDTO: DeletarUsuarioDTO,
-        @Request() req,
     ): Promise<any> {
-        if(req.usuario_tipo !== TipoUsuarioEnum.ADMIN){
-            deletarUsuarioDTO.usuario_id = req.usuario_id;
-        }else{
-            if(!deletarUsuarioDTO.usuario_id){
-                deletarUsuarioDTO.usuario_id = req.usuario_id;
-            }
-        }
         return await this.usuarioService.deletar(deletarUsuarioDTO);
     }
 

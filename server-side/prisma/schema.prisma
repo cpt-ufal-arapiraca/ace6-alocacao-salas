@@ -43,5 +43,5 @@ model sessao {
   sessao_so          String       @db.VarChar(25)
   sessao_jwt         String       @unique(map: "idx_jwt_UNIQUE") @db.VarChar(256)
   data_hora_login    DateTime     @default(now()) @db.DateTime(0)
-  autenticacao       autenticacao @relation(fields: [autenticacao_id_fk], references: [autenticacao_id])
+  autenticacao       autenticacao @relation(fields: [autenticacao_id_fk], references: [autenticacao_id], onDelete: Cascade)
 }

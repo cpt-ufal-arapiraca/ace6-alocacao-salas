@@ -12,7 +12,6 @@ export class ListarUsuarioDTO {
         required: false,
     })
     @Generate(() => faker.person.fullName())
-    @Type(() => Number)
     @IsOptional()
     @Validate(NomeValido)
     usuario_nome?: string;
@@ -35,6 +34,7 @@ export class ListarUsuarioDTO {
     @Type(() => Number)
     @IsOptional()
     @IsEnum(TipoUsuarioIndexEnum)
+    @IsInt()
     tipo_usuario_id_fk ?: TipoUsuarioIndexEnum;
 
     @CustomApiProperty({

@@ -15,7 +15,7 @@ INSERT INTO tipo_usuario (tipo_usuario_nome) VALUES
 
 CREATE TABLE usuario (
     usuario_id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario_iuud VARCHAR(36) NOT NULL UNIQUE,
+    usuario_uuid VARCHAR(36) UNIQUE,
     usuario_nome VARCHAR(255),
     usuario_cpf VARCHAR(11) NOT NULL UNIQUE,
     usuario_email VARCHAR(255) UNIQUE,

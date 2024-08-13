@@ -32,7 +32,6 @@ export class CadastrarAdministradorDto {
     @IsEmail()
     usuario_email : string;
 
-
     @CustomApiProperty({
         description: 'Nova senha do usuário',
         required: true,

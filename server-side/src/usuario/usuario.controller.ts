@@ -49,7 +49,6 @@ export class UsuarioController {
         if(req.usuario_tipo !== TipoUsuarioEnum.ADMIN){
             atualizarUsuarioDTO.usuario_id = req.usuario_id;
         }
-        atualizarUsuarioDTO.tipo_usuario_logado = req.usuario_tipo;
         return await this.usuarioService.atualizar(atualizarUsuarioDTO);
     }
 

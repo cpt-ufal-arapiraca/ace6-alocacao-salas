@@ -94,14 +94,14 @@ export class UsuarioService {
   }
 
   async atualizar(atualizarUsuarioDTO: AtualizarUsuarioDTO): Promise<any> {
-    if (atualizarUsuarioDTO.tipo_usuario_logado !== TipoUsuarioEnum.ADMIN) {
-      delete atualizarUsuarioDTO.tipo_usuario_id;
-    }
+
+    const { usuario_id, ...atualizarUsuarioBDDTO } =
+          atualizarUsuarioDTO;
 
     const is_usuario_pendente = await this.prisma.usuario
       .findUnique({
         where: {
-          usuario_id: atualizarUsuarioDTO.usuario_id,
+          usuario_id: usuario_id,
           usuario_situacao: SituacaoLoginEnum.PENDENTE,
         },
       })
@@ -109,7 +109,7 @@ export class UsuarioService {
         throw this.prisma.tratamentoErros(e);
       });
 
-    if (!is_usuario_pendente) {
+    if (is_usuario_pendente) {
       throw new HttpException(
         `Não é possível atualizar esse usuário`,
         HttpStatus.BAD_REQUEST,
@@ -119,9 +119,9 @@ export class UsuarioService {
     const usuario = await this.prisma.usuario
       .update({
         where: {
-          usuario_id: atualizarUsuarioDTO.usuario_id,
+          usuario_id: usuario_id,
         },
-        data: atualizarUsuarioDTO,
+        data: atualizarUsuarioBDDTO,
         select: {
           usuario_id: true,
         },

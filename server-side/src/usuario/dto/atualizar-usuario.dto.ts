@@ -41,7 +41,7 @@ export class AtualizarUsuarioDTO {
     @Generate(() => faker.helpers.arrayElement([...Object.values(TipoUsuarioIndexEnum)]))
     @IsOptional()
     @IsEnum(TipoUsuarioIndexEnum)
-    tipo_usuario_id : TipoUsuarioIndexEnum;
+    tipo_usuario_id_fk : TipoUsuarioIndexEnum;
 
     tipo_usuario_logado: string;
 

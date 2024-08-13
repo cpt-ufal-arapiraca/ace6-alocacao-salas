@@ -105,7 +105,7 @@ export class UsuarioController {
         return await this.usuarioService.deletar(deletarUsuarioDTO);
     }
 
-    @Get('tipos')
+    @Get('listar/tipos')
     @ListarTipoUsuarioDocs()
     @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.GERENTE, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.PROFESSOR)
     async listarTipo(

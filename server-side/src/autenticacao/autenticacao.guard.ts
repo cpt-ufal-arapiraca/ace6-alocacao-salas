@@ -22,12 +22,15 @@ export class RolesGuard implements CanActivate {
     ) {}
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
+
         const requiredRoles = this.reflector.getAllAndOverride<TipoUsuarioEnum[]>(ROLES_KEY, [
             context.getHandler(),
             context.getClass(),
         ]);
 
-        if (requiredRoles || requiredRoles.length === 0) {
+
+
+        if (!requiredRoles || requiredRoles.length === 0) {
             return true;
         }
 
@@ -69,7 +72,7 @@ export class RolesGuard implements CanActivate {
             );
         }
 
-        const userRole = request['userRole'];
+        const userRole = request['usuario_tipo'];
         if (requiredRoles.includes(userRole)) {
             return true;
         } else {

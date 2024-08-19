@@ -8,8 +8,8 @@ function AppRouter() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Page/>}>
-                    <Route index element={<Navigate to={"cadastro"}/>}/>
-                    <Route path="cadastro" element={<Usuario/>}/>
+                    <Route index element={<Navigate to={"inicio"}/>}/>
+                    <Route path="inicio" element={<Usuario/>}/>
                 </Route>
                 <Route path="*"  element={<NotFound/>}/>
             </Routes>

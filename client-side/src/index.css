@@ -17,15 +17,15 @@ body {
   }
   
   ::-webkit-scrollbar-thumb:window-inactive {
-    background: rgba(26, 32, 48, 0.8); 
+    background: #092C4C; 
   }
   ::-webkit-scrollbar-track {
-    background: #006cfa;
+    background: #0095DA;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: rgb(30, 41, 59);
+    background-color: #092C4C;
     border-radius: 20px;
-    border: 2px solid #006cfa;
+    border: 2px solid #0095DA;
   }
 }
 

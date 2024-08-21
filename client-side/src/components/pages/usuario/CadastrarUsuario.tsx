@@ -8,7 +8,7 @@ import Subtitle from "../../utils/Subtitle";
 
 const schema = z.object({
     nome: z.string().min(1, "Nome é obrigatório"),
-    id: z.string().min(1, "O ID-Siape é obrigatório"),
+    id: z.number().min(1, "O ID-Siape é obrigatório"),
     email: z.string().email("Email inválido"),
     cpf: z.string()
         .min(14, "CPF deve ter 11 dígitos")
@@ -16,8 +16,17 @@ const schema = z.object({
         .refine((cpf) => ValidarCPF(cpf), {
             message: "CPF inválido",
         }),
+        senha: z.string()
+        .min(8, "A senha deve ter pelo menos 8 caracteres")
+        .regex(/[A-Z]/, "A senha deve conter pelo menos uma letra maiúscula")
+        .regex(/[0-9]/, "A senha deve conter pelo menos um número")
+        .regex(/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/, "A senha deve conter pelo menos um caractere especial"),
+    confirmarSenha: z.string()
+        .min(8, "A confirmação da senha deve ter pelo menos 8 caracteres"),
+        
     categoria: z.string().min(1, "Categoria é obrigatória"),
 });
+  
   
 type FormData = z.infer<typeof schema>;
 
@@ -80,21 +89,25 @@ function Form() {
 
             {/* Criar senha */}
             <div className="col-span-12 sm:col-span-5">
-                <Input
+                 <Input
                     label="Criar senha"
                     placeholder="Digite uma senha"
-                    error={errors.nome?.message}
-                    {...register("nome")}
+                    type="password"
+                    showPasswordToggle
+                    error={errors.senha?.message}
+                    {...register("senha")}
                 />
             </div>
 
             {/* Confirme senha */}
             <div className="col-span-12 sm:col-span-5">
-                <Input
+                 <Input
                     label="Confirme sua senha"
                     placeholder="Confirme sua senha"
-                    error={errors.nome?.message}
-                    {...register("nome")}
+                    type="password"
+                    showPasswordToggle
+                    error={errors.confirmarSenha?.message}
+                    {...register("confirmarSenha")}
                 />
             </div>
             {/* ASdf */}

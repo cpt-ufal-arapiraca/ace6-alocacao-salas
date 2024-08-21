@@ -18,13 +18,13 @@ function Page() {
   return (
     <div style={{ display: 'flex', height: '100dvh', minHeight: '400px' }}>
       <SideBar toggled={toggled} setToggled={setToggled} isMobile={isMobile} />
-      <main style={{ flex: 1, padding: 10 }}>
+      <main style={{ flex: 1}}>
         {isMobile && (
           <button className="sb-button" onClick={() => setToggled(!toggled)}>
             {toggled ? 'Fechar menu' : 'Abrir menu'}
           </button>
         )}
-        <section className="mt-4">
+        <section>
           <Outlet />
         </section>
       </main>

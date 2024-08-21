@@ -53,14 +53,12 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
           },
         }}
       > 
-        <Link to={"inicio"}>
-          <MenuItem 
-            active={activeMenu === 'inicio'} 
-            onClick={() => setActiveMenu('inicio')}>
-            Início
-          </MenuItem>
-        </Link>
-        
+        <MenuItem 
+          active={activeMenu === 'inicio'} 
+          onClick={() => setActiveMenu('inicio')}
+          component={<Link to="inicio" />} >
+          Início
+        </MenuItem>
         <Border/>
         <SubMenu 
           label="Usuário"
@@ -70,26 +68,21 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
             },
           }}
         >
-          <Link to={"cadastrar-usuario"}>
-            <MenuItem 
-              active={activeMenu === 'cadastrar_usuario'} 
-              onClick={() => setActiveMenu('cadastrar_usuario')}
-            > 
-              Cadastrar usuário
-            </MenuItem>
-          </Link>
-          
+          <MenuItem 
+            active={activeMenu === 'cadastrar_usuario'} 
+            onClick={() => setActiveMenu('cadastrar_usuario')}
+            component={<Link to="cadastrar-usuario" />} 
+          > 
+            Cadastrar usuário
+          </MenuItem>
           <Border width='w-9/12'/>
-
-          <Link to={"ver-usuarios"}>
-            <MenuItem 
-              active={activeMenu === 'ver_usuarios'} 
-              onClick={() => setActiveMenu('ver_usuarios')}
-            > 
-              Ver usuários
-            </MenuItem>
-          </Link>
-         
+          <MenuItem 
+            active={activeMenu === 'ver_usuarios'} 
+            onClick={() => setActiveMenu('ver_usuarios')}
+            component={<Link to="ver-usuarios" />} 
+          > 
+            Ver usuários
+          </MenuItem>
         </SubMenu>
         <Border/>
         <SubMenu 

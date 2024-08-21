@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Sidebar, Menu, MenuItem, SubMenu, menuClasses } from 'react-pro-sidebar';
+import { Link } from 'react-router-dom';
 
 interface BorderProps {
   width?: string,
@@ -51,12 +52,15 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
               };
           },
         }}
-      >
-        <MenuItem 
-          active={activeMenu === 'inicio'} 
-          onClick={() => setActiveMenu('inicio')}>
-          Início
-        </MenuItem>
+      > 
+        <Link to={"inicio"}>
+          <MenuItem 
+            active={activeMenu === 'inicio'} 
+            onClick={() => setActiveMenu('inicio')}>
+            Início
+          </MenuItem>
+        </Link>
+        
         <Border/>
         <SubMenu 
           label="Usuário"
@@ -66,19 +70,26 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
             },
           }}
         >
-          <MenuItem 
-            active={activeMenu === 'cadastrar_usuario'} 
-            onClick={() => setActiveMenu('cadastrar_usuario')}
-          > 
-            Cadastrar usuário
-          </MenuItem>
+          <Link to={"cadastrar-usuario"}>
+            <MenuItem 
+              active={activeMenu === 'cadastrar_usuario'} 
+              onClick={() => setActiveMenu('cadastrar_usuario')}
+            > 
+              Cadastrar usuário
+            </MenuItem>
+          </Link>
+          
           <Border width='w-9/12'/>
-          <MenuItem 
-            active={activeMenu === 'ver_usuarios'} 
-            onClick={() => setActiveMenu('ver_usuarios')}
-          > 
-            Ver usuários
-          </MenuItem>
+
+          <Link to={"ver-usuarios"}>
+            <MenuItem 
+              active={activeMenu === 'ver_usuarios'} 
+              onClick={() => setActiveMenu('ver_usuarios')}
+            > 
+              Ver usuários
+            </MenuItem>
+          </Link>
+         
         </SubMenu>
         <Border/>
         <SubMenu 

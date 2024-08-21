@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import React from "react";
-import SideBar from "./SideBar";
+import SideBar from "../utils/SideBar";
 
 function Page() {
   const [toggled, setToggled] = React.useState(false);

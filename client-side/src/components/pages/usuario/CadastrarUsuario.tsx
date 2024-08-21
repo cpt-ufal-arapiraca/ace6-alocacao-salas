@@ -1,12 +1,21 @@
 import { Select, Input } from "../../utils/InputsReutilizaveis";
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import ValidarCPF, {} from "../../utils/ValidarCPF"
 import { z } from 'zod';
+import Button from "../../utils/Button";
+import Subtitle from "../../utils/Subtitle";
 
 const schema = z.object({
     nome: z.string().min(1, "Nome é obrigatório"),
-    id: z.number().min(1, "O ID-Siape é obrigatório"),
+    id: z.string().min(1, "O ID-Siape é obrigatório"),
     email: z.string().email("Email inválido"),
+    cpf: z.string()
+        .min(14, "CPF deve ter 11 dígitos")
+        .max(14, "CPF deve ter 11 dígitos")
+        .refine((cpf) => ValidarCPF(cpf), {
+            message: "CPF inválido",
+        }),
     categoria: z.string().min(1, "Categoria é obrigatória"),
 });
   
@@ -22,7 +31,11 @@ function Form() {
     };
     
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="m-5 grid grid-cols-12 gap-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="m-7 grid grid-cols-12 gap-5">
+            <div className="col-span-12">
+                <Subtitle subtitle="Informação pessoais"></Subtitle>
+            </div>
+
             {/* Nome usuario */}
             <div className="col-span-12 sm:col-span-5">
                 <Input
@@ -38,7 +51,7 @@ function Form() {
                 <Input
                     label="ID-Siape"
                     placeholder="Digite o ID-Siape"
-                    error={errors.email?.message}
+                    error={errors.id?.message}
                     {...register("id")}
                 />
             </div>
@@ -55,16 +68,37 @@ function Form() {
 
             {/* CPF */}
             <div className="col-span-12 sm:col-span-5">
-                <Input
+                    <Input
                     label="CPF"
                     placeholder="Digite seu CPF"
-                    error={errors.email?.message}
-                    {...register("email")}
+                    mask="###.###.###-##"
+                    replacement={{ '#': /\d/ }}
+                    error={errors.cpf?.message}
+                    {...register("cpf")}
                 />
             </div>
 
-            {/* ASdf */}
+            {/* Criar senha */}
             <div className="col-span-12 sm:col-span-5">
+                <Input
+                    label="Criar senha"
+                    placeholder="Digite uma senha"
+                    error={errors.nome?.message}
+                    {...register("nome")}
+                />
+            </div>
+
+            {/* Confirme senha */}
+            <div className="col-span-12 sm:col-span-5">
+                <Input
+                    label="Confirme sua senha"
+                    placeholder="Confirme sua senha"
+                    error={errors.nome?.message}
+                    {...register("nome")}
+                />
+            </div>
+            {/* ASdf */}
+            {/* <div className="col-span-12 sm:col-span-5">
                 <Select
                     label="Categoria"
                     options={[
@@ -74,11 +108,13 @@ function Form() {
                     error={errors.categoria?.message}
                     {...register("categoria")}
                 />
-            </div>
-
-            {/* Submit Button */}
+            </div> */}
             <div className="col-span-12">
-                <button type="submit" className="bg-blue-500 text-white p-2 rounded w-full">Enviar</button>
+                <Subtitle subtitle="Tipo de usuário"></Subtitle>
+            </div>
+            {/* Submit Button */}
+            <div className="col-span-12 flex justify-end">
+                <Button text="Cadastrar" type="submit" />
             </div>
         </form>
     );
@@ -87,10 +123,7 @@ function Form() {
 function CadastrarUsuario() {
     return (
         <section>
-            <h1 className="font-bold m-5 text-text_title">Cadastrar usuário</h1>
-            <div className="ms-5 border-b-2 text-text_secondary">
-            Informação pessoais
-            </div>
+            <h1 className="font-bold m-7 text-text_title">Cadastrar usuário</h1>
             <Form />
         </section>
     )

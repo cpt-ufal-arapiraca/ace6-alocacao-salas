@@ -4,6 +4,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        button_blue: '#0095DA',
+        button_blue_hover: '#092C4C',
+        button_blue_active: '#536B82',
+        button_red: '#ED1C24',
+
+        alert_erro: '#EB5757',
+        alert_success: '#27AE60',
+
         border_sidebar: '#47B3E4',
         text_title: '#333333',
         text_primary: '#4F4F4F',

@@ -1,14 +1,15 @@
-import { Select, Input } from "../../utils/InputsReutilizaveis";
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import ValidarCPF, {} from "../../utils/ValidarCPF"
 import { z } from 'zod';
+import { Input, Checkbox } from "../../utils/InputsReutilizaveis";
 import Button from "../../utils/Button";
 import Subtitle from "../../utils/Subtitle";
+import ValidarCPF from "../../utils/ValidarCPF";
 
 const schema = z.object({
     nome: z.string().min(1, "Nome é obrigatório"),
-    id: z.number().min(1, "O ID-Siape é obrigatório"),
+    id: z.string().min(1, "O ID-Siape é obrigatório"),
     email: z.string().email("Email inválido"),
     cpf: z.string()
         .min(14, "CPF deve ter 11 dígitos")
@@ -16,33 +17,44 @@ const schema = z.object({
         .refine((cpf) => ValidarCPF(cpf), {
             message: "CPF inválido",
         }),
-        senha: z.string()
+    senha: z.string()
         .min(8, "A senha deve ter pelo menos 8 caracteres")
         .regex(/[A-Z]/, "A senha deve conter pelo menos uma letra maiúscula")
         .regex(/[0-9]/, "A senha deve conter pelo menos um número")
         .regex(/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/, "A senha deve conter pelo menos um caractere especial"),
     confirmarSenha: z.string()
         .min(8, "A confirmação da senha deve ter pelo menos 8 caracteres"),
-        
-    categoria: z.string().min(1, "Categoria é obrigatória"),
+    tipoUser: z.array(z.string()).nonempty("Pelo menos um tipo de usuário deve ser selecionado"),
 });
-  
-  
+
 type FormData = z.infer<typeof schema>;
 
 function Form() {
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+    const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<FormData>({
         resolver: zodResolver(schema),
+        defaultValues: {
+            tipoUser: [],
+        },
     });
-    
+
+    const tipoUserValues: any = watch("tipoUser"); // Observa o valor de tipoUser
+
     const onSubmit = (data: FormData) => {
         console.log(data);
     };
-    
+
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { value, checked } = event.target;
+        setValue("tipoUser", checked 
+            ? [...tipoUserValues, value] 
+            : tipoUserValues.filter((v: any) => v !== value)
+        );
+    };
+
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="m-7 grid grid-cols-12 gap-5">
             <div className="col-span-12">
-                <Subtitle subtitle="Informação pessoais"></Subtitle>
+                <Subtitle subtitle="Informação pessoais" />
             </div>
 
             {/* Nome usuario */}
@@ -77,7 +89,7 @@ function Form() {
 
             {/* CPF */}
             <div className="col-span-12 sm:col-span-5">
-                    <Input
+                <Input
                     label="CPF"
                     placeholder="Digite seu CPF"
                     mask="###.###.###-##"
@@ -89,7 +101,7 @@ function Form() {
 
             {/* Criar senha */}
             <div className="col-span-12 sm:col-span-5">
-                 <Input
+                <Input
                     label="Criar senha"
                     placeholder="Digite uma senha"
                     type="password"
@@ -101,7 +113,7 @@ function Form() {
 
             {/* Confirme senha */}
             <div className="col-span-12 sm:col-span-5">
-                 <Input
+                <Input
                     label="Confirme sua senha"
                     placeholder="Confirme sua senha"
                     type="password"
@@ -110,21 +122,37 @@ function Form() {
                     {...register("confirmarSenha")}
                 />
             </div>
-            {/* ASdf */}
-            {/* <div className="col-span-12 sm:col-span-5">
-                <Select
-                    label="Categoria"
-                    options={[
-                        { value: 'categoria1', label: 'Categoria 1' },
-                        { value: 'categoria2', label: 'Categoria 2' },
-                    ]}
-                    error={errors.categoria?.message}
-                    {...register("categoria")}
-                />
-            </div> */}
+
             <div className="col-span-12">
-                <Subtitle subtitle="Tipo de usuário"></Subtitle>
+                <Subtitle subtitle="Tipo de usuário" />
             </div>
+            
+            {/* Tipo de usuário */}
+            <div className="col-span-12 sm:col-span-5">
+                <Checkbox 
+                    label="Administrador" 
+                    value="administrador"
+                    onChange={handleCheckboxChange}
+                    checked={tipoUserValues.includes("administrador")}
+                />
+            </div>
+
+            <div className="col-span-12 sm:col-span-5">
+                <Checkbox 
+                    label="Professor" 
+                    value="professor"
+                    onChange={handleCheckboxChange}
+                    checked={tipoUserValues.includes("professor")}
+                />
+            </div>
+
+            {/* Exibir erro de tipoUser */}
+            {errors.tipoUser && (
+                <div className="col-span-12 text-red-500">
+                    {errors.tipoUser.message}
+                </div>
+            )}
+
             {/* Submit Button */}
             <div className="col-span-12 flex justify-end">
                 <Button text="Cadastrar" type="submit" />
@@ -139,7 +167,7 @@ function CadastrarUsuario() {
             <h1 className="font-bold m-7 text-text_title">Cadastrar usuário</h1>
             <Form />
         </section>
-    )
+    );
 }
 
 export default CadastrarUsuario;

@@ -19,6 +19,12 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   col?: string;
 }
 
+interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  label: string;
+  error?: string;
+  value: string;
+}
+
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, placeholder, error, mask, replacement, type = 'text', showPasswordToggle = false, ...rest }, ref) => {
     const [showPassword, setShowPassword] = useState(false);
@@ -37,8 +43,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             mask={mask}
             replacement={replacement}
-            className={`bg-gray-50 border border-gray-300 text-text_primary text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
-              ${error ? 'bg-red-50 border border-alert_erro text-red-900 placeholder-red-700 text-sm rounded focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'border-gray-300'}`}
+            className={`${error ? 'border border-alert_error text-sm rounded focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
+               : 'border border-gray-300 text-text_primary text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}`}
             placeholder={placeholder}
             type={type}
             {...rest}
@@ -46,8 +52,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         ) : (
           <input
             ref={ref}
-            className={`bg-gray-50 border border-gray-300 text-text_primary text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
-              ${error ? 'bg-red-50 border border-alert_erro text-red-900 placeholder-red-700 text-sm rounded focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'border-gray-300'}`}
+            className={`${error ? 'border border-alert_error text-sm rounded focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' 
+              : 'border border-gray-300 text-text_primary text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}`}
             placeholder={placeholder}
             type={showPasswordToggle && showPassword ? 'text' : type}
             {...rest}
@@ -62,7 +68,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {showPassword ? 'v' : 'f'}
           </button>
         )}
-        {error && <p className="text-alert_erro text-xs mt-1">{error}</p>}
+        {error && <p className="text-alert_error text-xs mt-1">{error}</p>}
       </div>
     );
   }
@@ -88,6 +94,28 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           ))}
         </select>
         {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+      </div>
+    );
+  }
+);
+
+export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
+  ({ label, error, value, ...rest }, ref) => {
+    const id = React.useId();
+    return (
+      <div className="flex items-center">
+        <input
+          ref={ref}
+          type="checkbox"
+          id={id}
+          className={`cursor-pointer form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out ${error ? 'border-alert_error' : 'border-gray-300'}`}
+          value={value}
+          {...rest}
+        />
+        <label htmlFor={id} className="ml-2 text-sm text-text_primary">
+          {label}
+        </label>
+        {error && <p className="text-alert_error text-xs ml-2">{error}</p>}
       </div>
     );
   }

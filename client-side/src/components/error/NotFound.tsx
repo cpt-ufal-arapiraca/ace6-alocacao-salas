@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 function NotFound() {
     return (
         <div>
-           <button className="bg-blue-500 w-40 text-white p-2 rounded">
-            <Link to="/alocsalas">
-                telaInicial
-            </Link>
-            </button>
+            <h1>404 - Página não encontrada!</h1>
+            <p>Desculpe, a página que você está procurando não
+ foi encontrada ou o caminho está incorreto.</p>
         </div>
+
+
+
     )
 }
 

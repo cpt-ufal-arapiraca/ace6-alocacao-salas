@@ -1,7 +1,13 @@
 function NotFound() {
     return (
         <div>
-            <h1>aí porra</h1> error404</div>
+            <h1>404 - Página não encontrada!</h1>
+            <p>Desculpe, a página que você está procurando não
+ foi encontrada ou o caminho está incorreto.</p>
+        </div>
+
+
+
     )
 }
 

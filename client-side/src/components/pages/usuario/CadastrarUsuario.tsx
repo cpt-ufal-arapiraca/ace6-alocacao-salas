@@ -47,7 +47,8 @@ function Form() {
         const { value, checked } = event.target;
         setValue("tipoUser", checked 
             ? [...tipoUserValues, value] 
-            : tipoUserValues.filter((v: any) => v !== value)
+            : tipoUserValues.filter((v: any) => v !== value),
+            { shouldValidate: true }
         );
     };
 

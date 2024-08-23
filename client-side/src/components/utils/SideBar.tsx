@@ -119,6 +119,7 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
         </SubMenu>
         <Border/>
         <SubMenu 
+        open={activeMenu == 'adicionar_sala' || undefined}
           label="Sala"
           rootStyles={{
             ['.' + menuClasses.subMenuContent]: {
@@ -144,6 +145,7 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
         </SubMenu>
         <Border/>
         <SubMenu 
+          open={activeMenu == 'cadastrar_disciplina' || undefined}
           label="Disciplina"
           rootStyles={{
             ['.' + menuClasses.subMenuContent]: {
@@ -169,31 +171,7 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
         </SubMenu>
         <Border/>
         <SubMenu 
-          label="Professor"
-          rootStyles={{
-            ['.' + menuClasses.subMenuContent]: {
-              backgroundColor: '#0095DA',
-            },
-          }}
-        >
-          <MenuItem 
-            active={activeMenu === 'cadastrar_professor'} 
-            onClick={() => setActiveMenu('cadastrar_professor')}
-            component={<Link to="/cadastrar-professor" />}
-          > 
-            Cadastrar professor
-          </MenuItem>
-          <Border width='w-9/12'/>
-          <MenuItem 
-            active={activeMenu === 'ver_professores'} 
-            onClick={() => setActiveMenu('ver_professores')}
-            component={<Link to="/ver-professores" />}
-          > 
-            Ver professores
-          </MenuItem>
-        </SubMenu>
-        <Border/>
-        <SubMenu 
+          open={activeMenu == 'cadastrar_turma' || undefined}
           label="Turma"
           rootStyles={{
             ['.' + menuClasses.subMenuContent]: {

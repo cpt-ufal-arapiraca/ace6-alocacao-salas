@@ -52,7 +52,7 @@ function Form() {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="m-7 sm:me-0 grid grid-cols-12 gap-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="m-7 grid grid-cols-12 gap-5">
             <div className="col-span-12">
                 <Subtitle subtitle="Informação pessoais" />
             </div>

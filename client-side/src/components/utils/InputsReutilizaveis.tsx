@@ -7,7 +7,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: string;
   mask?: string;
   replacement?: Record<string, RegExp>;
-  type?: string;
+  type?: string | 'text' | 'number'; 
   showPasswordToggle?: boolean;
 }
 
@@ -26,7 +26,7 @@ interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, placeholder, error, mask, replacement, type = 'text', showPasswordToggle = false, ...rest }, ref) => {
+  ({ label, placeholder, error, mask, replacement, type, showPasswordToggle = false, ...rest }, ref) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleTogglePassword = () => {

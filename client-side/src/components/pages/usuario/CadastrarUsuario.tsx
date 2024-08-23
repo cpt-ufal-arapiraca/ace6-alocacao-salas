@@ -37,7 +37,7 @@ function Form() {
         },
     });
 
-    const tipoUserValues: any = watch("tipoUser"); // Observa o valor de tipoUser
+    const tipoUserValues: any = watch("tipoUser");
 
     const onSubmit = (data: FormData) => {
         console.log(data);
@@ -52,7 +52,7 @@ function Form() {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="m-7 grid grid-cols-12 gap-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="m-7 sm:me-0 grid grid-cols-12 gap-5">
             <div className="col-span-12">
                 <Subtitle subtitle="Informação pessoais" />
             </div>
@@ -128,33 +128,48 @@ function Form() {
             </div>
             
             {/* Tipo de usuário */}
-            <div className="col-span-12 sm:col-span-5">
-                <Checkbox 
-                    label="Administrador" 
-                    value="administrador"
-                    onChange={handleCheckboxChange}
-                    checked={tipoUserValues.includes("administrador")}
-                />
-            </div>
+            <div className='col-span-12 sm:col-span-5'>
+                <div className={`
+                ${errors.tipoUser ? 'border border-alert_error col-span-12 rounded p-2': "border col-span-12 rounded p-2"}`}>
+<div className='grid grid-cols-12 gap-5'>
+                    <div className="col-span-12 sm:col-span-6">
+                        <Checkbox 
+                            label="Administrador" 
+                            value="administrador"
+                            onChange={handleCheckboxChange}
+                            checked={tipoUserValues.includes("administrador")}
+                        />
+                    </div>
 
-            <div className="col-span-12 sm:col-span-5">
-                <Checkbox 
-                    label="Professor" 
-                    value="professor"
-                    onChange={handleCheckboxChange}
-                    checked={tipoUserValues.includes("professor")}
-                />
-            </div>
-
-            {/* Exibir erro de tipoUser */}
-            {errors.tipoUser && (
-                <div className="col-span-12 text-red-500">
-                    {errors.tipoUser.message}
+                    <div className="col-span-12 sm:col-span-6">
+                        <Checkbox 
+                            label="Gerente" 
+                            value="gerente"
+                            onChange={handleCheckboxChange}
+                            checked={tipoUserValues.includes("gerente")}
+                        />
+                    </div>
+                    
+                    <div className="col-span-12 sm:col-span-6">
+                        <Checkbox 
+                            label="Professor" 
+                            value="professor"
+                            onChange={handleCheckboxChange}
+                            checked={tipoUserValues.includes("professor")}
+                        />
+                    </div>
                 </div>
-            )}
+                </div>
+                {/* Exibir erro de tipoUser */}
+                {errors.tipoUser && (
+                    <div className="col-span-12 text-alert_error text-xs">
+                        {errors.tipoUser.message}
+                    </div>
+                )}
+            </div>
 
             {/* Submit Button */}
-            <div className="col-span-12 flex justify-end">
+            <div className="col-span-12 mb-5 sm:mb-0 flex justify-end">
                 <Button text="Cadastrar" type="submit" />
             </div>
         </form>
@@ -164,7 +179,7 @@ function Form() {
 function CadastrarUsuario() {
     return (
         <section>
-            <h1 className="font-bold m-7 text-text_title">Cadastrar usuário</h1>
+            <h1 className="font-bold ms-7 m-2 sm:m-7 text-text_title">Cadastrar usuário</h1>
             <Form />
         </section>
     );

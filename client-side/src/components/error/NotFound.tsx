@@ -7,7 +7,7 @@ function NotFound() {
             <h1>404 - Página não encontrada!</h1>
             <p>Desculpe, a página que você está procurando não
  foi encontrada ou o caminho está incorreto.</p>
-        <Button to="alocsalas" text="teste"></Button>
+        <Button to="/" text="teste"></Button>
         </div>
 
 

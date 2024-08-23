@@ -38,36 +38,42 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <label className="block mb-1 text-sm font-bold text-text_primary dark:text-white">
           {label}
         </label>
-        {mask ? (
-          <InputMask
-            ref={ref}
-            mask={mask}
-            replacement={replacement}
-            className={`${error ? 'border border-alert_error text-sm rounded focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
-               : 'border border-gray-300 text-text_primary text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}`}
-            placeholder={placeholder}
-            type={type}
-            {...rest}
-          />
-        ) : (
-          <input
-            ref={ref}
-            className={`${error ? 'border border-alert_error text-sm rounded focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' 
-              : 'border border-gray-300 text-text_primary text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}`}
-            placeholder={placeholder}
-            type={showPasswordToggle && showPassword ? 'text' : type}
-            {...rest}
-          />
-        )}
-        {showPasswordToggle && (
-          <button
-            type="button"
-            onClick={handleTogglePassword}
-            className="absolute inset-y-0 right-0 flex items-center pr-3"
-          >
-            {showPassword ? 'v' : 'f'}
-          </button>
-        )}
+        <div className="relative">
+          {mask ? (
+            <InputMask
+              ref={ref}
+              mask={mask}
+              replacement={replacement}
+              className={`${error ? 'border border-alert_error text-sm rounded focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
+                 : 'border border-gray-300 text-text_primary text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}`}
+              placeholder={placeholder}
+              type={type}
+              {...rest}
+            />
+          ) : (
+            <input
+              ref={ref}
+              className={`${error ? 'border border-alert_error text-sm rounded focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' 
+                : 'border border-gray-300 text-text_primary text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}`}
+              placeholder={placeholder}
+              type={showPasswordToggle && showPassword ? 'text' : type}
+              {...rest}
+            />
+          )}
+          {showPasswordToggle && (
+            <button
+              type="button"
+              onClick={handleTogglePassword}
+              className="absolute inset-y-0 right-0 flex items-center pr-3 text-text_primary"
+            >
+              {showPassword ? (
+                <i className="fi fi-rr-eye flex items-center"></i>
+              ) : (
+                <i className="fi fi-rr-eye-crossed flex items-center"></i>
+              )}
+            </button>
+          )}
+        </div>
         {error && <p className="text-alert_error text-xs mt-1">{error}</p>}
       </div>
     );

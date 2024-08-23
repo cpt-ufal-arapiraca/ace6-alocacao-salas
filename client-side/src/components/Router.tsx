@@ -9,7 +9,7 @@ function AppRouter() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="alocsalas" element={<Page/>}>
+                <Route path="/" element={<Page/>}>
                     <Route index element={<Navigate to={"inicio"}/>}/>
                     <Route path="inicio" element={<Inicio/>}/>
                     <Route path="cadastrar-usuario" element={<CadastrarUsuario/>}/>

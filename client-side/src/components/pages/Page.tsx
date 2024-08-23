@@ -18,10 +18,10 @@ function Page() {
   return (
     <div style={{ display: 'flex', height: '100dvh', minHeight: '400px' }}>
       <SideBar toggled={toggled} setToggled={setToggled} isMobile={isMobile} />
-      <main className="overflow-y-auto" style={{ flex: 1}}>
+      <main className="sm:overflow-y-auto" style={{ flex: 1}}>
         {isMobile && (
-          <button className="sb-button" onClick={() => setToggled(!toggled)}>
-            {toggled ? 'Fechar menu' : 'Abrir menu'}
+          <button className="mt-5 ms-7 mb-0" onClick={() => setToggled(!toggled)}>
+            {toggled ? (<i className="fi fi-rr-cross"></i>) : (<i className="fi fi-rr-menu-burger"></i>)}
           </button>
         )}
         <section>

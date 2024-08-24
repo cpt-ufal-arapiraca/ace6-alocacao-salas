@@ -22,31 +22,31 @@ function Tabela(){
                 </div>
             </div>
             <div className="col-span-12">
-                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div className="relative overflow-x-auto shadow-md rounded">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead className="text-xs h-14 text-white bg-button_blue dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" className="px-6 py-3">
-                                    Product name
+                                    No
                                 </th>
                                 <th scope="col" className="px-6 py-3">
-                                    Color
+                                    Usuário
                                 </th>
                                 <th scope="col" className="px-6 py-3">
-                                    Category
+                                    Cargo
                                 </th>
                                 <th scope="col" className="px-6 py-3">
-                                    Price
+                                    lorem
                                 </th>
                                 <th scope="col" className="px-6 py-3">
-                                    Action
+                                    Ações
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Apple MacBook Pro 17"
+                            <tr className="odd:bg-white text-text_primary odd:dark:bg-gray-900 even:bg-table even:dark:bg-gray-800 dark:border-gray-700">
+                                <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
+                                    1
                                 </th>
                                 <td className="px-6 py-4">
                                     Silver
@@ -58,79 +58,86 @@ function Tabela(){
                                     $2999
                                 </td>
                                 <td className="px-6 py-4">
-                                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                   <div className="grid grid-cols-12">
+                                        <div className="cursor-pointer col-span-6 justify-self-center">
+                                            <i className="fi fi-rr-pencil flex items-center"></i>
+                                        </div>
+                                        <div className="cursor-pointer col-span-6 justify-self-center">
+                                            <i className="fi fi-rr-cross-circle flex items-center"></i>
+                                        </div>
+                                   </div>
                                 </td>
                             </tr>
-                            <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Microsoft Surface Pro
+                            <tr className="odd:bg-white text-text_primary odd:dark:bg-gray-900 even:bg-table even:dark:bg-gray-800 dark:border-gray-700">
+                                <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
+                                    2
                                 </th>
                                 <td className="px-6 py-4">
-                                    White
+                                    Silver
                                 </td>
                                 <td className="px-6 py-4">
-                                    Laptop PC
+                                    Laptop
                                 </td>
                                 <td className="px-6 py-4">
-                                    $1999
+                                    $2999
                                 </td>
                                 <td className="px-6 py-4">
-                                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                   <div className="grid grid-cols-12">
+                                        <div className="cursor-pointer col-span-6 justify-self-center">
+                                            <i className="fi fi-rr-pencil flex items-center"></i>
+                                        </div>
+                                        <div className="cursor-pointer col-span-6 justify-self-center">
+                                            <i className="fi fi-rr-cross-circle flex items-center"></i>
+                                        </div>
+                                   </div>
                                 </td>
                             </tr>
-                            <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Magic Mouse 2
+                            <tr className="odd:bg-white text-text_primary odd:dark:bg-gray-900 even:bg-table even:dark:bg-gray-800 dark:border-gray-700">
+                                <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
+                                    3
                                 </th>
                                 <td className="px-6 py-4">
-                                    Black
+                                    Silver
                                 </td>
                                 <td className="px-6 py-4">
-                                    Accessories
+                                    Laptop
                                 </td>
                                 <td className="px-6 py-4">
-                                    $99
+                                    $2999
                                 </td>
                                 <td className="px-6 py-4">
-                                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                </td>
-                            </tr>
-                            <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Google Pixel Phone
-                                </th>
-                                <td className="px-6 py-4">
-                                    Gray
-                                </td>
-                                <td className="px-6 py-4">
-                                    Phone
-                                </td>
-                                <td className="px-6 py-4">
-                                    $799
-                                </td>
-                                <td className="px-6 py-4">
-                                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Apple Watch 5
-                                </th>
-                                <td className="px-6 py-4">
-                                    Red
-                                </td>
-                                <td className="px-6 py-4">
-                                    Wearables
-                                </td>
-                                <td className="px-6 py-4">
-                                    $999
-                                </td>
-                                <td className="px-6 py-4">
-                                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                   <div className="grid grid-cols-12">
+                                        <div className="cursor-pointer col-span-6 justify-self-center">
+                                            <i className="fi fi-rr-pencil flex items-center"></i>
+                                        </div>
+                                        <div className="cursor-pointer col-span-6 justify-self-center">
+                                            <i className="fi fi-rr-cross-circle flex items-center"></i>
+                                        </div>
+                                   </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+            <div className="col-span-12">
+                <div className="text-text_primary text-xs grid grid-cols-2 justify-self-start">
+                    <div className="col-span-1 flex items-center">
+                        Página 1 de 27
+                    </div>
+                    <div className="col-span-1 justify-self-end">
+                        <div className="grid grid-cols-3 gap-2">
+                            <div className="col-span-1 text-white flex justify-center items-center rounded bg-button_blue h-8 w-8">
+                                1
+                            </div>
+                            <div className="col-span-1 flex justify-center items-center rounded border border-text_secondary h-8 w-8">
+                                2
+                            </div>
+                            <div className="col-span-1 flex justify-center items-center rounded border border-text_secondary h-8 w-8">
+                                3
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

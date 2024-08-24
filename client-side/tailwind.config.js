@@ -15,6 +15,9 @@ module.exports = {
         border_sidebar: '#47B3E4',
         border_input: '#BDBDBD',
         border_subTitle: '#C4C4C4',
+
+        table: '#E0E0E066',
+        
         text_title: '#333333',
         text_primary: '#4F4F4F',
         text_secondary: '#828282'

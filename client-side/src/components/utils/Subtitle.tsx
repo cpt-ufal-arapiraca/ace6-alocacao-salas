@@ -3,7 +3,7 @@ interface subtitleProps {
 }
 function Subtitle({subtitle}:subtitleProps) {
     return (
-        <div className="border-b-2 text-text_secondary">
+        <div className="border-b border-border_subTitle text-text_secondary">
             {subtitle}
             </div>
     )

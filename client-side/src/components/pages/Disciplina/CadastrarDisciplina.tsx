@@ -1,11 +1,9 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Input, Checkbox } from "../../utils/InputsReutilizaveis";
+import { Input } from "../../utils/InputsReutilizaveis";
 import Button from "../../utils/Button";
 import Subtitle from "../../utils/Subtitle";
-import ValidarCPF from "../../utils/ValidarCPF";
 
 const schema = z.object({
     nome: z.string().min(1, "Nome da disciplina é obrigatório"),
@@ -18,7 +16,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 function Form() {
-    const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<FormData>({
+    const { register, handleSubmit, formState: { errors }} = useForm<FormData>({
         resolver: zodResolver(schema),
     });
 

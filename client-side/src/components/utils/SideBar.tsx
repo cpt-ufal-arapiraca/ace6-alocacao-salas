@@ -93,7 +93,7 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
         </MenuItem>
         <Border/>
         <SubMenu 
-          open={activeMenu == 'cadastrar_usuario' || activeMenu ==  'ver_usuarios' || undefined}
+          open={activeMenu === 'cadastrar_usuario' || activeMenu ===  'ver_usuarios' || undefined}
           label="Usuário"
           rootStyles={{
             ['.' + menuClasses.subMenuContent]: {
@@ -119,7 +119,7 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
         </SubMenu>
         <Border/>
         <SubMenu 
-        open={activeMenu == 'adicionar_sala' || activeMenu === 'ver_salas' || undefined}
+        open={activeMenu === 'adicionar_sala' || activeMenu === 'ver_salas' || undefined}
           label="Sala"
           rootStyles={{
             ['.' + menuClasses.subMenuContent]: {
@@ -145,7 +145,7 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
         </SubMenu>
         <Border/>
         <SubMenu 
-          open={activeMenu == 'cadastrar_disciplina' || activeMenu === 'ver_disciplinas' || undefined}
+          open={activeMenu === 'cadastrar_disciplina' || activeMenu === 'ver_disciplinas' || undefined}
           label="Disciplina"
           rootStyles={{
             ['.' + menuClasses.subMenuContent]: {
@@ -171,7 +171,7 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
         </SubMenu>
         <Border/>
         <SubMenu 
-          open={activeMenu == 'cadastrar_turma' || activeMenu === 'ver_turmas' || undefined}
+          open={activeMenu === 'cadastrar_turma' || activeMenu === 'ver_turmas' || undefined}
           label="Turma"
           rootStyles={{
             ['.' + menuClasses.subMenuContent]: {

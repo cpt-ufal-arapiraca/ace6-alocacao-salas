@@ -5,6 +5,7 @@ import Inicio from "./pages/Inicio";
 import CadastrarUsuario from "./pages/usuario/CadastrarUsuario";
 import VerUsuarios from "./pages/usuario/VerUsuarios";
 import AdicionarSala from "./pages/sala/AdicionarSala";
+import CadastrarDisciplina from "./pages/Disciplina/CadastrarDisciplina";
 
 function AppRouter() {
     return (
@@ -16,6 +17,7 @@ function AppRouter() {
                     <Route path="cadastrar-usuario" element={<CadastrarUsuario/>}/>
                     <Route path="ver-usuarios" element={<VerUsuarios/>}/>
                     <Route path="adicionar-sala" element={<AdicionarSala/>}/>
+                    <Route path="cadastrar-disciplina" element={<CadastrarDisciplina/>}/>
                 </Route>
                 <Route path="*"  element={<NotFound/>}/>
             </Routes>

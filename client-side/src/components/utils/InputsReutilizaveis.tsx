@@ -45,7 +45,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               mask={mask}
               replacement={replacement}
               className={`${error ? 'border border-alert_error text-sm rounded focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
-                 : 'border border-gray-300 text-text_primary text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}`}
+                 : 'border border-border_input text-text_primary text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}`}
               placeholder={placeholder}
               type={type}
               {...rest}
@@ -54,7 +54,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             <input
               ref={ref}
               className={`${error ? 'border border-alert_error text-sm rounded focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' 
-                : 'border border-gray-300 text-text_primary text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}`}
+                : 'border border-border_input text-text_primary text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}`}
               placeholder={placeholder}
               type={showPasswordToggle && showPassword ? 'text' : type}
               {...rest}
@@ -114,7 +114,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           ref={ref}
           type="checkbox"
           id={id}
-          className={`cursor-pointer form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out ${error ? 'border-alert_error' : 'border-gray-300'}`}
+          className={`cursor-pointer form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out ${error ? 'border-alert_error' : 'border-border_input'}`}
           value={value}
           {...rest}
         />

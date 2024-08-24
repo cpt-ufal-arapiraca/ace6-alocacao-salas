@@ -36,26 +36,20 @@ function Tabela(){
                                     Cargo
                                 </th>
                                 <th scope="col" className="px-6 py-3">
-                                    lorem
-                                </th>
-                                <th scope="col" className="px-6 py-3">
                                     Ações
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="odd:bg-white text-text_primary odd:dark:bg-gray-900 even:bg-table even:dark:bg-gray-800 dark:border-gray-700">
+                        <tr className="odd:bg-white text-text_primary odd:dark:bg-gray-900 even:bg-table even:dark:bg-gray-800 dark:border-gray-700">
                                 <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
                                     1
                                 </th>
                                 <td className="px-6 py-4">
-                                    Silver
+                                    Roberto
                                 </td>
                                 <td className="px-6 py-4">
-                                    Laptop
-                                </td>
-                                <td className="px-6 py-4">
-                                    $2999
+                                    <div className="bg-green-500 text-white text-xs rounded-full w-min p-1">Gerente</div>
                                 </td>
                                 <td className="px-6 py-4">
                                    <div className="grid grid-cols-12">
@@ -73,13 +67,10 @@ function Tabela(){
                                     2
                                 </th>
                                 <td className="px-6 py-4">
-                                    Silver
+                                    Raquel
                                 </td>
                                 <td className="px-6 py-4">
-                                    Laptop
-                                </td>
-                                <td className="px-6 py-4">
-                                    $2999
+                                    <div className="bg-button_blue text-white text-xs rounded-full w-min p-1">Admin</div>
                                 </td>
                                 <td className="px-6 py-4">
                                    <div className="grid grid-cols-12">
@@ -97,13 +88,10 @@ function Tabela(){
                                     3
                                 </th>
                                 <td className="px-6 py-4">
-                                    Silver
+                                    Vitoria
                                 </td>
                                 <td className="px-6 py-4">
-                                    Laptop
-                                </td>
-                                <td className="px-6 py-4">
-                                    $2999
+                                    <div className="bg-button_blue text-white text-xs rounded-full w-min p-1">Admin</div>
                                 </td>
                                 <td className="px-6 py-4">
                                    <div className="grid grid-cols-12">

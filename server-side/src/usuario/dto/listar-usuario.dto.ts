@@ -45,7 +45,7 @@ export class ListarUsuarioDTO {
     @Type(() => Number)
     @IsOptional()
     @IsInt()
-    cursor?: number
+    pagina?: number
 
     @CustomApiProperty({
         description: 'ordenação dos usuários',

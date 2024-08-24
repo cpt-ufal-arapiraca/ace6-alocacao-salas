@@ -184,7 +184,7 @@ export class UsuarioService {
   }
 
   async listar(listarUsuarioDTO: ListarUsuarioDTO): Promise<any> {
-    return await this.prisma.usuario
+    const usuarios = await this.prisma.usuario
       .findMany({
         where: {
           AND: [
@@ -209,11 +209,8 @@ export class UsuarioService {
               : {},
           ],
         },
-        skip: listarUsuarioDTO.cursor ? 1 : undefined,
+        skip: listarUsuarioDTO.pagina ? (listarUsuarioDTO.pagina - 1) * 10 : undefined,
         take: 10,
-        cursor: listarUsuarioDTO.cursor
-          ? { usuario_id: listarUsuarioDTO.cursor }
-          : undefined,
         orderBy: {
           usuario_nome: listarUsuarioDTO.ordenacao,
         },
@@ -232,6 +229,16 @@ export class UsuarioService {
       .catch((e) => {
         throw this.prisma.tratamentoErros(e);
       });
+
+      const totalUsuarios = await this.prisma.usuario.count();
+
+      return {
+          total: totalUsuarios,
+          pagina: listarUsuarioDTO.pagina,
+          quantidada: 10,
+          usuarios: usuarios,
+      };
+
   }
 
   async deletar(deletarUsuarioDTO: DeletarUsuarioDTO): Promise<any> {

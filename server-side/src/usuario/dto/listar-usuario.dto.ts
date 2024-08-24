@@ -38,7 +38,7 @@ export class ListarUsuarioDTO {
     tipo_usuario_id_fk ?: TipoUsuarioIndexEnum;
 
     @CustomApiProperty({
-        description: 'cursor para rolagem infinita',
+        description: 'Valor para paginação',
         required: false,
     })
     @Generate(() => faker.number.int({min:1, max: 10}))

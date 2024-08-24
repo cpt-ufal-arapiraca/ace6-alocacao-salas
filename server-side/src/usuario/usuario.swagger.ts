@@ -47,7 +47,7 @@ class TipoUsuarioAutenticacao200DTO {
     @Generate(() => faker.helpers.arrayElement([...Object.values(TipoUsuarioEnum)]))
     tipo_usuario_nome: string;
 }
-class ObterAutenticacao200DTO {
+class ObterUsuario200DTO {
 
     @CustomApiProperty({
         description: 'ID do usuário',
@@ -86,25 +86,35 @@ export function ObterUsuarioDocs() {
         ApiResponse({
             status: 200,
             description: 'Usuário obtido com sucesso',
-            type: ObterAutenticacao200DTO,
+            type: ObterUsuario200DTO,
         }),
     );
 }
-
-
 class ListarUsuarioAutenticacao200DTO {
 
     @CustomApiProperty({
-        description: 'Cursor para rolagem infinita',
+        description: 'Total de usuários',
     })
-    @Generate(() => faker.number.int({min:1, max: 10}))
-    cursor: number;
+    @Generate(() => faker.number.int({min:1, max: 100}))
+    total: number;
 
     @CustomApiProperty({
-        type: [ObterAutenticacao200DTO],
+        description: 'Valor para paginação',
+    })
+    @Generate(() => faker.number.int({min:1, max: 10}))
+    pagina: number;
+
+    @CustomApiProperty({
+        description: 'Quantidade de usuários retornados',
+    })
+    @Generate(() => 10)
+    quantidada: number;
+
+    @CustomApiProperty({
+        type: [ObterUsuario200DTO],
         description: 'Listar de usuários',
     })
-    data: ObterAutenticacao200DTO[];
+    usuarios: ObterUsuario200DTO[];
 }
 
 export function ListarUsuarioDocs() {

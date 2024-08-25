@@ -1,13 +1,19 @@
-import { Link } from "react-router-dom";
 import Button from "../utils/Button";
+import Img from "./Error-404.png";
 
 function NotFound() {
     return (
-        <div>
-            <h1>404 - Página não encontrada!</h1>
-            <p>Desculpe, a página que você está procurando não
- foi encontrada ou o caminho está incorreto.</p>
-        <Button to="/" text="teste"></Button>
+        <div className="h-full flex items-center">
+            <img src={Img} alt="error" />
+
+
+            <div className="h-full">
+                <h1 className="text-5xl"><b>404 - Página não encontrada!</b></h1>
+                <p className="text-2xl"> Desculpe, a página que você está procurando não <br />
+                    foi encontrada ou o caminho está incorreto.</p>
+                <Button to="alocsalas" text="Tela inicial">
+                </Button>
+            </div>
         </div>
 
 

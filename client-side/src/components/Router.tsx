@@ -8,6 +8,7 @@ import AdicionarSala from "./pages/sala/AdicionarSala";
 import CadastrarDisciplina from "./pages/Disciplina/CadastrarDisciplina";
 import CadastrarTurma from "./pages/Turma/CadastrarTurma";
 import VerSalas from "./pages/sala/VerSalas";
+import VerDisciplinas from "./pages/Disciplina/VerDisciplinas";
 
 function AppRouter() {
     return (
@@ -21,6 +22,7 @@ function AppRouter() {
                     <Route path="adicionar-sala" element={<AdicionarSala/>}/>
                     <Route path="ver-salas" element={<VerSalas/>}/>
                     <Route path="cadastrar-disciplina" element={<CadastrarDisciplina/>}/>
+                    <Route path="ver-disciplinas" element={<VerDisciplinas/>}/>
                     <Route path="cadastrar-turma" element={<CadastrarTurma/>}/>
                 </Route>
                 <Route path="*"  element={<NotFound/>}/>

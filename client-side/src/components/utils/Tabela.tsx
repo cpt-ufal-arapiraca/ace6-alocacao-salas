@@ -1,18 +1,22 @@
-function Tabela(){
+interface tableProps {
+    pesquisa: string
+}
+function Tabela( {pesquisa}: tableProps){
     return (
         <section className="m-7 grid grid-cols-12 gap-5">
             <div className="col-span-12 flex justify-end">
                 <div className="grid grid-cols-12 gap-2">
                     <div className="col-span-10 flex">
-                    <form className="max-w-md mx-auto">   
-                        <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Pesquisar</label>
-                        <div className="relative">
-                            <input type="text" className="block w-full p-2.5 border border-border_input rounded text-text_primary text-sm " placeholder="Pesquise por um usuário" required />
-                            <div className="text-text_primary absolute inset-y-0 end-3 flex items-center ps-3 pointer-events-none">
-                               <i className="fi fi-rr-search flex items-center"></i>
+                        <form className="w-full">   
+                            <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Pesquisar</label>
+                            <div className="relative">
+                                <input type="text" className="block w-full p-2.5 border border-border_input rounded text-text_primary text-sm " 
+                                placeholder={pesquisa} required />
+                                <div className="text-text_primary absolute inset-y-0 end-3 flex items-center ps-3 pointer-events-none">
+                                <i className="fi fi-rr-search flex items-center"></i>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
                     </div>
                     <div className="col-span-2 flex">
                         <div className=" h-10 w-10 bg-button_blue rounded-full flex items-center justify-center">

@@ -6,7 +6,7 @@ interface BorderProps {
   width?: string,
 }
 
-function Border({width = 'w-10/12'}: BorderProps){
+function Border({ width = 'w-10/12' }: BorderProps) {
   return (
     <div className='flex justify-center'>
       <p className={`border-b-2 border-border_sidebar ${width}`}></p>
@@ -20,7 +20,7 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
 
   useEffect(() => {
     const path = location.pathname;
-    
+
     if (path.startsWith('/inicio')) {
       setActiveMenu('inicio');
     } else if (path.startsWith('/cadastrar-usuario')) {
@@ -49,15 +49,15 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
   }, [location]);
 
   return (
-   <Sidebar
-      backgroundColor="#0095DA" 
+    <Sidebar
+      backgroundColor="#0095DA"
       toggled={toggled}
       breakPoint="md"
       onBackdropClick={() => setToggled(false)}
     >
-        {isMobile && (
-          <p className="flex justify-end p-2 text-white" onClick={() => setToggled(!toggled)}>{<i className="fi fi-rr-cross"></i>}</p>
-        )}
+      {isMobile && (
+        <p className="flex justify-end p-2 text-white" onClick={() => setToggled(!toggled)}>{<i className="fi fi-rr-cross"></i>}</p>
+      )}
       <div className='h-44 flex flex-col justify-center items-center'>
         <div className='h-20 w-20 rounded-full bg-slate-100'>
         </div>
@@ -66,138 +66,131 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
       <Menu
         menuItemStyles={{
           button: ({ level, active, disabled, open }) => {
-            if (level === 0)
+            if (level === 0 || level === 1) {
               return {
                 color: disabled ? '#f5d9ff' : '#FFFFFF',
-                backgroundColor: active ? '#00AEFF' : open ? '#092C4C' : undefined,
+                backgroundColor: active ? '#00AEFF' : open ? '#0074AA' : undefined,
                 '&:hover': {
-                  backgroundColor: '#1C79A5',
+                  backgroundColor: active ? '#00AEFF' : 'rgba(11, 174, 250, 0.4)',
                 },
               };
-            if (level === 1)
-              return {
-                color: disabled ? '#f5d9ff' : '#FFFFFF',
-                backgroundColor: active ? '#00AEFF' : open ? '#092C4C' : undefined,
-                '&:hover': {
-                  backgroundColor: '#1C79A5',
-                },
-              };
+            }
           },
         }}
       >
-        <MenuItem 
-          active={activeMenu === 'inicio'} 
+        <MenuItem
+          active={activeMenu === 'inicio'}
           onClick={() => setActiveMenu('inicio')}
           component={<Link to="/inicio" />} >
           Início
         </MenuItem>
-        <Border/>
-        <SubMenu 
-          open={activeMenu === 'cadastrar_usuario' || activeMenu ===  'ver_usuarios' || undefined}
+        <Border />
+        <SubMenu
+          open={activeMenu === 'cadastrar_usuario' || activeMenu === 'ver_usuarios' || undefined}
           label="Usuário"
           rootStyles={{
             ['.' + menuClasses.subMenuContent]: {
-              backgroundColor: '#0095DA',
+              backgroundColor: '#0089C8',
             },
           }}
         >
-          <MenuItem 
-            active={activeMenu === 'cadastrar_usuario'} 
+          <MenuItem
+            active={activeMenu === 'cadastrar_usuario'}
             onClick={() => setActiveMenu('cadastrar_usuario')}
-            component={<Link to="/cadastrar-usuario" />} 
-          > 
+            component={<Link to="/cadastrar-usuario" />}
+          >
             Cadastrar usuário
           </MenuItem>
-          <Border width='w-9/12'/>
-          <MenuItem 
-            active={activeMenu === 'ver_usuarios'} 
+          <Border width='w-9/12' />
+          <MenuItem
+            active={activeMenu === 'ver_usuarios'}
             onClick={() => setActiveMenu('ver_usuarios')}
-            component={<Link to="/ver-usuarios" />} 
-          > 
+            component={<Link to="/ver-usuarios" />}
+          >
             Ver usuários
           </MenuItem>
         </SubMenu>
-        <Border/>
-        <SubMenu 
-        open={activeMenu === 'adicionar_sala' || activeMenu === 'ver_salas' || undefined}
+        <Border />
+        <SubMenu
+          open={activeMenu === 'adicionar_sala' || activeMenu === 'ver_salas' || undefined}
           label="Sala"
           rootStyles={{
             ['.' + menuClasses.subMenuContent]: {
-              backgroundColor: '#0095DA',
+              backgroundColor: '#0089C8',
             },
           }}
         >
-          <MenuItem 
-            active={activeMenu === 'adicionar_sala'} 
+          <MenuItem
+            active={activeMenu === 'adicionar_sala'}
             onClick={() => setActiveMenu('adicionar_sala')}
             component={<Link to="/adicionar-sala" />}
-          > 
+          >
             Adicionar sala
           </MenuItem>
-          <Border width='w-9/12'/>
-          <MenuItem 
-            active={activeMenu === 'ver_salas'} 
+          <Border width='w-9/12' />
+          <MenuItem
+            active={activeMenu === 'ver_salas'}
             onClick={() => setActiveMenu('ver_salas')}
             component={<Link to="/ver-salas" />}
-          > 
+          >
             Ver salas
           </MenuItem>
         </SubMenu>
-        <Border/>
-        <SubMenu 
+        <Border />
+        <SubMenu
           open={activeMenu === 'cadastrar_disciplina' || activeMenu === 'ver_disciplinas' || undefined}
           label="Disciplina"
           rootStyles={{
             ['.' + menuClasses.subMenuContent]: {
-              backgroundColor: '#0095DA',
+              backgroundColor: '#0089C8',
             },
           }}
         >
-          <MenuItem 
-            active={activeMenu === 'cadastrar_disciplina'} 
+          <MenuItem
+            active={activeMenu === 'cadastrar_disciplina'}
             onClick={() => setActiveMenu('cadastrar_disciplina')}
             component={<Link to="/cadastrar-disciplina" />}
-          > 
+          >
             Cadastrar disciplina
           </MenuItem>
-          <Border width='w-9/12'/>
-          <MenuItem 
-            active={activeMenu === 'ver_disciplinas'} 
+          <Border width='w-9/12' />
+          <MenuItem
+            active={activeMenu === 'ver_disciplinas'}
             onClick={() => setActiveMenu('ver_disciplinas')}
             component={<Link to="/ver-disciplinas" />}
-          > 
+          >
             Ver disciplinas
           </MenuItem>
         </SubMenu>
-        <Border/>
-        <SubMenu 
+        <Border />
+        <SubMenu
           open={activeMenu === 'cadastrar_turma' || activeMenu === 'ver_turmas' || undefined}
           label="Turma"
           rootStyles={{
             ['.' + menuClasses.subMenuContent]: {
-              backgroundColor: '#0095DA',
+              backgroundColor: '#0089C8',
             },
           }}
         >
-          <MenuItem 
-            active={activeMenu === 'cadastrar_turma'} 
+          <MenuItem
+            active={activeMenu === 'cadastrar_turma'}
             onClick={() => setActiveMenu('cadastrar_turma')}
             component={<Link to="/cadastrar-turma" />}
-          > 
+          >
             Cadastrar turma
           </MenuItem>
-          <Border width='w-9/12'/>
-          <MenuItem 
-            active={activeMenu === 'ver_turmas'} 
+          <Border width='w-9/12' />
+          <MenuItem
+            active={activeMenu === 'ver_turmas'}
             onClick={() => setActiveMenu('ver_turmas')}
             component={<Link to="/ver-turmas" />}
-          > 
+          >
             Ver turmas
           </MenuItem>
         </SubMenu>
-        <Border/>
-        <MenuItem 
-          active={activeMenu === 'sair'} 
+        <Border />
+        <MenuItem
+          active={activeMenu === 'sair'}
           onClick={() => setActiveMenu('sair')}>
           Sair
         </MenuItem>

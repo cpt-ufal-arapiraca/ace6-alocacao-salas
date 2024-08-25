@@ -78,7 +78,7 @@ function Form() {
             {/* Tipo de sala */}
             <div className='col-span-12 sm:col-span-5'>
                 <div className={`
-                ${errors.tipoSala ? 'border border-alert_error col-span-12 rounded p-2' : "border col-span-12 rounded p-2"}`}>
+                ${errors.tipoSala ? 'border border-alert_error col-span-12 rounded p-2' : "border border-border_input col-span-12 rounded p-2"}`}>
                     <div className='grid grid-cols-12 gap-5'>
                         <div className="col-span-12 xl:col-span-6">
                             <Checkbox 

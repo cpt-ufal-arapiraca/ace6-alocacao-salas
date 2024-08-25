@@ -7,7 +7,7 @@ function NotFound() {
             <img src={Img} alt="error" />
 
 
-            <div className="h-full">
+            <div className="h-full text-center">
                 <h1 className="text-5xl"><b>404 - Página não encontrada!</b></h1>
                 <p className="text-2xl"> Desculpe, a página que você está procurando não <br />
                     foi encontrada ou o caminho está incorreto.</p>

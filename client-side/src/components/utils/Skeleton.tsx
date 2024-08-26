@@ -1,28 +1,6 @@
-function Skeleton() {
+export function SkeletonTable() {
     return (
-        <section className="m-7 grid grid-cols-12 gap-5">
-            <div className="col-span-12 flex justify-end">
-                <div className="grid grid-cols-12 gap-2">
-                        <div className="col-span-10 flex">
-                            <form className="w-full">   
-                                <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Pesquisar</label>
-                                <div className="relative">
-                                    <input type="text" className="block w-full p-2.5 border border-border_input rounded text-text_primary text-sm " 
-                                    placeholder='lorem' required />
-                                    <div className="text-text_primary absolute inset-y-0 end-3 flex items-center ps-3 pointer-events-none">
-                                    <i className="fi fi-rr-search flex items-center"></i>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div className="col-span-2 flex">
-                            <div className=" h-10 w-10 bg-button_blue rounded-full flex items-center justify-center">
-                                <i className="fi fi-rr-plus text-white flex items-center"></i>
-                            </div>
-                        </div>  
-                    </div>
-            </div>
-            <div className="col-span-12">
+        <div className="col-span-12">
             <div className="h-14 flex items-center justify-between p-4 bg-blue-400 animate-pulse">
                 <div className="h-3 bg-blue-300 rounded-full w-12"></div>
                 <div className="h-3 bg-blue-300 rounded-full w-12"></div>
@@ -44,6 +22,11 @@ function Skeleton() {
                 </div>
             ))}
         </div>
+    )
+}
+
+export function SkeletonPagination(){
+    return (
         <div className="col-span-12">
                 <div className="text-text_primary text-xs grid grid-cols-2 justify-self-start">
                     <div className="col-span-1 flex items-center">
@@ -58,8 +41,5 @@ function Skeleton() {
                     </div>
                 </div>
             </div>
-        </section>
     )
 }
-
-export default Skeleton;

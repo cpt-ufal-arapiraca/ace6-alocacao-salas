@@ -9,6 +9,8 @@ module.exports = {
         button_blue_active: '#536B82',
         button_red: '#ED1C24',
 
+        bg_red_secondary: '#ED1C240F',
+
         alert_error: '#EB5757',
         alert_success: '#27AE60',
 

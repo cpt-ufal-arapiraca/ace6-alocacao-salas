@@ -1,9 +1,7 @@
 function Inicio() {
     return (
-        <div>
-            Inicio
-        </div>
-    )
-}
+      <div>Tela inicial</div>
+    );
+  }
 
 export default Inicio;

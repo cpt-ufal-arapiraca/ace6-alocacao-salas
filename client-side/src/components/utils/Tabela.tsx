@@ -1,7 +1,17 @@
+import { useEffect, useState } from "react";
+import { SkeletonPagination, SkeletonTable } from "./Skeleton";
+
 interface tableProps {
     pesquisa: string
 }
 function Tabela( {pesquisa}: tableProps){
+    const [showTable, setShowTable] = useState(false);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowTable(true)
+        }, 1000);
+        return () => clearTimeout(timer)
+    })
     return (
         <section className="m-7 grid grid-cols-12 gap-5">
             <div className="col-span-12 flex justify-end">
@@ -25,7 +35,8 @@ function Tabela( {pesquisa}: tableProps){
                     </div>  
                 </div>
             </div>
-            <div className="col-span-12">
+            {showTable ? (
+                <div className="col-span-12">
                 <div className="relative overflow-x-auto shadow-md rounded">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead className="text-xs h-14 text-white bg-button_blue dark:bg-gray-700 dark:text-gray-400">
@@ -112,7 +123,11 @@ function Tabela( {pesquisa}: tableProps){
                     </table>
                 </div>
             </div>
-            <div className="col-span-12">
+            ) : (
+                <SkeletonTable/>
+            )}
+            {showTable ? (
+                <div className="col-span-12">
                 <div className="text-text_primary text-xs grid grid-cols-2 justify-self-start">
                     <div className="col-span-1 flex items-center">
                         Página 1 de 27
@@ -132,6 +147,10 @@ function Tabela( {pesquisa}: tableProps){
                     </div>
                 </div>
             </div>
+            ) : (
+                <SkeletonPagination/>
+            )}
+            
         </section>
     )
 }

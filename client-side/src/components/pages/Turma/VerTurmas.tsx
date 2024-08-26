@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Tabela from "../../utils/Tabela";
 
 function VerTurmas() {

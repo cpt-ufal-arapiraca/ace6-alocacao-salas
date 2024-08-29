@@ -16,7 +16,6 @@ function AppRouter() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Page/>}>
-                    <Route index element={<Navigate to={"inicio"}/>}/>
                     <Route path="inicio" element={<Inicio/>}/>
                     <Route path="cadastrar-usuario" element={<CadastrarUsuario/>}/>
                     <Route path="ver-usuarios" element={<VerUsuarios/>}/>
@@ -26,6 +25,7 @@ function AppRouter() {
                     <Route path="ver-disciplinas" element={<VerDisciplinas/>}/>
                     <Route path="cadastrar-turma" element={<CadastrarTurma/>}/>
                     <Route path="ver-turmas" element={<VerTurmas/>}/>
+                    <Route index element={<Navigate to={"inicio"}/>}/>
                 </Route>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>

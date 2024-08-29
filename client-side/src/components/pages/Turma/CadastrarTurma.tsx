@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { Input, Checkbox } from "../../utils/InputsReutilizaveis";
 import Button from "../../utils/Button";
 import Subtitle from "../../utils/Subtitle";
+import Alert from '../../utils/Alert';
 
 const schema = z.object({
     nome: z.string().min(1, "Nome da disciplina é obrigatório"),
@@ -137,6 +138,7 @@ function Form() {
                 ) : (
                     <Button text="Cadastrar" type="submit" />
                 )}
+                <Alert background='bg-alert_success' text='Turma atualizada com sucesso!'/>
             </div>
         </form>
     );

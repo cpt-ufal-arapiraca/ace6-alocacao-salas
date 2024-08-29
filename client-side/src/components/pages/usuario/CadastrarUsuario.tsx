@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -6,6 +6,7 @@ import { Input, Checkbox } from "../../utils/InputsReutilizaveis";
 import Button from "../../utils/Button";
 import Subtitle from "../../utils/Subtitle";
 import ValidarCPF from "../../utils/ValidarCPF";
+import Alert from '../../utils/Alert';
 
 const schema = z.object({
     nome: z.string().min(1, "Nome é obrigatório"),
@@ -47,6 +48,7 @@ function Form() {
         }, 2000);
     };
 
+    
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value, checked } = event.target;
         setValue("tipoUser", checked 
@@ -106,6 +108,39 @@ function Form() {
 
             {/* Criar senha */}
             <div className="col-span-12 sm:col-span-5">
+                <Input
+                    label="Criar senha"
+                    placeholder="Digite uma senha"
+                    type="password"
+                    showPasswordToggle
+                    error={errors.senha?.message}
+                    {...register("senha")}
+                />
+            </div>
+             {/* Criar senha */}
+             <div className="col-span-12 sm:col-span-5">
+                <Input
+                    label="Criar senha"
+                    placeholder="Digite uma senha"
+                    type="password"
+                    showPasswordToggle
+                    error={errors.senha?.message}
+                    {...register("senha")}
+                />
+            </div>
+             {/* Criar senha */}
+             <div className="col-span-12 sm:col-span-5">
+                <Input
+                    label="Criar senha"
+                    placeholder="Digite uma senha"
+                    type="password"
+                    showPasswordToggle
+                    error={errors.senha?.message}
+                    {...register("senha")}
+                />
+            </div>
+             {/* Criar senha */}
+             <div className="col-span-12 sm:col-span-5">
                 <Input
                     label="Criar senha"
                     placeholder="Digite uma senha"
@@ -182,6 +217,7 @@ function Form() {
                 ) : (
                     <Button text="Cadastrar" type="submit" />
                 )}
+                    <Alert background='bg-alert_error' text='Não foi possível alterar!'/>
             </div>
         </form>
     );

@@ -52,7 +52,7 @@ model sessao {
 
 model sala {
   sala_id     Int    @id @default(autoincrement())
-  codigo_sala String @db.VarChar(11)
+  codigo_sala String @unique(map: "codigo_sala_unique") @db.VarChar(11)
   tipo        String @db.VarChar(20)
   bloco       String @db.VarChar(20)
   capacidade  Int

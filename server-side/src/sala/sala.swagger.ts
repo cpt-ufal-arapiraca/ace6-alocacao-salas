@@ -13,5 +13,20 @@ export function CadastrarSalaDocs() {
             description: 'Sala cadastrada com sucesso',
         }),
     );
+    
+    
 }
+
+export function RemoverSalaDocs() {
+    return applyDecorators(
+        ApiTags('Sala'),
+        ApiBearerAuth(),
+        ApiOperation({ summary: 'Remover Sala' }),
+        ApiResponse({
+            status: 200,
+            description: 'Sala removida com sucesso',
+        }),
+    );
+}
+
 

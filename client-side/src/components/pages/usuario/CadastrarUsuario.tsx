@@ -7,12 +7,13 @@ import Button from "../../utils/Button";
 import Subtitle from "../../utils/Subtitle";
 import ValidarCPF from "../../utils/ValidarCPF";
 import Alert from '../../utils/Alert';
+import api from '../../../api/axios';
 
 const schema = z.object({
-    nome: z.string().min(1, "Nome é obrigatório"),
+    usuario_nome: z.string().min(1, "Nome é obrigatório"),
     id: z.string().min(1, "O ID-Siape é obrigatório"),
-    email: z.string().email("Email inválido"),
-    cpf: z.string()
+    usuario_email: z.string().email("Email inválido"),
+    usuario_cpf: z.string()
         .min(14, "CPF deve ter 11 dígitos")
         .max(14, "CPF deve ter 11 dígitos")
         .refine((cpf) => ValidarCPF(cpf), {
@@ -23,7 +24,7 @@ const schema = z.object({
         .regex(/[A-Z]/, "A senha deve conter pelo menos uma letra maiúscula")
         .regex(/[0-9]/, "A senha deve conter pelo menos um número")
         .regex(/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/, "A senha deve conter pelo menos um caractere especial"),
-    confirmarSenha: z.string()
+    autenticacao_senha: z.string()
         .min(8, "A confirmação da senha deve ter pelo menos 8 caracteres"),
     tipoUser: z.array(z.string()).nonempty("Pelo menos um tipo de usuário deve ser selecionado"),
 });
@@ -40,12 +41,27 @@ function Form() {
     const [click, setClick] = useState(false);
     const tipoUserValues: any = watch("tipoUser");
 
-    const onSubmit = (data: FormData) => {
+    const onSubmit = async (data: FormData) => {
         setClick(true);
+        const data2 = {
+            autenticacao_senha: "Teste123@",
+            usuario_cpf : "713.659.914-82",
+            usuario_email: "asdf@alsd.com",
+            usuario_nome: "ASDf asdfasf"
+        }
         console.log(data);
-        setTimeout(() => {
+        try {
+            const response = await api.get('http://localhost:5555/administrador/verificar');
             setClick(false);
-        }, 2000);
+            return response
+        }   catch (error) {
+            setClick(false);
+            console.error('Erro ao buscar dados do usuário:', error);
+            throw error;
+          }
+        // setTimeout(() => {
+        //     setClick(false);
+        // }, 2000);
     };
 
     
@@ -69,8 +85,8 @@ function Form() {
                 <Input
                     label="Nome"
                     placeholder="Digite seu nome"
-                    error={errors.nome?.message}
-                    {...register("nome")}
+                    error={errors.usuario_nome?.message}
+                    {...register("usuario_nome")}
                 />
             </div>
 
@@ -89,8 +105,8 @@ function Form() {
                 <Input
                     label="Email"
                     placeholder="Digite seu email"
-                    error={errors.email?.message}
-                    {...register("email")}
+                    error={errors.usuario_email?.message}
+                    {...register("usuario_email")}
                 />
             </div>
 
@@ -101,8 +117,8 @@ function Form() {
                     placeholder="Digite seu CPF"
                     mask="###.###.###-##"
                     replacement={{ '#': /\d/ }}
-                    error={errors.cpf?.message}
-                    {...register("cpf")}
+                    error={errors.usuario_cpf?.message}
+                    {...register("usuario_cpf")}
                 />
             </div>
 
@@ -117,40 +133,7 @@ function Form() {
                     {...register("senha")}
                 />
             </div>
-             {/* Criar senha */}
-             <div className="col-span-12 sm:col-span-5">
-                <Input
-                    label="Criar senha"
-                    placeholder="Digite uma senha"
-                    type="password"
-                    showPasswordToggle
-                    error={errors.senha?.message}
-                    {...register("senha")}
-                />
-            </div>
-             {/* Criar senha */}
-             <div className="col-span-12 sm:col-span-5">
-                <Input
-                    label="Criar senha"
-                    placeholder="Digite uma senha"
-                    type="password"
-                    showPasswordToggle
-                    error={errors.senha?.message}
-                    {...register("senha")}
-                />
-            </div>
-             {/* Criar senha */}
-             <div className="col-span-12 sm:col-span-5">
-                <Input
-                    label="Criar senha"
-                    placeholder="Digite uma senha"
-                    type="password"
-                    showPasswordToggle
-                    error={errors.senha?.message}
-                    {...register("senha")}
-                />
-            </div>
-
+             
             {/* Confirme senha */}
             <div className="col-span-12 sm:col-span-5">
                 <Input
@@ -158,8 +141,8 @@ function Form() {
                     placeholder="Confirme sua senha"
                     type="password"
                     showPasswordToggle
-                    error={errors.confirmarSenha?.message}
-                    {...register("confirmarSenha")}
+                    error={errors.autenticacao_senha?.message}
+                    {...register("autenticacao_senha")}
                 />
             </div>
 

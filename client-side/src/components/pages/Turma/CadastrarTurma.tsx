@@ -29,10 +29,14 @@ function Form() {
 
     const onSubmit = (data: FormData) => {
         setClick(true);
+        fetch('http://localhost:5555/administrador')
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
         console.log(data);
-        setTimeout(() => {
-            setClick(false);
-        }, 2000);
+        // setTimeout(() => {
+        //     setClick(false);
+        // }, 2000);
     };
 
     const [click, setClick] = useState(false);

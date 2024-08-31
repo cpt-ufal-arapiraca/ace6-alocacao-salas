@@ -1,7 +1,8 @@
-import {IsEmail, IsNotEmpty, IsStrongPassword, Validate} from 'class-validator';
+import {IsEmail, IsInt, IsNotEmpty, IsOptional, IsStrongPassword, Validate} from 'class-validator';
 import {CustomApiProperty, Generate} from "@decorators-custom";
 import faker from "@faker-custom";
 import {CpfValido, NomeValido} from "@validate-custom";
+import {Type} from "class-transformer";
 
 export class CadastrarUsuarioDTO {
 
@@ -22,6 +23,14 @@ export class CadastrarUsuarioDTO {
     @IsNotEmpty()
     @Validate(CpfValido)
     usuario_cpf : string;
+
+    @CustomApiProperty({
+        description: 'Siape do usuário',
+        required: true,
+    })
+    @Generate(() => faker.number.int({min: 1, max: 100}))
+    @IsInt()
+    usuario_siape : number;
 
     @CustomApiProperty({
         description: 'Email do usuário',

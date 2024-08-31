@@ -39,6 +39,22 @@ export function AtualizarUsuarioDocs() {
     );
 }
 
+class TipoUsuario2Autenticacao200DTO {
+
+    @CustomApiProperty({
+        description: 'Tipo do usuário ID',
+    })
+    @Generate(() => faker.helpers.arrayElement([...Object.values(TipoUsuarioIndexEnum)]))
+    tipo_usuario_id: number;
+
+    @CustomApiProperty({
+        description: 'Tipo do usuário nome',
+    })
+    @Generate(() => faker.helpers.arrayElement([...Object.values(TipoUsuarioEnum)]))
+    tipo_usuario_nome: string;
+
+}
+
 class TipoUsuarioAutenticacao200DTO {
 
     @CustomApiProperty({
@@ -75,7 +91,7 @@ class ObterUsuario200DTO {
     @CustomApiProperty({
         description: 'Tipo do usuário',
     })
-    tipo_usuario: TipoUsuarioAutenticacao200DTO;
+    tipo_usuario: TipoUsuario2Autenticacao200DTO;
 }
 
 export function ObterUsuarioDocs() {
@@ -99,20 +115,20 @@ class ListarUsuarioAutenticacao200DTO {
     total: number;
 
     @CustomApiProperty({
-        description: 'Valor para paginação',
+        description: 'Valor de paginação atual',
     })
     @Generate(() => faker.number.int({min:1, max: 10}))
     pagina: number;
 
     @CustomApiProperty({
-        description: 'Quantidade de usuários retornados',
+        description: 'Quantidade de total de páginas',
     })
     @Generate(() => 10)
-    quantidada: number;
+    quantidade: number;
 
     @CustomApiProperty({
         type: [ObterUsuario200DTO],
-        description: 'Listar de usuários',
+        description: 'Lista de usuários',
     })
     usuarios: ObterUsuario200DTO[];
 }
@@ -142,21 +158,6 @@ export function DeletarUsuarioDocs() {
     );
 }
 
-class TipoUsuario2Autenticacao200DTO {
-
-    @CustomApiProperty({
-        description: 'Tipo do usuário ID',
-    })
-    @Generate(() => faker.helpers.arrayElement([...Object.values(TipoUsuarioIndexEnum)]))
-    tipo_usuario_id: number;
-
-    @CustomApiProperty({
-        description: 'Tipo do usuário nome',
-    })
-    @Generate(() => faker.helpers.arrayElement([...Object.values(TipoUsuarioEnum)]))
-    tipo_usuario_nome: string;
-
-}
 export function ListarTipoUsuarioDocs() {
     return applyDecorators(
         ApiTags('Usuario'),

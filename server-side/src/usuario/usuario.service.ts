@@ -221,7 +221,8 @@ export class UsuarioService {
           usuario_email: true,
           tipo_usuario: {
             select: {
-              tipo_usuario_nome: true,
+                tipo_usuario_id: true,
+                tipo_usuario_nome: true,
             },
           },
         },
@@ -235,7 +236,7 @@ export class UsuarioService {
       return {
           total: totalUsuarios,
           pagina: listarUsuarioDTO.pagina,
-          quantidada: 10,
+          quantidade: Math.ceil(totalUsuarios/10),
           usuarios: usuarios,
       };
 

@@ -1,41 +1,45 @@
 import { useEffect, useState } from "react";
-import { SkeletonPagination, SkeletonTable } from "./Skeleton";
+import UsuarioInterface from "../../interface/Usuario";
+import Modal from "./Modal";
+import api from "../../api/axios";
+import Alert from "./Alert";
 
-interface tableProps {
-    pesquisa: string
+interface TableProps {
+    dados: UsuarioInterface | null;
 }
-function Tabela( {pesquisa}: tableProps){
-    const [showTable, setShowTable] = useState(false);
+
+function Tabela({ dados }: TableProps) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDelete, setIsDelete] = useState(false);
+    const [usuarioId, setUsuarioId] = useState<number | null>(null);
+
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setShowTable(true)
-        }, 1000);
-        return () => clearTimeout(timer)
-    })
+        let timer: NodeJS.Timeout;
+        if (isDelete) {
+            timer = setTimeout(() => setIsDelete(false), 5000);
+        }
+        return () => clearTimeout(timer);
+    }, [isDelete]);
+    
+    const handleConfirm = async () => {
+        if (usuarioId) {
+            try {
+                const response = await api.delete(`/usuario/${usuarioId}`);
+                {response.status === 200 ? (
+                    setIsDelete(true)
+                ): setIsDelete(false)}
+            } catch (error) {
+                setIsDelete(false)
+                console.error('Erro ao deletar usuário:', error);
+            } finally {
+                setIsModalOpen(false);
+                setUsuarioId(null);
+            }
+        }
+    };
+
     return (
         <section className="m-7 grid grid-cols-12 gap-5">
-            <div className="col-span-12 flex justify-end">
-                <div className="grid grid-cols-12 gap-2">
-                    <div className="col-span-10 flex">
-                        <form className="w-full">   
-                            <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Pesquisar</label>
-                            <div className="relative">
-                                <input type="text" className="block w-full p-2.5 border border-border_input rounded text-text_primary text-sm " 
-                                placeholder={pesquisa} required />
-                                <div className="text-text_primary absolute inset-y-0 end-3 flex items-center ps-3 pointer-events-none">
-                                <i className="fi fi-rr-search flex items-center"></i>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div className="col-span-2 flex">
-                        <div className=" h-10 w-10 bg-button_blue rounded-full flex items-center justify-center">
-                            <i className="fi fi-rr-plus text-white flex items-center"></i>
-                        </div>
-                    </div>  
-                </div>
-            </div>
-            {showTable ? (
                 <div className="col-span-12">
                 <div className="relative overflow-x-auto shadow-md rounded">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -55,104 +59,65 @@ function Tabela( {pesquisa}: tableProps){
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
-                        <tr className="odd:bg-white text-text_primary odd:dark:bg-gray-900 even:bg-table even:dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
-                                    1
-                                </th>
-                                <td className="px-6 py-4">
-                                    Roberto
-                                </td>
-                                <td className="px-6 py-4">
-                                    <div className="bg-green-500 text-white text-xs rounded-full w-min p-1">Gerente</div>
-                                </td>
-                                <td className="px-6 py-4">
-                                   <div className="grid grid-cols-12">
-                                        <div className="cursor-pointer col-span-6 justify-self-center">
-                                            <i className="fi fi-rr-pencil flex items-center"></i>
+                        {dados!.usuarios.length > 0 && (
+                            <tbody>
+                            {dados && dados.usuarios.map((usuario, index) => (
+                                <tr
+                                    key={usuario.usuario_id}
+                                    className="odd:bg-white text-text_primary odd:dark:bg-gray-900 even:bg-table even:dark:bg-gray-800 dark:border-gray-700"
+                                >
+                                    <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
+                                        {index + 1}
+                                    </th>
+                                    <td className="px-6 py-4">{usuario.usuario_nome}</td>
+                                    <td className="px-6 py-4">
+                                        <div className={`${usuario.tipo_usuario.tipo_usuario_nome === 'Administrador' ? 'bg-cargo_user_admin' : usuario.tipo_usuario.tipo_usuario_nome === 'Gerente' ? 'bg-cargo_user_gerente': 'bg-cargo_user_professor'} text-white text-xs rounded-full w-min p-1`}>
+                                            {usuario.tipo_usuario.tipo_usuario_nome}
                                         </div>
-                                        <div className="cursor-pointer col-span-6 justify-self-center">
-                                            <i className="fi fi-rr-cross-circle flex items-center"></i>
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <div className="grid grid-cols-12">
+                                            <div className="cursor-pointer col-span-6 justify-self-center">
+                                                <i className="fi fi-rr-pencil flex items-center text-xl"></i>
+                                            </div>
+                                            <div
+                                                onClick={() => {
+                                                    setUsuarioId(usuario.usuario_id);
+                                                    setIsModalOpen(true);
+                                                }}
+                                                className="cursor-pointer col-span-6 justify-self-center"
+                                            >
+                                                <i className="fi fi-rr-cross-circle flex items-center text-xl"></i>
+                                            </div>
                                         </div>
-                                   </div>
-                                </td>
-                            </tr>
-                            <tr className="odd:bg-white text-text_primary odd:dark:bg-gray-900 even:bg-table even:dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
-                                    2
-                                </th>
-                                <td className="px-6 py-4">
-                                    Raquel
-                                </td>
-                                <td className="px-6 py-4">
-                                    <div className="bg-button_blue text-white text-xs rounded-full w-min p-1">Admin</div>
-                                </td>
-                                <td className="px-6 py-4">
-                                   <div className="grid grid-cols-12">
-                                        <div className="cursor-pointer col-span-6 justify-self-center">
-                                            <i className="fi fi-rr-pencil flex items-center"></i>
-                                        </div>
-                                        <div className="cursor-pointer col-span-6 justify-self-center">
-                                            <i className="fi fi-rr-cross-circle flex items-center"></i>
-                                        </div>
-                                   </div>
-                                </td>
-                            </tr>
-                            <tr className="odd:bg-white text-text_primary odd:dark:bg-gray-900 even:bg-table even:dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
-                                    3
-                                </th>
-                                <td className="px-6 py-4">
-                                    Vitoria
-                                </td>
-                                <td className="px-6 py-4">
-                                    <div className="bg-button_blue text-white text-xs rounded-full w-min p-1">Admin</div>
-                                </td>
-                                <td className="px-6 py-4">
-                                   <div className="grid grid-cols-12">
-                                        <div className="cursor-pointer col-span-6 justify-self-center">
-                                            <i className="fi fi-rr-pencil flex items-center"></i>
-                                        </div>
-                                        <div className="cursor-pointer col-span-6 justify-self-center">
-                                            <i className="fi fi-rr-cross-circle flex items-center"></i>
-                                        </div>
-                                   </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
+                        )
+                    } 
                     </table>
-                </div>
-            </div>
-            ) : (
-                <SkeletonTable/>
-            )}
-            {showTable ? (
-                <div className="col-span-12">
-                <div className="text-text_primary text-xs grid grid-cols-2 justify-self-start">
-                    <div className="col-span-1 flex items-center">
-                        Página 1 de 27
-                    </div>
-                    <div className="col-span-1 justify-self-end">
-                        <div className="grid grid-cols-3 gap-2">
-                            <div className="col-span-1 text-white flex justify-center items-center rounded bg-button_blue h-8 w-8">
-                                1
-                            </div>
-                            <div className="col-span-1 flex justify-center items-center rounded border border-text_secondary h-8 w-8">
-                                2
-                            </div>
-                            <div className="col-span-1 flex justify-center items-center rounded border border-text_secondary h-8 w-8">
-                                3
-                            </div>
+                    {dados?.usuarios.length == 0 && (
+                        <div className="h-14 flex justify-center items-center">
+                            <h1 className="font-bold text-xl text-text_title">Nenhum usuário encontrado</h1>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
-            ) : (
-                <SkeletonPagination/>
+            <Modal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onConfirm={handleConfirm}
+                title="Tem certeza?"
+                content="Essa ação removerá o usuário do sistema. Essa ação não é reversível."
+                confirmText="Sim, deletar"
+                cancelText="Cancelar"
+            />
+            {isDelete && (
+                <Alert background='bg-alert_success' text='Usuário apagado com sucesso!'/>
             )}
-            
         </section>
-    )
+    );
 }
 
 export default Tabela;

@@ -15,7 +15,7 @@ const Modal = ({ isOpen, onClose, title, content, confirmText, cancelText, onCon
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
-    <div className="fixed inset-0 flex items-center justify-center transition-opacity duration-700 ease-in-out">
+    <div className="z-50 fixed inset-0 flex items-center justify-center transition-opacity duration-700 ease-in-out">
       <div className="bg-black opacity-50 fixed inset-0" onClick={onClose}></div>
       <div className="bg-white h-96 grid content-between flex-col p-6 rounded shadow-2xl border max-w-sm w-full transform transition-transform duration-300 ease-in-out scale-95">
         <div className='flex justify-end'>

@@ -61,7 +61,9 @@ function VerUsuarios() {
         async function initialFetch() {
             try {
                 await fetchAllUsuarios(currentPage);
-                setLoading(false);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 500);
             } catch (error) {
                 console.error('Erro ao buscar dados do usuário:', error);
                 setLoading(false);

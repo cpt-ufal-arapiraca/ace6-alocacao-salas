@@ -13,7 +13,6 @@ import { UsuarioAtualizarInterface } from '../../../interface/Usuario';
 
 const schema = z.object({
     usuario_nome: z.string().min(1, "Nome é obrigatório"),
-    id: z.string().min(1, "O ID-Siape é obrigatório"),
     usuario_email: z.string().email("Email inválido"),
     usuario_cpf: z.string()
         .min(14, "CPF deve ter 11 dígitos")
@@ -21,7 +20,7 @@ const schema = z.object({
         .refine((cpf) => ValidarCPF(cpf), {
             message: "CPF inválido",
         }),
-    tipo_usuario: z.array(z.string()).nonempty("Pelo menos um tipo de usuário deve ser selecionado"),
+    tipo_usuario: (z.string()).nonempty("Selecione um tipo de usuário"),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -31,13 +30,13 @@ export function Form() {
     const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<FormData>({
         resolver: zodResolver(schema),
         defaultValues: {
-            tipo_usuario: [],
+            tipo_usuario: '',
         },
     });
     const [click, setClick] = useState(false);
     const tipoUserValues: any = watch("tipo_usuario") || [];
     const location = useLocation();
-    const usuarioId  = useParams().id;
+    const usuarioId  = Number(useParams().id);
 
     const onSubmit = async (data: FormData) => {
         setClick(true);
@@ -68,11 +67,12 @@ export function Form() {
                     const response = await api.get<UsuarioAtualizarInterface>(`/usuario/${usuarioId}`);
                     if (response.status === 200) {
                         const data = response.data;
+                        console.log(data.tipo_usuario.tipo_usuario_id);
+                        
                         setValue("usuario_nome", data.usuario_nome);
-                        setValue("id", String(data.usuario_id));
                         setValue("usuario_email", data.usuario_email);
                         setValue("usuario_cpf", formatCPF(data.usuario_cpf));
-                        setValue("tipo_usuario",  [data.tipo_usuario.tipo_usuario_nome]);
+                        setValue("tipo_usuario",  String(data.tipo_usuario.tipo_usuario_id));
                     }
                 } catch (error) {
                     console.error("Erro ao buscar dados do usuário:", error);
@@ -83,14 +83,8 @@ export function Form() {
     }, [location.pathname, usuarioId, setValue]);
     
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { value, checked } = event.target;
-        setValue(
-            "tipo_usuario",
-            checked 
-                ? [...tipoUserValues, value] 
-                : tipoUserValues.filter((v: any) => v !== value),
-            { shouldValidate: true }
-        );
+        const { value } = event.target;
+        setValue("tipo_usuario", value, { shouldValidate: true });
     };
 
     return (
@@ -110,26 +104,6 @@ export function Form() {
                 />
             </div>
 
-            {/* ID-Siape */}
-            <div className="col-span-12 sm:col-span-5">
-                <Input
-                    label="ID-Siape"
-                    placeholder="Digite o ID-Siape"
-                    error={errors.id?.message}
-                    {...register("id")}
-                />
-            </div>
-
-            {/* Email */}
-            <div className="col-span-12 sm:col-span-5">
-                <Input
-                    label="Email"
-                    placeholder="Digite seu email"
-                    error={errors.usuario_email?.message}
-                    {...register("usuario_email")}
-                />
-            </div>
-
             {/* CPF */}
             <div className="col-span-12 sm:col-span-5">
                 <Input
@@ -141,6 +115,16 @@ export function Form() {
                     {...register("usuario_cpf")}
                 />
             </div>
+            
+            {/* Email */}
+            <div className="col-span-12 sm:col-span-10">
+                <Input
+                    label="Email"
+                    placeholder="Digite seu email"
+                    error={errors.usuario_email?.message}
+                    {...register("usuario_email")}
+                />
+            </div>
 
             <div className="col-span-12">
                 <Subtitle subtitle="Tipo de usuário" />
@@ -150,41 +134,41 @@ export function Form() {
             <div className='col-span-12 sm:col-span-8'>
                 <div className={`${errors.tipo_usuario ? 'border border-alert_error col-span-12 rounded p-2' : "border border-border_input col-span-12 rounded p-2"}`}>
                     <div className='grid grid-cols-12 gap-5'>
-                        <div className="col-span-12 sm:col-span-6">
-                            <Checkbox 
-                                label="Administrador" 
-                                value="administrador"
-                                onChange={handleCheckboxChange}
-                                checked={tipoUserValues.includes("administrador")}
-                            />
-                        </div>
+                    <div className="col-span-12 sm:col-span-6">
+                        <Checkbox 
+                        label="Administrador" 
+                        value="1"
+                        onChange={handleCheckboxChange}
+                        checked={tipoUserValues.includes("1")}
+                        />
+                    </div>
 
-                        <div className="col-span-12 sm:col-span-6">
-                            <Checkbox 
-                                label="Gerente" 
-                                value="gerente"
-                                onChange={handleCheckboxChange}
-                                checked={tipoUserValues.includes("gerente")}
-                            />
-                        </div>
-                        
-                        <div className="col-span-12 sm:col-span-6">
-                            <Checkbox 
-                                label="Professor" 
-                                value="professor"
-                                onChange={handleCheckboxChange}
-                                checked={tipoUserValues.includes("professor")}
-                            />
-                        </div>
+                    <div className="col-span-12 sm:col-span-6">
+                        <Checkbox 
+                        label="Gerente" 
+                        value="2"
+                        onChange={handleCheckboxChange}
+                        checked={tipoUserValues.includes("2")}
+                        />
+                    </div>
+                    
+                    <div className="col-span-12 sm:col-span-6">
+                        <Checkbox 
+                        label="Professor" 
+                        value="4"
+                        onChange={handleCheckboxChange}
+                        checked={tipoUserValues.includes("4")}
+                        />
+                    </div>
                     </div>
                 </div>
                 {/* Exibir erro de tipo_usuario */}
                 {errors.tipo_usuario && (
                     <div className="col-span-12 text-alert_error text-xs">
-                        {errors.tipo_usuario.message}
+                    {errors.tipo_usuario.message}
                     </div>
                 )}
-            </div>
+                </div>
 
             {/* Submit Button */}
             <div className="col-span-12 mb-5 sm:mb-0 flex items-center justify-end">

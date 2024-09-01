@@ -11,7 +11,7 @@ function VerUsuarios() {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [itemsPerPage] = useState(10);
     const [totalPages, setTotalPages] = useState(1);
 
     const fetchUsuarios = async (term: string, page: number) => {
@@ -19,12 +19,12 @@ function VerUsuarios() {
             const response = await api.get<UsuarioInterface>('/usuario', {
                 params: {
                     usuario_nome: term,
-                    _page: page,
-                    _limit: itemsPerPage
+                    pagina: page,
+                    quantidada: itemsPerPage
                 }
             });
             setUsuarios(response.data);
-            const total = parseInt(response.headers['x-total-count'], 10); // Supondo que a API retorna o total de itens
+            const total = response.data.total; 
             setTotalPages(Math.ceil(total / itemsPerPage));
         } catch (error) {
             console.error('Erro ao buscar dados do usuário:', error);
@@ -35,12 +35,12 @@ function VerUsuarios() {
         try {
             const response = await api.get<UsuarioInterface>('/usuario', {
                 params: {
-                    _page: page,
-                    _limit: itemsPerPage
+                    pagina: page,
+                    quantidada: itemsPerPage
                 }
             });
             setUsuarios(response.data);
-            const total = parseInt(response.headers['x-total-count'], 10);
+            const total = response.data.total;
             setTotalPages(Math.ceil(total / itemsPerPage));
         } catch (error) {
             console.error('Erro ao buscar todos os usuários:', error);
@@ -74,7 +74,6 @@ function VerUsuarios() {
         setCurrentPage(newPage);
     };
 
-    // Calcula o intervalo de páginas a ser exibido
     const getPageNumbers = () => {
         const pages = [];
         const startPage = Math.max(1, currentPage - 1);
@@ -127,29 +126,31 @@ function VerUsuarios() {
                 <section>
                     <Tabela dados={usuarios} />
                     <section className="m-7 grid grid-cols-12 gap-5">
-                    <div className="col-span-12">
-                    <div className="text-text_primary text-xs grid grid-cols-2 justify-self-start">
-                        <div className="col-span-1 flex items-center">
-                            Página 1 de {usuarios?.usuarios ? Math.ceil(usuarios.usuarios.length / 10) : 1}
-                        </div>
-                        <div className="col-span-1 justify-self-end">
-                            <div className="grid grid-cols-3 gap-2">
-                                <div className="cursor-pointer col-span-1 text-white flex justify-center items-center rounded bg-button_blue h-8 w-8">
-                                    1
+                        <div className="col-span-12">
+                            <div className="text-text_primary text-xs grid grid-cols-2 justify-self-start">
+                                <div className="col-span-1 flex items-center">
+                                    Página {currentPage} de {totalPages}
                                 </div>
-                                <div className="cursor-pointer col-span-1 flex justify-center items-center rounded border border-text_secondary h-8 w-8">
-                                    2
-                                </div>
-                                <div className="cursor-pointer col-span-1 flex justify-center items-center rounded border border-text_secondary h-8 w-8">
-                                    3
+                                <div className="col-span-1 justify-self-end">
+                                    <div className={`grid ${totalPages === 1 ? 'grid-cols-1': totalPages === 2 ? 'grid-cols-2' : 'grid-cols-3'} gap-2`}>
+                                        {pageNumbers.map((page) => (
+                                            <div
+                                                key={page}
+                                                onClick={() => handlePageChange(page)}
+                                                className={`cursor-pointer col-span-1 flex justify-center items-center rounded h-8 w-8 ${
+                                                    currentPage === page ? 'bg-button_blue text-white' : 'border border-text_secondary text-text_primary'
+                                                }`}
+                                            >
+                                                {page}
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </section>
                 </section>
-                </section>
-            ) }
+            )}
         </section>
     );
 }

@@ -8,7 +8,8 @@ import Subtitle from "../../utils/Subtitle";
 import ValidarCPF from "../../utils/ValidarCPF";
 import Alert from '../../utils/Alert';
 import api from '../../../api/axios';
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { UsuarioAtualizarInterface } from '../../../interface/Usuario';
 
 const schema = z.object({
     usuario_nome: z.string().min(1, "Nome é obrigatório"),
@@ -20,56 +21,58 @@ const schema = z.object({
         .refine((cpf) => ValidarCPF(cpf), {
             message: "CPF inválido",
         }),
-    senha: z.string()
-        .min(8, "A senha deve ter pelo menos 8 caracteres")
-        .regex(/[A-Z]/, "A senha deve conter pelo menos uma letra maiúscula")
-        .regex(/[0-9]/, "A senha deve conter pelo menos um número")
-        .regex(/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/, "A senha deve conter pelo menos um caractere especial"),
-    autenticacao_senha: z.string()
-        .min(8, "A confirmação da senha deve ter pelo menos 8 caracteres"),
-    tipoUser: z.array(z.string()).nonempty("Pelo menos um tipo de usuário deve ser selecionado"),
+    tipo_usuario: z.array(z.string()).nonempty("Pelo menos um tipo de usuário deve ser selecionado"),
 });
 
 type FormData = z.infer<typeof schema>;
 
 export function Form() {
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<FormData>({
         resolver: zodResolver(schema),
         defaultValues: {
-            tipoUser: [],
+            tipo_usuario: [],
         },
     });
     const [click, setClick] = useState(false);
-    const tipoUserValues: any = watch("tipoUser");
+    const tipoUserValues: any = watch("tipo_usuario") || [];
     const location = useLocation();
-    const { usuarioId } = useParams();
+    const usuarioId  = useParams().id;
 
     const onSubmit = async (data: FormData) => {
         setClick(true);
+        const requestData = usuarioId ? { ...data, usuario_id: usuarioId } : data;
         try {
-            const response = await api.get('http://localhost:5555/administrador/verificar');
+            const response = usuarioId 
+                ? await api.put(`/usuario`, requestData)
+                : await api.post('/usuario', data);
+            
             setClick(false);
+            navigate("/usuarios");
             return response;
         } catch (error) {
             setClick(false);
-            console.error('Erro ao buscar dados do usuário:', error);
+            console.error('Erro ao enviar os dados:', error);
             throw error;
         }
     };
-    console.log(usuarioId);
     
+    const formatCPF = (cpf: string) => {
+        return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+    };
+
     useEffect(() => {
         if (location.pathname.includes("atualizar-usuario") && usuarioId) {
             const fetchData = async () => {
                 try {
-                    const response = await api.get(`/usuario/${usuarioId}`);
+                    const response = await api.get<UsuarioAtualizarInterface>(`/usuario/${usuarioId}`);
                     if (response.status === 200) {
-                        const { usuario_nome, id, usuario_email, usuario_cpf, tipoUser } = response.data;
-                        setValue("usuario_nome", usuario_nome);
-                        setValue("id", id);
-                        setValue("usuario_email", usuario_email);
-                        setValue("usuario_cpf", usuario_cpf);
-                        setValue("tipoUser", tipoUser);
+                        const data = response.data;
+                        setValue("usuario_nome", data.usuario_nome);
+                        setValue("id", String(data.usuario_id));
+                        setValue("usuario_email", data.usuario_email);
+                        setValue("usuario_cpf", formatCPF(data.usuario_cpf));
+                        setValue("tipo_usuario",  [data.tipo_usuario.tipo_usuario_nome]);
                     }
                 } catch (error) {
                     console.error("Erro ao buscar dados do usuário:", error);
@@ -78,11 +81,11 @@ export function Form() {
             fetchData();
         }
     }, [location.pathname, usuarioId, setValue]);
-
+    
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value, checked } = event.target;
         setValue(
-            "tipoUser",
+            "tipo_usuario",
             checked 
                 ? [...tipoUserValues, value] 
                 : tipoUserValues.filter((v: any) => v !== value),
@@ -99,6 +102,7 @@ export function Form() {
             {/* Nome usuario */}
             <div className="col-span-12 sm:col-span-5">
                 <Input
+                
                     label="Nome"
                     placeholder="Digite seu nome"
                     error={errors.usuario_nome?.message}
@@ -138,37 +142,13 @@ export function Form() {
                 />
             </div>
 
-            {/* Criar senha */}
-            <div className="col-span-12 sm:col-span-5">
-                <Input
-                    label="Criar senha"
-                    placeholder="Digite uma senha"
-                    type="password"
-                    showPasswordToggle
-                    error={errors.senha?.message}
-                    {...register("senha")}
-                />
-            </div>
-
-            {/* Confirme senha */}
-            <div className="col-span-12 sm:col-span-5">
-                <Input
-                    label="Confirme sua senha"
-                    placeholder="Confirme sua senha"
-                    type="password"
-                    showPasswordToggle
-                    error={errors.autenticacao_senha?.message}
-                    {...register("autenticacao_senha")}
-                />
-            </div>
-
             <div className="col-span-12">
                 <Subtitle subtitle="Tipo de usuário" />
             </div>
 
             {/* Tipo de usuário */}
-            <div className='col-span-12 sm:col-span-5'>
-                <div className={`${errors.tipoUser ? 'border border-alert_error col-span-12 rounded p-2' : "border border-border_input col-span-12 rounded p-2"}`}>
+            <div className='col-span-12 sm:col-span-8'>
+                <div className={`${errors.tipo_usuario ? 'border border-alert_error col-span-12 rounded p-2' : "border border-border_input col-span-12 rounded p-2"}`}>
                     <div className='grid grid-cols-12 gap-5'>
                         <div className="col-span-12 sm:col-span-6">
                             <Checkbox 
@@ -198,10 +178,10 @@ export function Form() {
                         </div>
                     </div>
                 </div>
-                {/* Exibir erro de tipoUser */}
-                {errors.tipoUser && (
+                {/* Exibir erro de tipo_usuario */}
+                {errors.tipo_usuario && (
                     <div className="col-span-12 text-alert_error text-xs">
-                        {errors.tipoUser.message}
+                        {errors.tipo_usuario.message}
                     </div>
                 )}
             </div>
@@ -225,7 +205,7 @@ function CadastrarUsuario() {
     
     return (
         <section>
-            <h1 className="font-bold ms-7 m-2 sm:m-7 text-text_title">{usuarioId ? `Atualizar usuário`: `Csadastrar usuário`}</h1>
+            <h1 className="font-bold ms-7 m-2 sm:m-7 text-text_title">{usuarioId ? `Atualizar usuário`: `Cadastrar usuário`}</h1>
             <Form />
         </section>
     );

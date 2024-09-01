@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import UsuarioInterface from "../../interface/Usuario";
+import {UsuarioInterface} from "../../interface/Usuario";
 import Modal from "./Modal";
 import api from "../../api/axios";
 import Alert from "./Alert";

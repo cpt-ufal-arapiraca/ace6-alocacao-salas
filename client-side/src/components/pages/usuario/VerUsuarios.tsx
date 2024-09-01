@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import api from "../../../api/axios";
 import Tabela from "../../utils/Tabela";
-import UsuarioInterface from "../../../interface/Usuario";
+import {UsuarioInterface} from "../../../interface/Usuario";
 import { SkeletonTable } from "../../utils/Skeleton";
 import { Link } from "react-router-dom";
 import _ from 'lodash';

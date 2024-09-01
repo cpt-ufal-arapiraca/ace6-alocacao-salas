@@ -2,7 +2,7 @@ import {IsEmail, IsEnum, IsInt, IsOptional, Validate} from 'class-validator';
 import {CustomApiProperty, Generate} from "@decorators-custom";
 import faker from "@faker-custom";
 import {NomeValido} from "@validate-custom";
-import {TipoUsuarioEnum, TipoUsuarioIndexEnum} from "../../autenticacao/enum/tipo-usuario-autenticacao.enum";
+import {TipoUsuarioIndexEnum} from "../../autenticacao/enum/tipo-usuario-autenticacao.enum";
 
 export class AtualizarUsuarioDTO {
 
@@ -34,11 +34,11 @@ export class AtualizarUsuarioDTO {
     usuario_email : string;
 
     @CustomApiProperty({
-        description: 'Tipo do usuário',
-        enum: TipoUsuarioEnum,
+        description: 'ID do Tipo de usuário',
+        enum: TipoUsuarioIndexEnum,
         required: false,
     })
-    @Generate(() => faker.helpers.arrayElement([...Object.values(TipoUsuarioIndexEnum)]))
+    @Generate(() => faker.helpers.arrayElement(Object.values(TipoUsuarioIndexEnum).slice(Math.ceil(Object.values(TipoUsuarioIndexEnum).length / 2))))
     @IsOptional()
     @IsEnum(TipoUsuarioIndexEnum)
     tipo_usuario_id_fk : TipoUsuarioIndexEnum;

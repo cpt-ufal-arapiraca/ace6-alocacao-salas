@@ -16,11 +16,11 @@ export class AdicionarUsuarioDTO {
     usuario_cpf : string;
 
     @CustomApiProperty({
-        description: 'Tipo do usuário',
-        enum: TipoUsuarioEnum,
+        description: 'ID do Tipo de usuário',
+        enum: TipoUsuarioIndexEnum,
         required: true,
     })
-    @Generate(() => faker.helpers.arrayElement([...Object.values(TipoUsuarioIndexEnum)]))
+    @Generate(() => faker.helpers.arrayElement(Object.values(TipoUsuarioIndexEnum).slice(Math.ceil(Object.values(TipoUsuarioIndexEnum).length / 2))))
     @IsEnum(TipoUsuarioIndexEnum)
     tipo_usuario_id_fk : TipoUsuarioIndexEnum;
 

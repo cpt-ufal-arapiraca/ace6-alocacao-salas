@@ -4,7 +4,6 @@ import { SituacaoLoginEnum } from '../autenticacao/enum/situacao-login-autentica
 import { AdicionarUsuarioDTO } from './dto/adicionar-usuario.dto';
 import { CadastrarUsuarioDTO } from './dto/cadastrar-usuario.dto';
 import { AtualizarUsuarioDTO } from './dto/atualizar-usuario.dto';
-import { TipoUsuarioEnum } from '../autenticacao/enum/tipo-usuario-autenticacao.enum';
 import { ObterUsuarioDTO } from './dto/obter-usuario.dto';
 import { ListarUsuarioDTO } from './dto/listar-usuario.dto';
 import { DeletarUsuarioDTO } from './dto/deletar-usuario.dto';
@@ -162,12 +161,14 @@ export class UsuarioService {
           usuario_nome: true,
           usuario_cpf: true,
           usuario_email: true,
-          tipo_usuario: {
-            select: {
-              tipo_usuario_nome: true,
+          usuario_siape: true,
+            tipo_usuario: {
+                select: {
+                    tipo_usuario_id: true,
+                    tipo_usuario_nome: true,
+                },
             },
           },
-        },
       })
       .catch((e) => {
         throw this.prisma.tratamentoErros(e);
@@ -219,6 +220,7 @@ export class UsuarioService {
           usuario_nome: true,
           usuario_cpf: true,
           usuario_email: true,
+          usuario_siape: true,
           tipo_usuario: {
             select: {
                 tipo_usuario_id: true,

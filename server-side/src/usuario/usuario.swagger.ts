@@ -3,6 +3,7 @@ import {ApiBearerAuth, ApiOperation, ApiResponse, ApiTags} from '@nestjs/swagger
 import {CustomApiProperty, Generate} from "@decorators-custom";
 import faker from "@faker-custom";
 import {TipoUsuarioEnum, TipoUsuarioIndexEnum} from "../autenticacao/enum/tipo-usuario-autenticacao.enum";
+import {IsInt} from "class-validator";
 
 export function AdicionarUsuarioDocs() {
     return applyDecorators(
@@ -42,15 +43,17 @@ export function AtualizarUsuarioDocs() {
 class TipoUsuario2Autenticacao200DTO {
 
     @CustomApiProperty({
+        enum: TipoUsuarioIndexEnum,
         description: 'Tipo do usuário ID',
     })
-    @Generate(() => faker.helpers.arrayElement([...Object.values(TipoUsuarioIndexEnum)]))
+    @Generate(() => faker.helpers.arrayElement(Object.values(TipoUsuarioIndexEnum).slice(Math.ceil(Object.values(TipoUsuarioIndexEnum).length / 2))))
     tipo_usuario_id: number;
 
     @CustomApiProperty({
+        enum: TipoUsuarioEnum,
         description: 'Tipo do usuário nome',
     })
-    @Generate(() => faker.helpers.arrayElement([...Object.values(TipoUsuarioEnum)]))
+    @Generate(() => faker.helpers.arrayElement(Object.values(TipoUsuarioEnum).slice(Math.ceil(Object.values(TipoUsuarioEnum).length / 2))))
     tipo_usuario_nome: string;
 
 }
@@ -58,9 +61,9 @@ class TipoUsuario2Autenticacao200DTO {
 class TipoUsuarioAutenticacao200DTO {
 
     @CustomApiProperty({
-        description: 'Tipo do usuário',
+        description: 'Nome de Tipo do usuário',
     })
-    @Generate(() => faker.helpers.arrayElement([...Object.values(TipoUsuarioEnum)]))
+    @Generate(() => faker.helpers.arrayElement(Object.values(TipoUsuarioEnum).slice(Math.ceil(Object.values(TipoUsuarioEnum).length / 2))))
     tipo_usuario_nome: string;
 }
 class ObterUsuario200DTO {
@@ -81,6 +84,14 @@ class ObterUsuario200DTO {
     })
     @Generate(() => faker.custom.cpf())
     usuario_cpf: string;
+
+    @CustomApiProperty({
+        description: 'Siape do usuário',
+        required: true,
+    })
+    @Generate(() => faker.number.int({min: 1, max: 1000}))
+    @IsInt()
+    usuario_siape : number;
 
     @CustomApiProperty({
         description: 'Email do usuário',

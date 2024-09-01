@@ -2,6 +2,7 @@ import {IsEnum, IsInt, IsNotEmpty, IsNumber, IsNumberString, IsString, Length, V
 import {CustomApiProperty, Generate} from "@decorators-custom";
 import faker from "@faker-custom";
 import { TipoSalaEnum } from '../enum/tipo-sala.enum';
+import {TipoUsuarioIndexEnum} from "../../autenticacao/enum/tipo-usuario-autenticacao.enum";
 
 export class CadastrarSalaDTO {
 
@@ -19,7 +20,7 @@ export class CadastrarSalaDTO {
         enum: TipoSalaEnum,
         required: true,
     })
-    @Generate(() => faker.helpers.arrayElement([...Object.values(TipoSalaEnum)]))
+    @Generate(() => faker.helpers.arrayElement(Object.values(TipoSalaEnum).slice(Math.ceil(Object.values(TipoSalaEnum).length / 2))))
     @IsEnum(TipoSalaEnum)
     tipo: TipoSalaEnum;
 

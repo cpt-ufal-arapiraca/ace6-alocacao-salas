@@ -3,6 +3,7 @@ import {CustomApiProperty, Generate} from "@decorators-custom";
 import faker from "@faker-custom";
 import { TipoSalaEnum } from '../enum/tipo-sala.enum';
 import {TipoUsuarioIndexEnum} from "../../autenticacao/enum/tipo-usuario-autenticacao.enum";
+import {Type} from "class-transformer";
 
 export class CadastrarSalaDTO {
 
@@ -38,6 +39,7 @@ export class CadastrarSalaDTO {
         required: true,
     })
     @Generate(() => faker.number.int())
+    @Type(() => Number)
     @Length(3)
     @IsInt()
     @IsNotEmpty()

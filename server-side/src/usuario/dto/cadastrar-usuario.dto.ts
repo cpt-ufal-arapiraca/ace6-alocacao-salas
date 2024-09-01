@@ -29,6 +29,8 @@ export class CadastrarUsuarioDTO {
         required: true,
     })
     @Generate(() => faker.number.int({min: 1, max: 1000}))
+    @Type(() => Number)
+    @IsNotEmpty()
     @IsInt()
     usuario_siape : number;
 

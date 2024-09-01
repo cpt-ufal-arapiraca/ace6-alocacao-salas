@@ -3,6 +3,7 @@ import {CustomApiProperty, Generate} from "@decorators-custom";
 import faker from "@faker-custom";
 import {CpfValido} from "@validate-custom";
 import {TipoUsuarioEnum, TipoUsuarioIndexEnum} from "../../autenticacao/enum/tipo-usuario-autenticacao.enum";
+import {Type} from "class-transformer";
 
 export class AdicionarUsuarioDTO {
 
@@ -21,6 +22,7 @@ export class AdicionarUsuarioDTO {
         required: true,
     })
     @Generate(() => faker.helpers.arrayElement(Object.values(TipoUsuarioIndexEnum).slice(Math.ceil(Object.values(TipoUsuarioIndexEnum).length / 2))))
+    @Type(() => Number)
     @IsEnum(TipoUsuarioIndexEnum)
     tipo_usuario_id_fk : TipoUsuarioIndexEnum;
 

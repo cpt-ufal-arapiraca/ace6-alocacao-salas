@@ -29,4 +29,15 @@ export function RemoverSalaDocs() {
     );
 }
 
+export function AlterarSalaDocs() {
+        return applyDecorators(
+            ApiTags('Sala'),
+            ApiBearerAuth(),
+            ApiOperation({ summary: 'Atualizar sala' }),
+            ApiResponse({
+                status: 200,
+                description: 'Sala alterada com sucesso',
+            }),
+        );
+    }    
 

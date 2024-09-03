@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post, Put } from '@nestjs/common';
 import { SalaService } from './sala.service';
 import { Roles } from 'src/autenticacao/decorators/roles.decorator';
 import { TipoUsuarioEnum } from 'src/autenticacao/enum/tipo-usuario-autenticacao.enum';
 import { CadastrarSalaDTO } from './dto/cadastrar-sala.dto';
-import { CadastrarSalaDocs, RemoverSalaDocs } from './sala.swagger';
+import { AlterarSalaDocs, CadastrarSalaDocs, RemoverSalaDocs } from './sala.swagger';
 import { RemoverSalaDTO } from './dto/remover-sala.dto';
+import { AlterarSalaDTO } from './dto/alterar-sala.dto';
 
 @Controller('sala')
 export class SalaController {
@@ -30,4 +31,12 @@ export class SalaController {
         return await this.salaService.deletar(removerSalaDTO);
     }
     
+    @Put('')
+    @AlterarSalaDocs()
+    @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.GERENTE, TipoUsuarioEnum.COORDENADOR)
+    async atualizar(
+        @Body() alterarSalaDTO: AlterarSalaDTO,
+    ): Promise<any> {
+        return await this.salaService.alterar(alterarSalaDTO);
+    }
 }

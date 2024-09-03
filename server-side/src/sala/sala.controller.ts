@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { SalaService } from './sala.service';
 import { Roles } from 'src/autenticacao/decorators/roles.decorator';
 import { TipoUsuarioEnum } from 'src/autenticacao/enum/tipo-usuario-autenticacao.enum';
@@ -6,6 +6,7 @@ import { CadastrarSalaDTO } from './dto/cadastrar-sala.dto';
 import { AlterarSalaDocs, CadastrarSalaDocs, RemoverSalaDocs } from './sala.swagger';
 import { RemoverSalaDTO } from './dto/remover-sala.dto';
 import { AlterarSalaDTO } from './dto/alterar-sala.dto';
+import { ObterSalaDTO } from './dto/obter-sala.dto';
 
 @Controller('sala')
 export class SalaController {
@@ -38,5 +39,14 @@ export class SalaController {
         @Body() alterarSalaDTO: AlterarSalaDTO,
     ): Promise<any> {
         return await this.salaService.alterar(alterarSalaDTO);
+    }
+
+    @Get(':codigo_sala')
+    // @ObterUsuarioDocs()
+    @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.GERENTE, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.PROFESSOR)
+    async obter(
+        @Param() obterSalaDTO: ObterSalaDTO,
+    ): Promise<any> {
+        return await this.salaService.obter(obterSalaDTO);
     }
 }

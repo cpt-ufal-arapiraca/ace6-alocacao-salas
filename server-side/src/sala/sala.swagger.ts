@@ -1,5 +1,8 @@
+import faker from '@faker-custom';
 import { applyDecorators } from '@nestjs/common';
 import {ApiBearerAuth, ApiOperation, ApiResponse, ApiTags} from '@nestjs/swagger';
+import { IsString } from 'class-validator';
+import { CustomApiProperty, Generate } from 'src/utils/generate/decorators';
 
 
 
@@ -40,4 +43,63 @@ export function AlterarSalaDocs() {
             }),
         );
     }    
+    
+    // class ObterSala200DTO {
 
+    //     @CustomApiProperty({
+    //         description: 'ID da sala',
+    //     })
+    //     @Generate(() => faker.number.int({min: 1, max: 100}))
+    //     sala_id: string;
+    
+    //     @CustomApiProperty({
+    //         description: 'Código da sala',
+    //     })
+    //     @Generate(() => faker.person.fullName())
+    //     codigo_sala: string;
+
+    //     @CustomApiProperty({
+    //         description: 'Tipo da sala',
+    //     })
+    //     @Generate(() => faker.string.alpha())
+    //     tipo: string;
+    
+        
+    //     @Generate(() => faker.string.fromCharacters(['a', 'b', 'c']))
+    //     @IsString()
+    //     bloco : string;
+    
+    //     @Generate(() => faker.number.int())
+    //     capacidade: number;
+    
+    //     @CustomApiProperty({
+    //         description: 'Tipo do usuário',
+    //     })
+    //     // tipo_sala: TipoUsuario2Autenticacao200DTO;
+    // }
+
+    export function ObterUsuarioDocs() {
+        return applyDecorators(
+            ApiTags('Usuario'),
+            ApiBearerAuth(),
+            ApiOperation({ summary: 'Obter usuário' }),
+            ApiResponse({
+                status: 200,
+                description: 'Usuário obtido com sucesso',
+                // type: ObterUsuario200DTO,
+            }),
+        );
+    }
+
+export function ListarSalaDocs() {
+        return applyDecorators(
+            ApiTags('Sala'),
+            ApiBearerAuth(),
+            ApiOperation({ summary: 'Listar salas' }),
+            ApiResponse({
+                status: 200,
+                description: 'Salas listadas com sucesso',
+                
+            }),
+        );
+    }

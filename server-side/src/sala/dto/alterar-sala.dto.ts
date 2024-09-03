@@ -1,9 +1,7 @@
 import {IsEmail, IsEnum, IsInt, IsOptional, IsString, Validate} from 'class-validator';
 import {CustomApiProperty, Generate} from "@decorators-custom";
 import faker from "@faker-custom";
-import {NomeValido} from "@validate-custom";
-import {TipoUsuarioIndexEnum} from "../../autenticacao/enum/tipo-usuario-autenticacao.enum";
-import {Type} from "class-transformer";
+
 
 export class AlterarSalaDTO {
 
@@ -14,13 +12,13 @@ export class AlterarSalaDTO {
     @Generate(() => faker.number.int({min: 1, max: 100}))
     @IsOptional()
     @IsString()
-    codigo_sala : number;
+    codigo_sala : string;
 
     @CustomApiProperty({
         description: 'Tipo da Sala',
         required: false,
     })
-    @Generate(() => faker.person.fullName())
+    @Generate(() => faker.string.alpha())
     @IsOptional()
     tipo : string;
 

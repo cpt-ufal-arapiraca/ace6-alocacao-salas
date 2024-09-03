@@ -214,7 +214,7 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onConfirm={() => setIsModalOpen(false)}
+        onConfirm={() => handleConfirm()}
         title="Tem certeza?"
         content="Essa ação removerá o usuário do sistema. Essa ação não é reversível."
         confirmText="Sim, deletar"

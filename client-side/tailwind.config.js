@@ -9,6 +9,10 @@ module.exports = {
         button_blue_active: '#536B82',
         button_red: '#ED1C24',
 
+        cargo_user_admin: '#0095DA',
+        cargo_user_gerente: '#27AE60',
+        cargo_user_professor: '#E2B93B',
+
         bg_red_secondary: '#ED1C240F',
 
         alert_error: '#EB5757',

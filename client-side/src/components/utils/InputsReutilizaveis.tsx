@@ -26,7 +26,7 @@ interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, placeholder, error, mask, replacement, type, showPasswordToggle = false, ...rest }, ref) => {
+  ({ label, placeholder, error, mask, replacement, type, showPasswordToggle = false, value, onChange, ...rest }, ref) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleTogglePassword = () => {
@@ -48,6 +48,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                  : 'border border-border_input text-text_primary text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}`}
               placeholder={placeholder}
               type={type}
+              value={value}
+              onChange={onChange}
               {...rest}
             />
           ) : (
@@ -57,6 +59,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 : 'border border-border_input text-text_primary text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}`}
               placeholder={placeholder}
               type={showPasswordToggle && showPassword ? 'text' : type}
+              value={value}
+              onChange={onChange}
               {...rest}
             />
           )}
@@ -80,14 +84,17 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
+
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  ({ label, options, error, row = 'row-auto', col = 'col-auto', ...rest }, ref) => {
+  ({ label, options, error, row = 'row-auto', col = 'col-auto', value, onChange, ...rest }, ref) => {
     return (
       <div className={`flex flex-col ${row} ${col}`}>
         <label className="mb-1 text-sm text-text_primary font-bold">{label}</label>
         <select
           ref={ref}
           className={`border text-text_primary p-2 rounded ${error ? 'border-alert_error' : 'border-border_base_input'}`}
+          value={value}
+          onChange={onChange}
           {...rest}
         >
           <option value="" disabled hidden>
@@ -105,8 +112,9 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   }
 );
 
+
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ label, error, value, ...rest }, ref) => {
+  ({ label, error, value, onChange, checked, ...rest }, ref) => {
     const id = React.useId();
     return (
       <div className="flex items-center">
@@ -116,6 +124,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           id={id}
           className={`cursor-pointer form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out ${error ? 'border-alert_error' : 'border-border_input'}`}
           value={value}
+          onChange={onChange}
+          checked={checked}
           {...rest}
         />
         <label htmlFor={id} className="ml-2 text-sm text-text_primary">

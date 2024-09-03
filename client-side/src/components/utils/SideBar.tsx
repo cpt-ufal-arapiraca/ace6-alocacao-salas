@@ -96,12 +96,13 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
             active={activeMenu === 'inicio'}
             onClick={() => handleMenuClick('inicio')}
             component={<Link to="/inicio" />} >
-            Início
+            <i className="fi fi-rr-home pe-2 "></i>Início
           </MenuItem>
           <Border />
           <SubMenu
             open={activeMenu === 'cadastrar_usuario' || activeMenu === 'ver_usuarios' || undefined}
             label="Usuário"
+            icon={<i className="fi fi-rr-user"></i>}
             rootStyles={{
               ['.' + menuClasses.subMenuContent]: {
                 backgroundColor: '#0089C8',
@@ -113,7 +114,7 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
               onClick={() => handleMenuClick('cadastrar_usuario')}
               component={<Link to="/cadastrar-usuario" />}
             >
-              Cadastrar usuário
+              <i className="fi fi-rr-user-add pe-2"></i>Cadastrar usuário
             </MenuItem>
             <Border width='w-9/12' />
             <MenuItem
@@ -121,13 +122,16 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
               onClick={() => handleMenuClick('ver_usuarios')}
               component={<Link to="/ver-usuarios" />}
             >
-              Ver usuários
+              <i className="fi fi-rr-users pe-2"></i>Ver usuários
             </MenuItem>
           </SubMenu>
           <Border />
           <SubMenu
             open={activeMenu === 'adicionar_sala' || activeMenu === 'ver_salas' || undefined}
             label="Sala"
+
+            icon={<i className="fi fi-rr-apps"></i>}
+
             rootStyles={{
               ['.' + menuClasses.subMenuContent]: {
                 backgroundColor: '#0089C8',
@@ -139,7 +143,7 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
               onClick={() => handleMenuClick('adicionar_sala')}
               component={<Link to="/adicionar-sala" />}
             >
-              Adicionar sala
+              <i className="fi fi-rr-apps-add pe-2"></i>Adicionar sala
             </MenuItem>
             <Border width='w-9/12' />
             <MenuItem
@@ -147,13 +151,15 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
               onClick={() => handleMenuClick('ver_salas')}
               component={<Link to="/ver-salas" />}
             >
-              Ver salas
+              <i className="fi fi-rr-category pe-2"></i>Ver salas 
             </MenuItem>
           </SubMenu>
           <Border />
           <SubMenu
             open={activeMenu === 'cadastrar_disciplina' || activeMenu === 'ver_disciplinas' || undefined}
             label="Disciplina"
+            icon={<i className="fi fi-rr-copy"></i>} 
+          
             rootStyles={{
               ['.' + menuClasses.subMenuContent]: {
                 backgroundColor: '#0089C8',
@@ -165,7 +171,7 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
               onClick={() => handleMenuClick('cadastrar_disciplina')}
               component={<Link to="/cadastrar-disciplina" />}
             >
-              Cadastrar disciplina
+              <i className="fi fi-rr-apps-add pe-2"></i>Cadastrar disciplina
             </MenuItem>
             <Border width='w-9/12' />
             <MenuItem
@@ -173,13 +179,14 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
               onClick={() => handleMenuClick('ver_disciplinas')}
               component={<Link to="/ver-disciplinas" />}
             >
-              Ver disciplinas
+              <i className="fi fi-rr-copy pe-2"></i>Ver disciplinas
             </MenuItem>
           </SubMenu>
           <Border />
           <SubMenu
             open={activeMenu === 'cadastrar_turma' || activeMenu === 'ver_turmas' || undefined}
             label="Turma"
+            icon={<i className="fi fi-rr-clock"></i>}
             rootStyles={{
               ['.' + menuClasses.subMenuContent]: {
                 backgroundColor: '#0089C8',
@@ -191,7 +198,7 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
               onClick={() => handleMenuClick('cadastrar_turma')}
               component={<Link to="/cadastrar-turma" />}
             >
-              Cadastrar turma
+              <i className="fi fi-rr-time-add pe-2"></i>Cadastrar turma
             </MenuItem>
             <Border width='w-9/12' />
             <MenuItem
@@ -199,7 +206,7 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
               onClick={() => handleMenuClick('ver_turmas')}
               component={<Link to="/ver-turmas" />}
             >
-              Ver turmas
+              <i className="fi fi-rr-time-fast pe-2"></i>Ver turmas
             </MenuItem>
           </SubMenu>
           <Border />
@@ -207,7 +214,7 @@ function SideBar({ toggled, setToggled, isMobile }: { toggled: boolean; setToggl
             active={activeMenu === 'sair'}
             onClick={() => [setIsModalOpen(true), setToggled(false)]}
           >
-            Sair
+            <i className="pe-2 fi fi-rr-exit"></i>Sair
           </MenuItem>
         </Menu>
       </Sidebar>

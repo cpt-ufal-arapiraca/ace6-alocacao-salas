@@ -1,12 +1,14 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { SalaService } from './sala.service';
 import { Roles } from 'src/autenticacao/decorators/roles.decorator';
 import { TipoUsuarioEnum } from 'src/autenticacao/enum/tipo-usuario-autenticacao.enum';
 import { CadastrarSalaDTO } from './dto/cadastrar-sala.dto';
-import { AlterarSalaDocs, CadastrarSalaDocs, RemoverSalaDocs } from './sala.swagger';
+import { AlterarSalaDocs, CadastrarSalaDocs, ListarSalaDocs, RemoverSalaDocs } from './sala.swagger';
 import { RemoverSalaDTO } from './dto/remover-sala.dto';
 import { AlterarSalaDTO } from './dto/alterar-sala.dto';
 import { ObterSalaDTO } from './dto/obter-sala.dto';
+import { ListarSalaDTO } from './dto/listar-sala.dto';
+import { ListarUsuarioDTO } from 'src/usuario/dto/listar-usuario.dto';
 
 @Controller('sala')
 export class SalaController {
@@ -49,4 +51,14 @@ export class SalaController {
     ): Promise<any> {
         return await this.salaService.obter(obterSalaDTO);
     }
+
+    @Get('')
+    @ListarSalaDocs()
+    @Roles(TipoUsuarioEnum.ADMIN)
+    async listar(
+        @Query() listarSalaDTO: ListarSalaDTO,
+    ): Promise<any> {
+        return await this.salaService.listar(listarSalaDTO);
+    }
 }
+

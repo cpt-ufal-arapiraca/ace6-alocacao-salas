@@ -78,15 +78,15 @@ export function AlterarSalaDocs() {
     //     // tipo_sala: TipoUsuario2Autenticacao200DTO;
     // }
 
-    export function ObterUsuarioDocs() {
+    export function ObterSalaDocs() {
         return applyDecorators(
-            ApiTags('Usuario'),
+            ApiTags('Sala'),
             ApiBearerAuth(),
-            ApiOperation({ summary: 'Obter usuário' }),
+            ApiOperation({ summary: 'Obter Sala' }),
             ApiResponse({
                 status: 200,
-                description: 'Usuário obtido com sucesso',
-                // type: ObterUsuario200DTO,
+                description: 'Sala obtido com sucesso',
+                // type: ObterSala200DTO,
             }),
         );
     }

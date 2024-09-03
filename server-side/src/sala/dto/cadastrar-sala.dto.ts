@@ -40,7 +40,6 @@ export class CadastrarSalaDTO {
     })
     @Generate(() => faker.number.int())
     @Type(() => Number)
-    @Length(3)
     @IsInt()
     @IsNotEmpty()
     capacidade : number;

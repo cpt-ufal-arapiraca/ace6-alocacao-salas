@@ -3,7 +3,7 @@ import { SalaService } from './sala.service';
 import { Roles } from 'src/autenticacao/decorators/roles.decorator';
 import { TipoUsuarioEnum } from 'src/autenticacao/enum/tipo-usuario-autenticacao.enum';
 import { CadastrarSalaDTO } from './dto/cadastrar-sala.dto';
-import { AlterarSalaDocs, CadastrarSalaDocs, ListarSalaDocs, RemoverSalaDocs } from './sala.swagger';
+import { AlterarSalaDocs, CadastrarSalaDocs, ListarSalaDocs, ObterSalaDocs, RemoverSalaDocs } from './sala.swagger';
 import { RemoverSalaDTO } from './dto/remover-sala.dto';
 import { AlterarSalaDTO } from './dto/alterar-sala.dto';
 import { ObterSalaDTO } from './dto/obter-sala.dto';
@@ -44,7 +44,7 @@ export class SalaController {
     }
 
     @Get(':codigo_sala')
-    // @ObterUsuarioDocs()
+    @ObterSalaDocs()
     @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.GERENTE, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.PROFESSOR)
     async obter(
         @Param() obterSalaDTO: ObterSalaDTO,

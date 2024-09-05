@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import 'reflect-metadata';
 import {GENERATE_METADATA_KEY} from "@decorators-custom";
 import {EntrarAutenticacaoDTO} from "../../autenticacao/dto/entrar-autenticacao.dto";
+import {TipoUsuarioIndexEnum} from "../../autenticacao/enum/tipo-usuario-autenticacao.enum";
 
 type DynamicDTO<T> = {
     [K in keyof T]: T[K];
@@ -28,8 +29,9 @@ export class GenerateService {
 
     async onModuleInit() {
         const result = this.Generate(EntrarAutenticacaoDTO);
-        result.enf_id = 1;
-        console.log(result.enf_id)
+        //result.enf_id = 1;
+        //console.log(result.enf_id)
+        console.log(Object.values(TipoUsuarioIndexEnum));
         console.log(result);
     }
 }

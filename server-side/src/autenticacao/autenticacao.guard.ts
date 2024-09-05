@@ -10,7 +10,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { jwtConstants } from './constants';
 import { ROLES_KEY } from './decorators/roles.decorator';
-import { TipoUsuarioEnum } from "./enum/tipos-usuarios-autenticacao.enum";
+import { TipoUsuarioEnum } from "./enum/tipo-usuario-autenticacao.enum";
 import { PrismaService } from "../utils/prisma/prisma.service";
 
 @Injectable()
@@ -22,12 +22,15 @@ export class RolesGuard implements CanActivate {
     ) {}
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
+
         const requiredRoles = this.reflector.getAllAndOverride<TipoUsuarioEnum[]>(ROLES_KEY, [
             context.getHandler(),
             context.getClass(),
         ]);
 
-        if (requiredRoles || requiredRoles.length === 0) {
+
+
+        if (!requiredRoles || requiredRoles.length === 0) {
             return true;
         }
 
@@ -69,7 +72,7 @@ export class RolesGuard implements CanActivate {
             );
         }
 
-        const userRole = request['userRole'];
+        const userRole = request['usuario_tipo'];
         if (requiredRoles.includes(userRole)) {
             return true;
         } else {

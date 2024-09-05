@@ -1,45 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 model tipo_usuario {
-  tipo_usuario_id Int       @id @default(autoincrement())
-  nome            String    @db.VarChar(15)
-  usuarios        usuario[]
+  tipo_usuario_id   Int       @id @default(autoincrement())
+  tipo_usuario_nome String    @db.VarChar(15)
+  usuarios          usuario[] @relation("TipoUsuarioUsuarios")
 }
 
 model usuario {
-  usuario_id       Int          @id @default(autoincrement())
-  usuario_nome     String       @db.VarChar(255)
-  usuario_cpf      Int          @db.Int
-  usuario_email    String       @db.VarChar(255)
-  tipo_usuario_id  Int
-  usuario_situacao String       @db.VarChar(10)
-  tipoUsuario      tipo_usuario @relation(fields: [tipo_usuario_id], references: [tipo_usuario_id])
-  logins           login[]
+  usuario_id         Int           @id @default(autoincrement())
+  usuario_uuid       String?       @unique(map: "usuario_uuid") @default(uuid()) @db.VarChar(36)
+  usuario_nome       String?       @db.VarChar(255)
+  usuario_cpf        String        @unique(map: "idx_cpf_UNIQUE") @db.VarChar(11)
+  usuario_email      String?       @unique(map: "idx_email_UNIQUE") @db.VarChar(255)
+  usuario_siape      Int?          @unique(map: "idx_siape_UNIQUE")
+  tipo_usuario_id_fk Int
+  usuario_situacao   String        @db.VarChar(10)
+  autenticacao       autenticacao? @relation("UsuarioAutenticacao")
+  tipo_usuario       tipo_usuario  @relation("TipoUsuarioUsuarios", fields: [tipo_usuario_id_fk], references: [tipo_usuario_id], onDelete: NoAction, onUpdate: NoAction, map: "usuario_ibfk_1")
+
+  @@index([tipo_usuario_id_fk], map: "tipo_usuario_id_fk")
 }
 
-model login {
-  login_id       Int      @id @default(autoincrement())
-  usuario_id_fk  Int
-  login_senha    Int      @db.Int
-  login_token    String?  @db.VarChar(255)
-  login_situacao String   @db.VarChar(10)
-  sessao         sessao[]
-  usuario        usuario  @relation(fields: [usuario_id_fk], references: [usuario_id], onDelete: Cascade)
+model autenticacao {
+  autenticacao_id       Int      @id @default(autoincrement())
+  usuario_id_fk         Int      @unique(map: "usuario_id_fk")
+  autenticacao_senha    String   @db.VarChar(255)
+  autenticacao_token    String?  @db.VarChar(255)
+  autenticacao_situacao String   @db.VarChar(10)
+  usuario               usuario  @relation("UsuarioAutenticacao", fields: [usuario_id_fk], references: [usuario_id], onDelete: Cascade, onUpdate: NoAction, map: "autenticacao_ibfk_1")
+  sessao                sessao[]
 }
 
 model sessao {
-  secao_id        Int      @id @default(autoincrement())
-  login_id_fk     Int
-  sessao_ip       Int      @db.Int
-  sessao_so       String   @db.VarChar(25)
-  sessao_jwt      String   @unique(map: "idx_jwt_UNIQUE") @db.VarChar(256)
-  data_hora_login DateTime @default(now()) @db.DateTime(0)
-  login           login    @relation(fields: [login_id_fk], references: [login_id])
+  sessao_id          Int          @id @default(autoincrement())
+  autenticacao_id_fk Int
+  sessao_ip          String       @db.VarChar(15)
+  sessao_so          String       @db.VarChar(25)
+  sessao_jwt         String       @unique(map: "idx_jwt_UNIQUE") @db.VarChar(256)
+  data_hora_login    DateTime?    @default(now()) @db.DateTime(0)
+  autenticacao       autenticacao @relation(fields: [autenticacao_id_fk], references: [autenticacao_id], onDelete: Cascade, onUpdate: NoAction, map: "sessao_ibfk_1")
+
+  @@index([autenticacao_id_fk], map: "autenticacao_id_fk")
+}
+
+model sala {
+  sala_id     Int    @id @default(autoincrement())
+  codigo_sala String @unique(map: "codigo_sala") @db.VarChar(50)
+  tipo        String @db.VarChar(20)
+  bloco       String @db.VarChar(10)
+  capacidade  Int
 }

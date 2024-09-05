@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+*{
+  ::-webkit-scrollbar {
+    background: #347fe0;
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb:window-inactive {
+    background: #092C4C; 
+  }
+  ::-webkit-scrollbar-track {
+    background: #0095DA;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #092C4C;
+    border-radius: 20px;
+    border: 2px solid #0095DA;
+  }
+}
+

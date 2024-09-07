@@ -5,17 +5,23 @@ import { z } from 'zod';
 import { Input, Checkbox } from "../../utils/InputsReutilizaveis";
 import Button from "../../utils/Button";
 import Subtitle from "../../utils/Subtitle";
+import { useNavigate, useParams } from 'react-router-dom';
+import api from '../../../api/axios';
 
 const schema = z.object({
-    numero: z
+    codigo_sala: z
         .string()
-        .min(1, "Número é obrigatório")
-        .transform((val) => parseInt(val, 10)),
+        .min(1, "Número é obrigatório"),
     capacidade: z
         .string()
         .min(1, "Capacidade é obrigatória")
         .transform((val) => parseInt(val, 10)),
-    tipoSala: z.array(z.string()).nonempty("Selecione o tipo da sala"),
+        bloco: z
+        .string()
+        .length(1, "O bloco deve ter apenas uma letra")
+        .regex(/^[A-Za-z]$/, "O bloco deve ser uma letra")
+        .transform((val) => val.toUpperCase()),
+    tipo: (z.string()).nonempty("Selecione o tipo da sala"),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -24,29 +30,37 @@ function Form() {
     const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<FormData>({
         resolver: zodResolver(schema),
         defaultValues: {
-            tipoSala: [],
+            tipo: '',
         },
     });
 
-    const tipoSalaValues: any = watch("tipoSala");
+    const navigate = useNavigate();
+    const salaId  = Number(useParams().id);
+    const tipoSalaValues: any = watch("tipo") || [];
 
-    const onSubmit = (data: FormData) => {
+    const onSubmit = async (data: FormData) => {
         setClick(true);
-        console.log(data);
-        setTimeout(() => {
+        const requestData = salaId ? { ...data, usuario_id: salaId } : data;
+        try {
+            const response = salaId 
+                ? await api.put(`/sala`, requestData)
+                : await api.post('/sala', data);
+            
             setClick(false);
-        }, 2000);
+            navigate("/ver-salas");
+            return response;
+        } catch (error) {
+            setClick(false);
+            console.error('Erro ao enviar os dados:', error);
+            throw error;
+        }
     };
 
     const [click, setClick] = useState(false);
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { value, checked } = event.target;
-        setValue("tipoSala", checked 
-            ? [...tipoSalaValues, value] 
-            : tipoSalaValues.filter((v: any) => v !== value),
-            { shouldValidate: true }
-        );
+        const { value } = event.target;
+        setValue("tipo", value, { shouldValidate: true });
     };
 
     return (
@@ -58,11 +72,11 @@ function Form() {
             {/* Número da sala */}
             <div className="col-span-12 sm:col-span-5">
                 <Input
-                    type='number'
+                    type='text'
                     label="Número"
                     placeholder="Digite número da sala"
-                    error={errors.numero?.message}
-                    {...register("numero")}
+                    error={errors.codigo_sala?.message}
+                    {...register("codigo_sala")}
                 />
             </div>
 
@@ -77,6 +91,18 @@ function Form() {
                 />
             </div>
 
+            {/* Bloco */}
+            <div className="col-span-10">
+                <Input
+                    type='text'
+                    label="Bloco"
+                    maxLength={1}
+                    placeholder="Digite o bloco"
+                    error={errors.bloco?.message}
+                    {...register("bloco")}
+                />
+            </div>
+
             <div className="col-span-12">
                 <Subtitle subtitle="Tipo de sala" />
             </div>
@@ -84,7 +110,7 @@ function Form() {
             {/* Tipo de sala */}
             <div className='col-span-12 sm:col-span-8'>
                 <div className={`
-                ${errors.tipoSala ? 'border border-alert_error col-span-12 rounded p-2' : "border border-border_input col-span-12 rounded p-2"}`}>
+                ${errors.tipo ? 'border border-alert_error col-span-12 rounded p-2' : "border border-border_input col-span-12 rounded p-2"}`}>
                     <div className='grid grid-cols-12 gap-5'>
                         <div className="col-span-12 xl:col-span-6">
                             <Checkbox 
@@ -98,17 +124,17 @@ function Form() {
                         <div className="col-span-12 xl:col-span-6">
                             <Checkbox 
                                 label="Laboratório" 
-                                value="laboratorio"
+                                value="laboratório"
                                 onChange={handleCheckboxChange}
-                                checked={tipoSalaValues.includes("laboratorio")}
+                                checked={tipoSalaValues.includes("laboratório")}
                             />
                         </div>
                     </div>
                 </div>
-                {/* Exibir erro de tipoSala */}
-                {errors.tipoSala && (
+                {/* Exibir erro de tipo */}
+                {errors.tipo && (
                     <div className="col-span-12 text-alert_error text-xs">
-                        {errors.tipoSala.message}
+                        {errors.tipo.message}
                     </div>
                 )}
             </div>

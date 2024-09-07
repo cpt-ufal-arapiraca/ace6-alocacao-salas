@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Input, Checkbox } from "../../utils/InputsReutilizaveis";
 import Button from "../../utils/Button";
 import Subtitle from "../../utils/Subtitle";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import api from '../../../api/axios';
+import { SalaInterface } from '../../../interface/Sala';
 
 const schema = z.object({
     codigo_sala: z
@@ -37,6 +38,7 @@ function Form() {
     const navigate = useNavigate();
     const salaId  = Number(useParams().id);
     const tipoSalaValues: any = watch("tipo") || [];
+    const location = useLocation();
 
     const onSubmit = async (data: FormData) => {
         setClick(true);
@@ -62,6 +64,28 @@ function Form() {
         const { value } = event.target;
         setValue("tipo", value, { shouldValidate: true });
     };
+
+    useEffect(() => {
+        if (location.pathname.includes("atualizar-sala") && salaId) {
+            const fetchData = async () => {
+                try {
+                    const response = await api.get<SalaInterface>(`/sala/${salaId}`);
+                    if (response.status === 200) {
+                        const data = response.data;
+                        // console.log(data.tipo_usuario.tipo_usuario_id);
+                        
+                        setValue("codigo_sala", data.salas[0].codigo_sala);
+                        setValue("bloco", data.salas[0].bloco);
+                        setValue("capacidade", data.salas[0].capacidade);
+                        setValue("tipo",  String(data.salas[0].tipo));
+                    }
+                } catch (error) {
+                    console.error("Erro ao buscar dados do usuário:", error);
+                }
+            };
+            fetchData();
+        }
+    }, [location.pathname, salaId, setValue]);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="m-7 grid grid-cols-12 gap-5">
@@ -139,14 +163,13 @@ function Form() {
                 )}
             </div>
 
-            {/* Submit Button */}
-            <div className="col-span-12 mb-5 sm:mb-0 flex justify-end">
+            <div className="col-span-12 mb-5 sm:mb-0 flex items-center justify-end">
                 {click ? (
                     <svg width="30" height="30" fill="currentColor" className="mr-2 text-button_blue animate-spin" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M526 1394q0 53-37.5 90.5t-90.5 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90.5 37.5 37.5 90.5zm498 206q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-704-704q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm1202 498q0 52-38 90t-90 38q-53 0-90.5-37.5t-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-964-996q0 66-47 113t-113 47-113-47-47-113 47-113 113-47 113 47 47 113zm1170 498q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-640-704q0 80-56 136t-136 56-136-56-56-136 56-136 136-56 136 56 56 136zm530 206q0 93-66 158.5t-158 65.5q-93 0-158.5-65.5t-65.5-158.5q0-92 65.5-158t158.5-66q92 0 158 66t66 158z"></path>
+                        <path d="M526 1394q0 53-37.5 90.5t-90.5 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90.5 37.5 37.5 90.5zm498 206q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-704-704q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm1202 498q0 52-38 90t-90 38q-53 0-90.5-37.5t-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-704-704q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm502-202q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm296 502q0 52-38 90t-90 38q-53 0-90.5-37.5t-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-704-704q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5z" />
                     </svg>
                 ) : (
-                    <Button text="Cadastrar" type="submit" />
+                    <Button type="submit" text={location.pathname.includes("atualizar-sala") ? "Atualizar" : "Registrar"} />
                 )}
             </div>
         </form>

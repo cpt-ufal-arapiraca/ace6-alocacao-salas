@@ -35,11 +35,15 @@ function Tabela({ dados }: TableProps) {
     }, [isDelete]);
 
     const handleConfirm = async () => {
-        if (itemId) {
+        if (itemId && dados) {
+            const endpoint = 'usuarios' in dados ? 'usuario' : 'sala';
             try {
-                const response = await api.delete(`/usuario/${itemId}`);
+                const response = await api.delete(`/${endpoint}/${itemId}`);
                 if (response.status === 200) {
-                    const novosItems = items.filter((item) => item.usuario_id !== itemId);
+                    const novosItems = 'usuarios' in dados
+                        ? items.filter((item) => item.usuario_id !== itemId)
+                        : items.filter((item) => item.sala_id !== itemId);
+    
                     setItems(novosItems);
                     setIsDelete(true);
                 } else {
@@ -54,6 +58,7 @@ function Tabela({ dados }: TableProps) {
             }
         }
     };
+    
 
     return (
         <section className="m-7 grid grid-cols-12 gap-5">
@@ -142,7 +147,7 @@ function Tabela({ dados }: TableProps) {
                                                 <td className="px-6 py-4">
                                                     <div className="grid grid-cols-12">
                                                         <Link
-                                                            to={`/ver-usuarios/atualizar-usuario/${item.sala_id}`}
+                                                            to={`/ver-salas/atualizar-sala/${item.sala_id}`}
                                                             className="cursor-pointer col-span-6 justify-self-center"
                                                         >
                                                             <i className="fi fi-rr-pencil flex items-center text-xl"></i>

@@ -23,6 +23,8 @@ function VerUsuarios() {
                     quantidada: itemsPerPage
                 }
             });
+            
+            
             setUsuarios(response.data);
             const total = response.data.total; 
             setTotalPages(Math.ceil(total / itemsPerPage));
@@ -39,6 +41,7 @@ function VerUsuarios() {
                     quantidada: itemsPerPage
                 }
             });
+            console.log(response);
             setUsuarios(response.data);
             const total = response.data.total;
             setTotalPages(Math.ceil(total / itemsPerPage));

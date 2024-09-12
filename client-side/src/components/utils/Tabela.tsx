@@ -70,21 +70,21 @@ function Tabela({ dados }: TableProps) {
                                 <th scope="col" className="px-6 py-3">
                                     No
                                 </th>
-                                
-                                {"usuarios" in dados! ? (
+    
+                                {dados && "usuarios" in dados ? (
                                     <>
                                         <th scope="col" className="px-6 py-3">Usuário</th>
                                         <th scope="col" className="px-6 py-3">Cargo</th>
                                         <th scope="col" className="px-6 py-3">Ações</th>
                                     </>
-                                ) : (
+                                ) : dados && "salas" in dados ? (
                                     <>
                                         <th scope="col" className="px-6 py-3">Código Sala</th>
                                         <th scope="col" className="px-6 py-3">Tipo</th>
                                         <th scope="col" className="px-6 py-3">Bloco</th>
                                         <th scope="col" className="px-6 py-3">Capacidade</th>
                                     </>
-                                )}
+                                ) : null}
                             </tr>
                         </thead>
                         {items.length > 0 && (
@@ -100,8 +100,8 @@ function Tabela({ dados }: TableProps) {
                                         >
                                             {index + 1}
                                         </th>
-
-                                        {"usuarios" in dados! ? (
+    
+                                        {dados && "usuarios" in dados ? (
                                             <>
                                                 <td className="px-6 py-4">{item.usuario_nome}</td>
                                                 <td className="px-6 py-4">

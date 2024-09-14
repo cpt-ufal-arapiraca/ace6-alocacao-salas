@@ -44,8 +44,8 @@ const Modal = ({ isOpen, onClose, title, content, confirmText, cancelText, onCon
             </button>
           )}
           <button onClick={onClose}
-            className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-bold text-button_red rounded-lg group bg-gradient-to-br from-button_red to-button_red hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-bg_red_secondary dark:focus:ring-red-800">
-            <span className="relative px-5 py-2.5 font-medium rounded-lg text-sm transition-all ease-in duration-75 bg-white dark:bg-gray-900 group-hover:bg-opacity-0">
+            className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-bold text-button_red rounded-lg group bg-gradient-to-br from-button_red to-button_red hover:text-white focus:ring-4 focus:outline-none focus:ring-bg_red_secondary">
+            <span className="relative px-5 py-2.5 font-medium rounded-lg text-sm transition-all ease-in duration-75 bg-white  group-hover:bg-opacity-0">
               {cancelText}
             </span>
           </button>

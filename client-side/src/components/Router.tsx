@@ -21,6 +21,7 @@ function AppRouter() {
                     <Route path="ver-usuarios/atualizar-usuario/:id" element={<CadastrarUsuario/>}/>
                     <Route path="ver-usuarios" element={<VerUsuarios/>}/>
                     <Route path="adicionar-sala" element={<AdicionarSala/>}/>
+                    <Route path="ver-salas/atualizar-sala/:id" element={<AdicionarSala/>}/>
                     <Route path="ver-salas" element={<VerSalas/>}/>
                     <Route path="cadastrar-disciplina" element={<CadastrarDisciplina/>}/>
                     <Route path="ver-disciplinas" element={<VerDisciplinas/>}/>

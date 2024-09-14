@@ -26,7 +26,7 @@ export function SkeletonTable() {
                     <div className="col-span-12">
                 <div className="text-text_primary text-xs grid grid-cols-2 justify-self-start">
                     <div className="col-span-1 flex items-center">
-                        <div className="h-3 bg-gray-300 rounded-full dark:bg-gray-600 w-24 animate-pulse"></div>
+                        <div className="h-3 bg-gray-300 rounded-full w-24 animate-pulse"></div>
                     </div>
                     <div className="col-span-1 justify-self-end">
                         <div className="grid grid-cols-3 gap-2">

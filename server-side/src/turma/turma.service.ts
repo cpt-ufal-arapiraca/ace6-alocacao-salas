@@ -4,6 +4,7 @@ import { CadastrarTurmaDTO } from './dto/cadastrar-turma.dto';
 import { AlterarTurmaDTO } from './dto/alterar-turma.dto';
 import { RemoverTurmaDTO } from './dto/remover-turma.dto';
 import { ObterTurmaDTO } from './dto/obter-turma.dto';
+import { ListarTurmaDTO } from './dto/listar-turma.dto';
 
 
 @Injectable()
@@ -98,64 +99,58 @@ export class TurmaService {
     return turma;
   }
 
-//   // Revisar
-//   async listar(listarSalaDTO: ListarSalaDTO): Promise<any> {
-//     const salas = await this.prisma.sala
-//       .findMany({
-//         where: {
-//           AND: [
-//             listarSalaDTO.tipo
-//               ? {
-//                   tipo: listarSalaDTO.tipo,
-//                 }
-//               : {},
-//               listarSalaDTO.codigo_sala
-//               ? {
-//                   codigo_sala: {
-//                     startsWith: listarSalaDTO.codigo_sala,
-//                   },
-//                 }
-//               : {},
-//               // listarSalaDTO.usuario_nome
-//               // ? {
-//               //     usuario_nome: {
-//               //       contains: listarSalaDTO.usuario_nome,
-//               //     },
-//               //   }
-//               // : {},
-//           ],
-//         },
-//         skip: listarSalaDTO.pagina ? (listarSalaDTO.pagina - 1) * 10 : undefined,
-//         take: 10,
-//         orderBy: {
-//           codigo_sala: listarSalaDTO.ordenacao,
-//         },
-//         select: {
-//           sala_id: true,
-//           codigo_sala: true,
-//           tipo: true,
-//           bloco: true,
-//           capacidade: true,
-//           // tipo_usuario: {
-//           //   select: {
-//           //       tipo_sala_id: true,
-//           //       tipo_usuario_nome: true,
-//           //   },
-//           // },
-//         },
-//       })
-//       .catch((e) => {
-//         throw this.prisma.tratamentoErros(e);
-//       });
+  // Revisar
+  async listar(listarTurmaDTO: ListarTurmaDTO): Promise<any> {
+    const turmas = await this.prisma.turma
+      .findMany({
+        where: {
+          AND: [
+            listarTurmaDTO.tipo
+              ? {
+                  tipo: listarTurmaDTO.tipo,
+                }
+              : {},
+              listarTurmaDTO.codigo_turma
+              ? {
+                  codigo_turma: {
+                    startsWith: listarTurmaDTO.codigo_turma,
+                  },
+                }
+              : {},
+          ],
+        },
+        skip: listarTurmaDTO.pagina ? (listarTurmaDTO.pagina - 1) * 10 : undefined,
+        take: 10,
+        orderBy: {
+          codigo_turma: listarTurmaDTO.ordenacao,
+        },
+        select: {
+          turma_id: true,
+          codigo_turma: true,
+          professor: true,
+          capacidade: true,
+          horario: true,
+          tipo: true,
+          // tipo_usuario: {
+          //   select: {
+          //       tipo_sala_id: true,
+          //       tipo_usuario_nome: true,
+          //   },
+          // },
+        },
+      })
+      .catch((e) => {
+        throw this.prisma.tratamentoErros(e);
+      });
 
-//       const totalSalas = await this.prisma.usuario.count();
+      const totalTurmas = await this.prisma.turma.count();
 
-//       return {
-//           total: totalSalas,
-//           pagina: listarSalaDTO.pagina,
-//           quantidade: Math.ceil(totalSalas/10),
-//           salas: salas,
-//       };
+      return {
+          total: totalTurmas,
+          pagina: listarTurmaDTO.pagina,
+          quantidade: Math.ceil(totalTurmas/10),
+          salas: turmas,
+      };
 
-//   }
+  }
 }

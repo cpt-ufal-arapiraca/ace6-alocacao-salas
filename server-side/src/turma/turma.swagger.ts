@@ -1,9 +1,6 @@
 import faker from '@faker-custom';
 import { applyDecorators } from '@nestjs/common';
 import {ApiBearerAuth, ApiOperation, ApiResponse, ApiTags} from '@nestjs/swagger';
-import { IsString } from 'class-validator';
-import { CustomApiProperty, Generate } from 'src/utils/generate/decorators';
-
 
 
 export function CadastrarTurmaDocs() {
@@ -16,8 +13,6 @@ export function CadastrarTurmaDocs() {
             description: 'Turma cadastrada com sucesso',
         }),
     );
-    
-    
 }
 
 export function RemoverTurmaDocs() {
@@ -45,28 +40,28 @@ export function AlterarTurmaDocs() {
     }    
     
 
-    export function ObterTurmaDocs() {
+export function ObterTurmaDocs() {
+    return applyDecorators(
+        ApiTags('Turma'),
+        ApiBearerAuth(),
+        ApiOperation({ summary: 'Obter Turma' }),
+        ApiResponse({
+            status: 200,
+            description: 'Turma obtido com sucesso',
+            // type: ObterTurma200DTO,
+        }),
+    );
+}
+
+export function ListarTurmaDocs() {
         return applyDecorators(
             ApiTags('Turma'),
             ApiBearerAuth(),
-            ApiOperation({ summary: 'Obter Turma' }),
+            ApiOperation({ summary: 'Listar turmas' }),
             ApiResponse({
                 status: 200,
-                description: 'Turma obtido com sucesso',
-                // type: ObterTurma200DTO,
+                description: 'Turmas listadas com sucesso',
+                
             }),
         );
     }
-
-// export function ListarSalaDocs() {
-//         return applyDecorators(
-//             ApiTags('Sala'),
-//             ApiBearerAuth(),
-//             ApiOperation({ summary: 'Listar salas' }),
-//             ApiResponse({
-//                 status: 200,
-//                 description: 'Salas listadas com sucesso',
-                
-//             }),
-//         );
-//     }

@@ -2,10 +2,11 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/
 import { Roles } from 'src/autenticacao/decorators/roles.decorator';
 import { TipoUsuarioEnum } from 'src/autenticacao/enum/tipo-usuario-autenticacao.enum';
 import { CadastrarTurmaDTO } from './dto/cadastrar-turma.dto';
-import { AlterarTurmaDocs, CadastrarTurmaDocs, RemoverTurmaDocs } from './turma.swagger';
+import { AlterarTurmaDocs, CadastrarTurmaDocs, ObterTurmaDocs, RemoverTurmaDocs } from './turma.swagger';
 import { TurmaService } from './turma.service';
 import { AlterarTurmaDTO } from './dto/alterar-turma.dto';
 import { RemoverTurmaDTO } from './dto/remover-turma.dto';
+import { ObterTurmaDTO } from './dto/obter-turma.dto';
 
 @Controller('turma')
 export class TurmaController {
@@ -40,14 +41,14 @@ export class TurmaController {
         return await this.turmaService.alterar(alterarTurmaDTO);
     }
 
-    // @Get(':codigo_turma')
-    // @ObterTurmaDocs()
-    // @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.GERENTE, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.PROFESSOR)
-    // async obter(
-    //     @Param() obterTurmaDTO: ObterTurmaDTO,
-    // ): Promise<any> {
-    //     return await this.turmaService.obter(obterTurmaDTO);
-    // }
+    @Get(':codigo_turma')
+    @ObterTurmaDocs()
+    @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.GERENTE, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.PROFESSOR)
+    async obter(
+        @Param() obterTurmaDTO: ObterTurmaDTO,
+    ): Promise<any> {
+        return await this.turmaService.obter(obterTurmaDTO);
+    }
 
     // @Get('')
     // @ListarTurmaDocs()

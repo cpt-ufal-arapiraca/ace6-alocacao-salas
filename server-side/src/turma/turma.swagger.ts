@@ -45,18 +45,18 @@ export function AlterarTurmaDocs() {
     }    
     
 
-//     export function ObterSalaDocs() {
-//         return applyDecorators(
-//             ApiTags('Sala'),
-//             ApiBearerAuth(),
-//             ApiOperation({ summary: 'Obter Sala' }),
-//             ApiResponse({
-//                 status: 200,
-//                 description: 'Sala obtido com sucesso',
-//                 // type: ObterSala200DTO,
-//             }),
-//         );
-//     }
+    export function ObterTurmaDocs() {
+        return applyDecorators(
+            ApiTags('Turma'),
+            ApiBearerAuth(),
+            ApiOperation({ summary: 'Obter Turma' }),
+            ApiResponse({
+                status: 200,
+                description: 'Turma obtido com sucesso',
+                // type: ObterTurma200DTO,
+            }),
+        );
+    }
 
 // export function ListarSalaDocs() {
 //         return applyDecorators(

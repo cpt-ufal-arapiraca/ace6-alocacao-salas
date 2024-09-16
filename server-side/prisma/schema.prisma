@@ -57,3 +57,14 @@ model sala {
   bloco       String @db.VarChar(10)
   capacidade  Int
 }
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model turma {
+  turma_id     Int      @id @default(autoincrement())
+  codigo_turma String   @unique(map: "codigo_turma") @db.VarChar(50)
+  professor    String   @db.VarChar(100)
+  capacidade   Int
+  turno        String   @db.VarChar(20)
+  horario      DateTime @db.Date
+  tipo         String   @db.VarChar(20)
+}

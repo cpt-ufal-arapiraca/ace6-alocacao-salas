@@ -20,17 +20,17 @@ export function CadastrarTurmaDocs() {
     
 }
 
-// export function RemoverSalaDocs() {
-//     return applyDecorators(
-//         ApiTags('Sala'),
-//         ApiBearerAuth(),
-//         ApiOperation({ summary: 'Remover Sala' }),
-//         ApiResponse({
-//             status: 200,
-//             description: 'Sala removida com sucesso',
-//         }),
-//     );
-// }
+export function RemoverTurmaDocs() {
+    return applyDecorators(
+        ApiTags('Turma'),
+        ApiBearerAuth(),
+        ApiOperation({ summary: 'Remover Turma' }),
+        ApiResponse({
+            status: 200,
+            description: 'Turma removida com sucesso',
+        }),
+    );
+}
 
 export function AlterarTurmaDocs() {
         return applyDecorators(

@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/utils/prisma/prisma.service';
 import { CadastrarTurmaDTO } from './dto/cadastrar-turma.dto';
 import { AlterarTurmaDTO } from './dto/alterar-turma.dto';
+import { RemoverTurmaDTO } from './dto/remover-turma.dto';
 
 
 @Injectable()
@@ -24,22 +25,22 @@ export class TurmaService {
     return {};
   }
 
-//   async deletar(removerSalaDTO: RemoverSalaDTO): Promise<any> {
-//     const sala = await this.prisma.sala
-//       .delete({
-//         where: {
-//           codigo_sala: removerSalaDTO.codigo_sala,
-//         },
-//         select: {
-//           codigo_sala: true,
-//         },
-//       })
-//       .catch((e) => {
-//         throw this.prisma.tratamentoErros(e);
-//       });
+  async deletar(removerTurmaDTO: RemoverTurmaDTO): Promise<any> {
+    const turma = await this.prisma.turma
+      .delete({
+        where: {
+          codigo_turma: removerTurmaDTO.codigo_turma,
+        },
+        select: {
+          codigo_turma: true,
+        },
+      })
+      .catch((e) => {
+        throw this.prisma.tratamentoErros(e);
+      });
 
-//     return {};
-//   }
+    return {};
+  }
 
   async alterar(alterarTurmaDTO: AlterarTurmaDTO): Promise<any> {
 

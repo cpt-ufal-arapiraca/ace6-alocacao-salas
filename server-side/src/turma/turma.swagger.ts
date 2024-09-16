@@ -32,17 +32,17 @@ export function CadastrarTurmaDocs() {
 //     );
 // }
 
-// export function AlterarSalaDocs() {
-//         return applyDecorators(
-//             ApiTags('Sala'),
-//             ApiBearerAuth(),
-//             ApiOperation({ summary: 'Atualizar sala' }),
-//             ApiResponse({
-//                 status: 200,
-//                 description: 'Sala alterada com sucesso',
-//             }),
-//         );
-//     }    
+export function AlterarTurmaDocs() {
+        return applyDecorators(
+            ApiTags('Turma'),
+            ApiBearerAuth(),
+            ApiOperation({ summary: 'Atualizar turma' }),
+            ApiResponse({
+                status: 200,
+                description: 'Turma alterada com sucesso',
+            }),
+        );
+    }    
     
 
 //     export function ObterSalaDocs() {

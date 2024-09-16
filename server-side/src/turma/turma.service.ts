@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/utils/prisma/prisma.service';
 import { CadastrarTurmaDTO } from './dto/cadastrar-turma.dto';
+import { AlterarTurmaDTO } from './dto/alterar-turma.dto';
 
 
 @Injectable()
@@ -40,27 +41,27 @@ export class TurmaService {
 //     return {};
 //   }
 
-//   async alterar(alterarSalaDTO: AlterarSalaDTO): Promise<any> {
+  async alterar(alterarTurmaDTO: AlterarTurmaDTO): Promise<any> {
 
-//     const { codigo_sala, ...atualizarSalaBDDTO } =
-//       alterarSalaDTO;
+    const { codigo_turma, ...atualizarTurmaBDDTO } =
+      alterarTurmaDTO;
 
-//     const sala = await this.prisma.sala
-//       .update({
-//         where: {
-//           codigo_sala: codigo_sala,
-//         },
-//         data: atualizarSalaBDDTO,
-//         select: {
-//           codigo_sala: true,
-//         },
-//       })
-//       .catch((e) => {
-//         throw this.prisma.tratamentoErros(e);
-//       });
+    const turma = await this.prisma.turma
+      .update({
+        where: {
+          codigo_turma: codigo_turma,
+        },
+        data: atualizarTurmaBDDTO,
+        select: {
+          codigo_turma: true,
+        },
+      })
+      .catch((e) => {
+        throw this.prisma.tratamentoErros(e);
+      });
 
-//     return {};
-//   }
+    return {};
+  }
 
   
 //   async obter(obterSalaDTO: ObterSalaDTO): Promise<any> {

@@ -1,19 +1,19 @@
-import {IsDate, IsEnum, IsInt, IsNotEmpty, IsNumber, IsNumberString} from 'class-validator';
+import {IsDate, IsEmail, IsEnum, IsInt, IsNumberString, IsOptional, IsString, Validate} from 'class-validator';
 import {CustomApiProperty, Generate} from "@decorators-custom";
 import faker from "@faker-custom";
-import {Type} from "class-transformer";
 import { TurnoTurmaEnum } from '../enum/turno-turma.enum';
+import { Type } from 'class-transformer';
 import { TipoTurmaEnum } from '../enum/tipo-turma.enum';
 
-export class CadastrarTurmaDTO {
+
+export class AlterarTurmaDTO {
 
     @CustomApiProperty({
         description: 'Código da Turma',
         required: true,
     })
-    @Generate(() => faker.number.int())
+    @Generate(() => faker.string.numeric())
     @IsNumberString()
-    @IsNotEmpty()
     codigo_turma : string;
 
     @CustomApiProperty({
@@ -29,7 +29,6 @@ export class CadastrarTurmaDTO {
     })
     @Generate(() => faker.helpers.arrayElement(Object.values(TurnoTurmaEnum).slice(Math.ceil(Object.values(TurnoTurmaEnum).length / 2))))
     @IsEnum(TurnoTurmaEnum)
-    @IsNotEmpty()
     turno : TurnoTurmaEnum;
 
     @CustomApiProperty({
@@ -39,7 +38,6 @@ export class CadastrarTurmaDTO {
     @Generate(() => faker.number.int())
     @Type(() => Number)
     @IsInt()
-    @IsNotEmpty()
     capacidade : number;
 
     @CustomApiProperty({
@@ -49,7 +47,6 @@ export class CadastrarTurmaDTO {
     @Generate(() => faker.date.anytime())
     @Type(() => Date)
     @IsDate()
-    @IsNotEmpty()
     horario : Date;
 
     @CustomApiProperty({
@@ -58,7 +55,6 @@ export class CadastrarTurmaDTO {
     })
     @Generate(() => faker.helpers.arrayElement(Object.values(TipoTurmaEnum).slice(Math.ceil(Object.values(TipoTurmaEnum).length / 2))))
     @IsEnum(TipoTurmaEnum)
-    @IsNotEmpty()
     tipo : TipoTurmaEnum;
-    
+
 }

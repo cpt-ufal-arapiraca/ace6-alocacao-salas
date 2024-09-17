@@ -7,9 +7,10 @@ import {AppController} from "./app.controller";
 import { AdministradorModule } from './administrador/administrador.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { SalaModule } from './sala/sala.module';
+import { DisciplinaModule } from './disciplina/disciplina.module';
 
 @Module({
-  imports: [AutenticacaoModule, GenerateModule, PrismaModule, AdministradorModule, UsuarioModule, SalaModule],
+  imports: [AutenticacaoModule, GenerateModule, PrismaModule, AdministradorModule, UsuarioModule, SalaModule, DisciplinaModule],
   controllers: [AppController],
   providers: [AppService],
 })

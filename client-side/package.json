@@ -12,6 +12,7 @@
     "@types/node": "^16.18.105",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "alocsalas": "file:",
     "axios": "^1.7.5",
     "lodash": "^4.17.21",
     "react": "^18.3.1",

@@ -68,3 +68,12 @@ model turma {
   horario      DateTime @db.Date
   tipo         String   @db.VarChar(20)
 }
+
+model disciplina {
+  disciplina_id     Int     @id @default(autoincrement())
+  codigo_disciplina String  @unique(map: "codigo_disciplina") @db.VarChar(50)
+  nome              String  @db.VarChar(100)
+  curso             String  @db.VarChar(100)
+  periodo           Int
+  PPCA              String? @db.VarChar(50)
+}

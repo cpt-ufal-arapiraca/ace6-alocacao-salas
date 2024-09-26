@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/utils/prisma/prisma.service';
-import { CadastrarDisciplinaDTO } from './dto/cadastrar-sala.dto';
+import { CadastrarDisciplinaDTO } from './dto/cadastrar-disciplina.dto';
 
 @Injectable()
 export class DisciplinaService {

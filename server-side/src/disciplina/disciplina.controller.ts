@@ -2,7 +2,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { DisciplinaService } from './disciplina.service';
 import { Roles } from 'src/autenticacao/decorators/roles.decorator';
 import { TipoUsuarioEnum } from 'src/autenticacao/enum/tipo-usuario-autenticacao.enum';
-import { CadastrarDisciplinaDTO } from './dto/cadastrar-sala.dto';
+import { CadastrarDisciplinaDTO } from './dto/cadastrar-disciplina.dto';
 import { CadastrarDisciplinaDocs } from './disciplina.swagger';
 
 @Controller('disciplina')

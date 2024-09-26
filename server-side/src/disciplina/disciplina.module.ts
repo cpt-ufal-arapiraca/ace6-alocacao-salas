@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { DisciplinaService } from './disciplina.service';
 import { DisciplinaController } from './disciplina.controller';
+import { DisciplinaService } from './disciplina.service';
+import { PrismaService } from 'src/utils/prisma/prisma.service';
 
 @Module({
-  providers: [DisciplinaService],
-  controllers: [DisciplinaController]
+    controllers: [DisciplinaController],
+    providers: [DisciplinaService, PrismaService]
 })
 export class DisciplinaModule {}

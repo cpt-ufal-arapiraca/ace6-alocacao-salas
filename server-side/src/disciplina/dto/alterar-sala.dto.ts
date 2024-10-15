@@ -1,19 +1,20 @@
-import {IsDate, IsEnum, IsInt, IsNotEmpty, IsNumber, IsNumberString, IsString} from 'class-validator';
+import {IsEmail, IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, Validate} from 'class-validator';
 import {CustomApiProperty, Generate} from "@decorators-custom";
 import faker from "@faker-custom";
-import {Type} from "class-transformer";
+import { Type } from 'class-transformer';
 
 
-export class CadastrarDisciplinaDTO {
+export class AlterarDisciplinaDTO {
 
     @CustomApiProperty({
-        description: 'Código da Disciplina',
-        required: true,
+        description: 'Código Disciplina',
+        required: false,
     })
-    @Generate(() => faker.number.int())
-    @IsNumberString()
-    @IsNotEmpty()
+    @Generate(() => faker.number.int({min: 1, max: 100}))
+    @IsOptional()
+    @IsString()
     codigo_disciplina : string;
+
 
     @CustomApiProperty({
         description: 'Nome da disciplina',
@@ -21,6 +22,7 @@ export class CadastrarDisciplinaDTO {
     })
     @Generate(() => faker.person.firstName())
     nome: string;
+
 
     @CustomApiProperty({
         description: 'Curso da disciplina',
@@ -31,7 +33,8 @@ export class CadastrarDisciplinaDTO {
     @IsNotEmpty()
     curso : string;
 
-    @CustomApiProperty({
+
+   @CustomApiProperty({
         description: 'Periodo',
         required: true,
     })
@@ -41,12 +44,16 @@ export class CadastrarDisciplinaDTO {
     @IsNotEmpty()
     periodo : number;
 
+// O QUE EU TO FAZENDO AQUIIIII - OLHE A LINHA 
+
     @CustomApiProperty({
-        description: 'PPCA',
+        description: 'PPC',
         required: true,
     })
     @Generate(() => faker.string.alphanumeric())
     @IsString()
     @IsNotEmpty()
     PPCA : string;
+
+
 }

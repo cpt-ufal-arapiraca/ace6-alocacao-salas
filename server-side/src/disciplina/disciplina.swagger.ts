@@ -12,3 +12,15 @@ export function CadastrarDisciplinaDocs() {
         }),
     );
 }
+
+export function AlterarDisciplinaDocs() {
+    return applyDecorators(
+        ApiTags('Disciplina'),
+        ApiBearerAuth(),
+        ApiOperation({ summary: 'Atualizar disciplina' }),
+        ApiResponse({
+            status: 200,
+            description: 'Disciplina alterada com sucesso',
+        }),
+    );
+}    

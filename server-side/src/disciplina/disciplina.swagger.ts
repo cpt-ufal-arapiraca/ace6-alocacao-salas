@@ -24,3 +24,16 @@ export function AlterarDisciplinaDocs() {
         }),
     );
 }    
+
+export function ObterDisciplinaDocs() {
+    return applyDecorators(
+        ApiTags('Disciplina'),
+        ApiBearerAuth(),
+        ApiOperation({ summary: 'Obter Disciplina' }),
+        ApiResponse({
+            status: 200,
+            description: 'Disciplina obtido com sucesso',
+            // type: ObterSala200DTO,
+        }),
+    );
+}

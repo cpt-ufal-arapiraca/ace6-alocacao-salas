@@ -7,14 +7,6 @@ import { TipoSalaEnum } from '../enum/tipo-sala.enum';
 export class ListarSalaDTO {
 
     @CustomApiProperty({
-        description: 'Id da Sala',
-        required: false,
-    })
-    @Generate(() => faker.number.int())
-    @IsOptional()
-    id_sala?: number;
-
-    @CustomApiProperty({
         description: 'Codigo da Sala',
         required: false,
     })

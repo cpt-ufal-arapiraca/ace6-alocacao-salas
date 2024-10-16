@@ -11,3 +11,11 @@ export interface SalaInterface {
         }
     ]
 }
+
+export interface sala {
+    "sala_id": number,
+    "codigo_sala": string,
+    "tipo": string,
+    "bloco": string,
+    "capacidade": number
+}

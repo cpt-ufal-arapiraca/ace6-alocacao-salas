@@ -42,7 +42,7 @@ function Tabela({ dados }: TableProps) {
                 if (response.status === 200) {
                     const novosItems = 'usuarios' in dados
                         ? items.filter((item) => item.usuario_id !== itemId)
-                        : items.filter((item) => item.sala_id !== itemId);
+                        : items.filter((item) => item.codigo_sala !== itemId);
     
                     setItems(novosItems);
                     setIsDelete(true);
@@ -147,14 +147,14 @@ function Tabela({ dados }: TableProps) {
                                                 <td className="px-6 py-4">
                                                     <div className="grid grid-cols-12">
                                                         <Link
-                                                            to={`/ver-salas/atualizar-sala/${item.sala_id}`}
+                                                            to={`/ver-salas/atualizar-sala/${item.codigo_sala}`}
                                                             className="cursor-pointer col-span-6 justify-self-center"
                                                         >
                                                             <i className="fi fi-rr-pencil flex items-center text-xl"></i>
                                                         </Link>
                                                         <div
                                                             onClick={() => {
-                                                                setItemId(item.sala_id);
+                                                                setItemId(item.codigo_sala);
                                                                 setIsModalOpen(true);
                                                             }}
                                                             className="cursor-pointer col-span-6 justify-self-center"

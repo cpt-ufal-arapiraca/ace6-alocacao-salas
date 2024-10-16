@@ -14,11 +14,11 @@ function VerSalas() {
     const [itemsPerPage] = useState(10);
     const [totalPages, setTotalPages] = useState(1);
 
-    const fetchUsuarios = async (term: string, page: number) => {
+    const fetchSala = async (term: string, page: number) => {
         try {
             const response = await api.get<SalaInterface>('/sala', {
                 params: {
-                    usuario_nome: term,
+                    codigo_sala: term,
                     pagina: page,
                     quantidada: itemsPerPage
                 }
@@ -31,7 +31,7 @@ function VerSalas() {
         }
     };
 
-    const fetchAllUsuarios = async (page: number) => {
+    const fetchAllSala = async (page: number) => {
         try {
             const response = await api.get<SalaInterface>('/sala', {
                 params: {
@@ -47,20 +47,20 @@ function VerSalas() {
         }
     };
 
-    const debouncedFetchUsuarios = _.debounce((term: string) => fetchUsuarios(term, currentPage), 300);
+    const debouncedFetchSala = _.debounce((term: string) => fetchSala(term, currentPage), 300);
 
     useEffect(() => {
         if (searchTerm) {
-            debouncedFetchUsuarios(searchTerm);
+            debouncedFetchSala(searchTerm);
         } else {
-            fetchAllUsuarios(currentPage);
+            fetchAllSala(currentPage);
         }
     }, [searchTerm, currentPage]);
 
     useEffect(() => {
         async function initialFetch() {
             try {
-                await fetchAllUsuarios(currentPage);
+                await fetchAllSala(currentPage);
                 setTimeout(() => {
                     setLoading(false);
                 }, 500);
@@ -101,7 +101,7 @@ function VerSalas() {
                                     <input
                                         type="text"
                                         className="block w-full p-2.5 border border-border_input rounded text-text_primary text-sm"
-                                        placeholder='Pesquise por um usuário'
+                                        placeholder='Pesquise por uma sala'
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(e.target.value)}
                                         required
@@ -113,7 +113,7 @@ function VerSalas() {
                             </form>
                         </div>
                         <div className="col-span-2 flex">
-                            <Link to={'/cadastrar-usuario'} className="h-10 w-10 bg-button_blue rounded-full flex items-center justify-center">
+                            <Link to={'/adicionar-sala'} className="h-10 w-10 bg-button_blue rounded-full flex items-center justify-center">
                                 <i className="fi fi-rr-plus text-white flex items-center"></i>
                             </Link>
                         </div>

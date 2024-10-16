@@ -7,7 +7,7 @@ import Button from "../../utils/Button";
 import Subtitle from "../../utils/Subtitle";
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import api from '../../../api/axios';
-import { SalaInterface } from '../../../interface/Sala';
+import { sala, SalaInterface } from '../../../interface/Sala';
 
 const schema = z.object({
     codigo_sala: z
@@ -42,7 +42,7 @@ function Form() {
 
     const onSubmit = async (data: FormData) => {
         setClick(true);
-        const requestData = salaId ? { ...data, usuario_id: salaId } : data;
+        const requestData = salaId ? { ...data } : data;
         try {
             const response = salaId 
                 ? await api.put(`/sala`, requestData)
@@ -69,15 +69,13 @@ function Form() {
         if (location.pathname.includes("atualizar-sala") && salaId) {
             const fetchData = async () => {
                 try {
-                    const response = await api.get<SalaInterface>(`/sala/${salaId}`);
+                    const response = await api.get<sala>(`/sala/${salaId}`);
                     if (response.status === 200) {
                         const data = response.data;
-                        // console.log(data.tipo_usuario.tipo_usuario_id);
-                        
-                        setValue("codigo_sala", data.salas[0].codigo_sala);
-                        setValue("bloco", data.salas[0].bloco);
-                        setValue("capacidade", data.salas[0].capacidade);
-                        setValue("tipo",  String(data.salas[0].tipo));
+                        setValue("codigo_sala", data.codigo_sala);
+                        setValue("bloco", data.bloco);
+                        setValue("capacidade", data.capacidade);
+                        setValue("tipo",  String(data.tipo));
                     }
                 } catch (error) {
                     console.error("Erro ao buscar dados do usuário:", error);
@@ -93,9 +91,12 @@ function Form() {
                 <Subtitle subtitle="Informação sobre a sala" />
             </div>
 
-            {/* Número da sala */}
+          {/* Número da sala */}
             <div className="col-span-12 sm:col-span-5">
                 <Input
+                    disabled={
+                        !!(location.pathname.includes("atualizar-sala") && salaId)
+                    }
                     type='text'
                     label="Número"
                     placeholder="Digite número da sala"
@@ -103,6 +104,8 @@ function Form() {
                     {...register("codigo_sala")}
                 />
             </div>
+
+
 
             {/* Capacidade */}
             <div className="col-span-12 sm:col-span-5">
@@ -136,7 +139,7 @@ function Form() {
                 <div className={`
                 ${errors.tipo ? 'border border-alert_error col-span-12 rounded p-2' : "border border-border_input col-span-12 rounded p-2"}`}>
                     <div className='grid grid-cols-12 gap-5'>
-                        <div className="col-span-12 xl:col-span-6">
+                        <div className="col-span-12 md:col-span-6">
                             <Checkbox 
                                 label="Presencial" 
                                 value="presencial"
@@ -145,12 +148,21 @@ function Form() {
                             />
                         </div>
 
-                        <div className="col-span-12 xl:col-span-6">
+                        <div className="col-span-12 md:col-span-6">
                             <Checkbox 
                                 label="Laboratório" 
                                 value="laboratório"
                                 onChange={handleCheckboxChange}
                                 checked={tipoSalaValues.includes("laboratório")}
+                            />
+                        </div>
+
+                        <div className="col-span-12 md:col-span-6">
+                            <Checkbox 
+                                label="Ateliê" 
+                                value="ateliê"
+                                onChange={handleCheckboxChange}
+                                checked={tipoSalaValues.includes("ateliê")}
                             />
                         </div>
                     </div>
@@ -163,7 +175,7 @@ function Form() {
                 )}
             </div>
 
-            <div className="col-span-12 mb-5 sm:mb-0 flex items-center justify-end">
+            <div className="col-span-12 mb-5 sm:mb-0 flex items-center justify-start">
                 {click ? (
                     <svg width="30" height="30" fill="currentColor" className="mr-2 text-button_blue animate-spin" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                         <path d="M526 1394q0 53-37.5 90.5t-90.5 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90.5 37.5 37.5 90.5zm498 206q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-704-704q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm1202 498q0 52-38 90t-90 38q-53 0-90.5-37.5t-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-704-704q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm502-202q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm296 502q0 52-38 90t-90 38q-53 0-90.5-37.5t-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-704-704q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5z" />

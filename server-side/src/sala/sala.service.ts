@@ -48,6 +48,8 @@ export class SalaService {
     const { codigo_sala, ...atualizarSalaBDDTO } =
       alterarSalaDTO;
 
+      console.log(atualizarSalaBDDTO);
+
     const sala = await this.prisma.sala
       .update({
         where: {

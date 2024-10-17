@@ -16,6 +16,7 @@ function Page() {
   }, []);
 
   return (
+    
     <div style={{ display: 'flex', height: '100dvh', minHeight: '400px' }}>
       <SideBar toggled={toggled} setToggled={setToggled} isMobile={isMobile} />
       <main className="sm:overflow-y-auto" style={{ flex: 1}}>

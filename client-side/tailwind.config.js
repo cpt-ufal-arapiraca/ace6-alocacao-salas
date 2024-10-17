@@ -8,6 +8,7 @@ module.exports = {
         button_blue_hover: '#092C4C',
         button_blue_active: '#536B82',
         button_red: '#ED1C24',
+        button_red_hover: '#8d1c24',
 
         cargo_user_admin: '#0095DA',
         cargo_user_gerente: '#27AE60',
@@ -23,6 +24,7 @@ module.exports = {
         border_subTitle: '#C4C4C4',
 
         table: '#E0E0E066',
+        gray2: '#e0e0e0',
         
         text_title: '#333333',
         text_primary: '#4F4F4F',

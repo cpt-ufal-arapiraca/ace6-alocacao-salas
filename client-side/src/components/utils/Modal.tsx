@@ -38,13 +38,13 @@ const Modal = ({ isOpen, onClose, title, content, confirmText, cancelText, onCon
           {onConfirm && (
             <button
               onClick={onConfirm}
-              className="bg-button_red text-white font-medium rounded-lg text-sm px-5 py-2.5"
+              className="bg-button_red hover:bg-button_red_hover text-white font-medium rounded-lg text-sm px-5 py-2.5"
             >
               {confirmText}
             </button>
           )}
           <button onClick={onClose}
-            className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-bold text-button_red rounded-lg group bg-gradient-to-br from-button_red to-button_red hover:text-white focus:ring-4 focus:outline-none focus:ring-bg_red_secondary">
+            className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-bold text-button_red rounded-lg group bg-gradient-to-br hover:from-button_red_hover hover:to-button_red_hover from-button_red to-button_red hover:text-white focus:ring-4 focus:outline-none focus:ring-bg_red_secondary">
             <span className="relative px-5 py-2.5 font-medium rounded-lg text-sm transition-all ease-in duration-75 bg-white  group-hover:bg-opacity-0">
               {cancelText}
             </span>

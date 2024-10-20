@@ -1,7 +1,7 @@
-export interface DisciplinaInterface {
+export interface TurmaInterface {
     total: number;
     quantidade: number;
-    disciplinas: {
+    turmas: {
         usuario_id: number;
         usuario_nome: string;
         usuario_cpf: string;
@@ -12,7 +12,7 @@ export interface DisciplinaInterface {
     }[];
 }
 
-export interface DisciplinaAtualizarInterface {
+export interface TurmaAtualizarInterface {
     usuario_siape: number;
     usuario_id: number;
     usuario_nome: string;

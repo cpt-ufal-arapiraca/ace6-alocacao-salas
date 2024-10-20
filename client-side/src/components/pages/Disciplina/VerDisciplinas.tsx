@@ -8,7 +8,7 @@ import _ from 'lodash';
 import { DisciplinaInterface } from "../../../interface/Disciplina";
 
 function VerDisciplinas() {
-    const [disciplina, setdisciplina] = useState<UsuarioInterface | null>(null);
+    const [disciplina, setdisciplina] = useState<DisciplinaInterface | null>(null);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);

@@ -23,9 +23,16 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response && error.response.status === 401) {
-      localStorage.removeItem('jwtToken');
-      window.location.href = '/login';
+    if (error.response) {
+      const statusCode = error.response.status;
+
+      if (statusCode === 400) {
+        const errorMessage = error.response.data.message || 'Solicitação inválida. Verifique os dados informados.';
+        return Promise.reject(new Error(errorMessage));
+      } else if (statusCode === 401) {
+        localStorage.removeItem('jwtToken');
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }

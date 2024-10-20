@@ -5,9 +5,11 @@ import api from "../../api/axios";
 import Alert from "./Alert";
 import { Link } from "react-router-dom";
 import { SalaInterface } from "../../interface/Sala";
+import { DisciplinaInterface } from "../../interface/Disciplina";
+import { TurmaInterface } from "../../interface/Turma";
 
 interface TableProps {
-    dados: UsuarioInterface | SalaInterface | null;
+    dados: UsuarioInterface | SalaInterface | DisciplinaInterface | TurmaInterface | null;
 }
 
 function Tabela({ dados }: TableProps) {
@@ -22,6 +24,10 @@ function Tabela({ dados }: TableProps) {
                 setItems(dados.usuarios);
             } else if ("salas" in dados) {
                 setItems(dados.salas);
+            } else if ("disciplinas" in dados) {
+                setItems(dados.disciplinas);
+            } else if ("turmas" in dados) {
+                setItems(dados.turmas);
             }
         }
     }, [dados]);

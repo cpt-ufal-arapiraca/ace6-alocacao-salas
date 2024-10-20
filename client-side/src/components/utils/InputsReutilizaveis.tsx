@@ -35,7 +35,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className="flex flex-col row-auto col-auto relative">
-        <label className="block mb-1 text-sm font-bold text-text_primary dark:text-white">
+        <label className="block mb-1 text-sm font-bold text-text_primary">
           {label}
         </label>
         <div className="relative">

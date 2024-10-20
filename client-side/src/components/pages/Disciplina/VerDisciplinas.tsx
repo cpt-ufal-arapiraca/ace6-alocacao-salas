@@ -5,18 +5,19 @@ import {UsuarioInterface} from "../../../interface/Usuario";
 import { SkeletonTable } from "../../utils/Skeleton";
 import { Link } from "react-router-dom";
 import _ from 'lodash';
+import { DisciplinaInterface } from "../../../interface/Disciplina";
 
 function VerDisciplinas() {
-    const [usuarios, setUsuarios] = useState<UsuarioInterface | null>(null);
+    const [disciplina, setdisciplina] = useState<UsuarioInterface | null>(null);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(10);
     const [totalPages, setTotalPages] = useState(1);
 
-    const fetchUsuarios = async (term: string, page: number) => {
+    const fetchdisciplina = async (term: string, page: number) => {
         try {
-            const response = await api.get<UsuarioInterface>('/usuario', {
+            const response = await api.get<DisciplinaInterface>('/disciplina', {
                 params: {
                     usuario_nome: term,
                     pagina: page,
@@ -25,50 +26,50 @@ function VerDisciplinas() {
             });
             
             
-            setUsuarios(response.data);
+            setdisciplina(response.data);
             const total = response.data.total; 
             setTotalPages(Math.ceil(total / itemsPerPage));
         } catch (error) {
-            console.error('Erro ao buscar dados do usuário:', error);
+            console.error('Erro ao buscar dados do disciplina:', error);
         }
     };
 
-    const fetchAllUsuarios = async (page: number) => {
+    const fetchAlldisciplina = async (page: number) => {
         try {
-            const response = await api.get<UsuarioInterface>('/usuario', {
+            const response = await api.get<DisciplinaInterface>('/disciplina', {
                 params: {
                     pagina: page,
                     quantidada: itemsPerPage
                 }
             });
             console.log(response);
-            setUsuarios(response.data);
+            setdisciplina(response.data);
             const total = response.data.total;
             setTotalPages(Math.ceil(total / itemsPerPage));
         } catch (error) {
-            console.error('Erro ao buscar todos os usuários:', error);
+            console.error('Erro ao buscar todos os disciplinas:', error);
         }
     };
 
-    const debouncedFetchUsuarios = _.debounce((term: string) => fetchUsuarios(term, currentPage), 300);
+    const debouncedFetchdisciplina = _.debounce((term: string) => fetchdisciplina(term, currentPage), 300);
 
     useEffect(() => {
         if (searchTerm) {
-            debouncedFetchUsuarios(searchTerm);
+            debouncedFetchdisciplina(searchTerm);
         } else {
-            fetchAllUsuarios(currentPage);
+            fetchAlldisciplina(currentPage);
         }
     }, [searchTerm, currentPage]);
 
     useEffect(() => {
         async function initialFetch() {
             try {
-                await fetchAllUsuarios(currentPage);
+                await fetchAlldisciplina(currentPage);
                 setTimeout(() => {
                     setLoading(false);
                 }, 500);
             } catch (error) {
-                console.error('Erro ao buscar dados do usuário:', error);
+                console.error('Erro ao buscar dados da disciplina:', error);
                 setLoading(false);
             }
         }
@@ -106,7 +107,7 @@ function VerDisciplinas() {
                                     <input
                                         type="text"
                                         className="block w-full p-2.5 border border-border_input rounded text-text_primary text-sm"
-                                        placeholder='Pesquise por um usuário'
+                                        placeholder='Pesquise por uma disciplina'
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(e.target.value)}
                                         required
@@ -118,7 +119,7 @@ function VerDisciplinas() {
                             </form>
                         </div>
                         <div className="col-span-2 flex">
-                            <Link to={'/cadastrar-usuario'} className="h-10 w-10 bg-button_blue rounded-full flex items-center justify-center">
+                            <Link to={'/cadastrar-disciplina'} className="h-10 w-10 bg-button_blue rounded-full flex items-center justify-center">
                                 <i className="fi fi-rr-plus text-white flex items-center"></i>
                             </Link>
                         </div>
@@ -129,7 +130,7 @@ function VerDisciplinas() {
                 <SkeletonTable />
             ) : (
                 <section>
-                    <Tabela dados={usuarios} />
+                    <Tabela dados={disciplina} />
                     <section className="m-7 grid grid-cols-12 gap-5">
                         <div className="col-span-12">
                             <div className="text-text_primary text-xs grid grid-cols-2 justify-self-start">

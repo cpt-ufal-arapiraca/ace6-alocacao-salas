@@ -6,7 +6,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    localStorage.setItem('jwtToken', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInJvbGUiOiJBZG1pbmlzdHJhZG9yIiwiaWF0IjoxNzI5MDQzMDA3LCJleHAiOjE3MjkxMjk0MDd9.8Sp5FbQL0bgYPpIkdLx8u0pIIh-00w9gSNcAT4Pecuw')
+    localStorage.setItem('jwtToken', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInJvbGUiOiJBZG1pbmlzdHJhZG9yIiwiaWF0IjoxNzI5NDE3OTY3LCJleHAiOjE3Mjk1MDQzNjd9.YcIKFNYCuNXgob-QcHecPA-f9Y1FRtFz53ERgAABo8I')
     const token = localStorage.getItem('jwtToken');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;

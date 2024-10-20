@@ -12,7 +12,7 @@ export interface SalaInterface {
     ]
 }
 
-export interface sala {
+export interface salaAtualizar {
     "sala_id": number,
     "codigo_sala": string,
     "tipo": string,

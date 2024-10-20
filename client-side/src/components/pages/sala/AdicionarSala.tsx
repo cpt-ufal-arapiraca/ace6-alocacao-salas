@@ -7,7 +7,7 @@ import Button from "../../utils/Button";
 import Subtitle from "../../utils/Subtitle";
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import api from '../../../api/axios';
-import { sala, SalaInterface } from '../../../interface/Sala';
+import { salaAtualizar } from '../../../interface/Sala';
 
 const schema = z.object({
     codigo_sala: z
@@ -69,7 +69,7 @@ function Form() {
         if (location.pathname.includes("atualizar-sala") && salaId) {
             const fetchData = async () => {
                 try {
-                    const response = await api.get<sala>(`/sala/${salaId}`);
+                    const response = await api.get<salaAtualizar>(`/sala/${salaId}`);
                     if (response.status === 200) {
                         const data = response.data;
                         setValue("codigo_sala", data.codigo_sala);

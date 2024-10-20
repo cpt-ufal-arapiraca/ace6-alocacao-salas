@@ -4,32 +4,71 @@ import { z } from 'zod';
 import { Input } from "../../utils/InputsReutilizaveis";
 import Button from "../../utils/Button";
 import Subtitle from "../../utils/Subtitle";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import api from '../../../api/axios';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { DisciplinaAtualizarInterface, DisciplinaInterface } from '../../../interface/Disciplina';
 
 const schema = z.object({
     nome: z.string().min(1, "Nome da disciplina é obrigatório"),
-    id: z.string().min(1, "O codigo é obrigatório"),
+    codigo_disciplina: z.string().min(1, "O codigo é obrigatório"),
     curso: z.string().min(1, "Curso inválido"),
     periodo: z.string().min(1, "Período inválido"),
-    PPC: z.string().min(1, "PPC inválido"),
+    PPCA: z.string().min(1, "PPC inválido"),
 });
 
 type FormData = z.infer<typeof schema>;
 
 function Form() {
-    const { register, handleSubmit, formState: { errors }} = useForm<FormData>({
+    const { register, handleSubmit, setValue, formState: { errors }} = useForm<FormData>({
         resolver: zodResolver(schema),
     });
 
+    const navigate = useNavigate();
+    const disciplina_id  = Number(useParams().id);
+    const location = useLocation();
+
+    const onSubmit = async (data: FormData) => {
+        setClick(true);
+        const requestData = disciplina_id ? { ...data } : data;
+        try {
+            const response = disciplina_id 
+                ? await api.put(`/disciplina`, requestData)
+                : await api.post('/disciplina', data);
+            
+            setClick(false);
+            navigate("/ver-disciplinas");
+            return response;
+        } catch (error) {
+            setClick(false);
+            console.error('Erro ao enviar os dados:', error);
+            throw error;
+        }
+    };
+
     const [click, setClick] = useState(false);
 
-    const onSubmit = (data: FormData) => {
-        setClick(true);
-        console.log(data);
-        setTimeout(() => {
-            setClick(false);
-        }, 2000);
-    };
+    useEffect(() => {
+        if (location.pathname.includes("atualizar-disciplina") && disciplina_id) {
+            const fetchData = async () => {
+                try {
+                    const response = await api.get<DisciplinaAtualizarInterface>(`/disciplina/${disciplina_id}`);
+                    if (response.status === 200) {
+                        const data = response.data;
+                        setValue('codigo_disciplina', data.codigo_disciplina);
+                        setValue('nome', data.nome);
+                        setValue('curso', data.curso);
+                        setValue('periodo', data.periodo);
+                        setValue('PPCA', data.PPCA);
+                    }
+                } catch (error) {
+                    console.error("Erro ao buscar dados do usuário:", error);
+                }
+            };
+            fetchData();
+        }
+    }, [location.pathname, disciplina_id, setValue]);
+
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="m-7 grid grid-cols-12 gap-5">
@@ -52,8 +91,8 @@ function Form() {
                 <Input
                     label="Codigo"
                     placeholder="Digite o codigo"
-                    error={errors.id?.message}
-                    {...register("id")}
+                    error={errors.codigo_disciplina?.message}
+                    {...register("codigo_disciplina")}
                 />
             </div>
 
@@ -82,8 +121,8 @@ function Form() {
                 <Input
                     label="PPC"
                     placeholder="Digite o PPC"
-                    error={errors.PPC?.message}
-                    {...register("PPC")}
+                    error={errors.PPCA?.message}
+                    {...register("PPCA")}
                 />
             </div>
             

@@ -37,3 +37,15 @@ export function ObterDisciplinaDocs() {
         }),
     );
 }
+
+export function deletarDisciplinaDocs() {
+    return applyDecorators(
+        ApiTags('Disciplina'),
+        ApiBearerAuth(),
+        ApiOperation({ summary: 'Deletar disciplina' }),
+        ApiResponse({
+            status: 200,
+            description: 'disciplina deletada com sucesso',
+        }),
+    );
+}

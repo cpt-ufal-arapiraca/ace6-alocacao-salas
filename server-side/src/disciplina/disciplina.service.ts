@@ -3,6 +3,7 @@ import { PrismaService } from 'src/utils/prisma/prisma.service';
 import { CadastrarDisciplinaDTO } from './dto/cadastrar-disciplina.dto';
 import { AlterarDisciplinaDTO } from './dto/alterar-sala.dto';
 import { ObterDisciplinaDTO } from './dto/obter-disciplina.dto';
+import { DeletarDisciplinaDTO } from './dto/deletar-disciplina.dto';
 
 @Injectable()
 export class DisciplinaService {
@@ -76,6 +77,23 @@ export class DisciplinaService {
     return disciplina;
   }
 
+
+  async deletar(deletarDisciplinaDTO: DeletarDisciplinaDTO): Promise<any> {
+    const disciplina = await this.prisma.disciplina
+      .delete({
+        where: {
+          codigo_disciplina: deletarDisciplinaDTO.codigo_disciplina,
+        },
+        select: {
+          codigo_disciplina: true,
+        },
+      })
+      .catch((e) => {
+        throw this.prisma.tratamentoErros(e);
+      });
+
+    return {};
+  }
 }
 
 

@@ -1,12 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { DisciplinaService } from './disciplina.service';
 import { Roles } from 'src/autenticacao/decorators/roles.decorator';
 import { TipoUsuarioEnum } from 'src/autenticacao/enum/tipo-usuario-autenticacao.enum';
 import { CadastrarDisciplinaDTO } from './dto/cadastrar-disciplina.dto';
-import { AlterarDisciplinaDocs, CadastrarDisciplinaDocs, deletarDisciplinaDocs, ObterDisciplinaDocs } from './disciplina.swagger';
-import { AlterarDisciplinaDTO } from './dto/alterar-sala.dto';
+import { AlterarDisciplinaDocs, CadastrarDisciplinaDocs, deletarDisciplinaDocs, ListarDisciplinaDocs, ObterDisciplinaDocs } from './disciplina.swagger';
+import { AlterarDisciplinaDTO } from './dto/alterar-disciplina.dto';
 import { ObterDisciplinaDTO } from './dto/obter-disciplina.dto';
 import { DeletarDisciplinaDTO } from './dto/deletar-disciplina.dto';
+import { ListarDisciplinaDTO } from './dto/listar-disciplina.dto';
 
 
 @Controller('disciplina')
@@ -51,5 +52,14 @@ export class DisciplinaController {
         @Param() deletarDisciplinaDTO: DeletarDisciplinaDTO,
     ): Promise<any> {
         return await this.disciplinaService.deletar(deletarDisciplinaDTO);
+    }
+
+    @Get('')
+    @ListarDisciplinaDocs()
+    @Roles(TipoUsuarioEnum.ADMIN)
+    async listar(
+        @Query() listarDisciplinaDTO: ListarDisciplinaDTO,
+    ): Promise<any> {
+        return await this.disciplinaService.listar(listarDisciplinaDTO);
     }
 }

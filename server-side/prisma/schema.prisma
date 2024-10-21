@@ -71,9 +71,9 @@ model turma {
 
 model disciplina {
   disciplina_id     Int     @id @default(autoincrement())
-  codigo_disciplina String  @unique(map: "codigo_disciplina") @db.VarChar(50)
-  nome              String  @db.VarChar(100)
-  curso             String  @db.VarChar(100)
-  periodo           Int
-  PPCA              String? @db.VarChar(50)
+  disciplina_codigo String  @unique(map: "codigo_disciplina") @db.VarChar(50)
+  disciplina_nome              String  @db.VarChar(100)
+  disciplina_curso             String  @db.VarChar(100)
+  disciplina_periodo           Int
+  disciplina_PPCA              String? @db.VarChar(50)
 }

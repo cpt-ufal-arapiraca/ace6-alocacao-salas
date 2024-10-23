@@ -49,3 +49,16 @@ export function deletarDisciplinaDocs() {
         }),
     );
 }
+
+export function ListarDisciplinaDocs() {
+    return applyDecorators(
+        ApiTags('Disciplina'),
+        ApiBearerAuth(),
+        ApiOperation({ summary: 'Listar disciplinas' }),
+        ApiResponse({
+            status: 200,
+            description: 'Disciplinas listadas com sucesso',
+            
+        }),
+    );
+}

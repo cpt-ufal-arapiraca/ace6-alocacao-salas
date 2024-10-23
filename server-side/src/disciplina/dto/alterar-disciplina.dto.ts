@@ -13,7 +13,7 @@ export class AlterarDisciplinaDTO {
     @Generate(() => faker.number.int({min: 1, max: 100}))
     @IsOptional()
     @IsString()
-    codigo_disciplina : string;
+    disciplina_codigo : string;
 
 
     @CustomApiProperty({
@@ -21,7 +21,7 @@ export class AlterarDisciplinaDTO {
         required: true,
     })
     @Generate(() => faker.person.firstName())
-    nome: string;
+    disciplina_nome: string;
 
 
     @CustomApiProperty({
@@ -31,7 +31,7 @@ export class AlterarDisciplinaDTO {
     @Generate(() => faker.lorem.words())
     @IsString()
     @IsNotEmpty()
-    curso : string;
+    disciplina_curso : string;
 
 
    @CustomApiProperty({
@@ -42,7 +42,7 @@ export class AlterarDisciplinaDTO {
     @Type(() => Number)
     @IsInt()
     @IsNotEmpty()
-    periodo : number;
+    disciplina_periodo : number;
 
 // O QUE EU TO FAZENDO AQUIIIII - OLHE A LINHA 
 
@@ -53,7 +53,7 @@ export class AlterarDisciplinaDTO {
     @Generate(() => faker.string.alphanumeric())
     @IsString()
     @IsNotEmpty()
-    PPCA : string;
+    disciplina_PPCA : string;
 
 
 }

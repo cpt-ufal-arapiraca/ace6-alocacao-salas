@@ -13,6 +13,6 @@ export class DeletarDisciplinaDTO {
     @Type(() => String)
     @IsOptional()
     @IsAlphanumeric()
-    codigo_disciplina?: string;
+    disciplina_codigo?: string;
 
 }

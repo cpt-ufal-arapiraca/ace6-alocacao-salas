@@ -8,9 +8,10 @@ import { AdministradorModule } from './administrador/administrador.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { SalaModule } from './sala/sala.module';
 import { DisciplinaModule } from './disciplina/disciplina.module';
+import { TurmaModule } from './turma/turma.module';
 
 @Module({
-  imports: [AutenticacaoModule, GenerateModule, PrismaModule, AdministradorModule, UsuarioModule, SalaModule, DisciplinaModule],
+  imports: [AutenticacaoModule, GenerateModule, PrismaModule, AdministradorModule, UsuarioModule, SalaModule, DisciplinaModule, TurmaModule],
   controllers: [AppController],
   providers: [AppService],
 })

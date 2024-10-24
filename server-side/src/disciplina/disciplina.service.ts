@@ -1,9 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/utils/prisma/prisma.service';
 import { CadastrarDisciplinaDTO } from './dto/cadastrar-disciplina.dto';
-import { AlterarDisciplinaDTO } from './dto/alterar-sala.dto';
+import { AlterarDisciplinaDTO } from './dto/alterar-disciplina.dto';
 import { ObterDisciplinaDTO } from './dto/obter-disciplina.dto';
 import { DeletarDisciplinaDTO } from './dto/deletar-disciplina.dto';
+import { ListarDisciplinaDTO } from './dto/listar-disciplina.dto';
 
 @Injectable()
 export class DisciplinaService {
@@ -27,17 +28,17 @@ export class DisciplinaService {
 
   async alterar(alterarDisciplinaDTO: AlterarDisciplinaDTO): Promise<any> {
 
-    const { codigo_disciplina, ...atualizarDisciplinaBDDTO } =
+    const { disciplina_codigo, ...atualizarDisciplinaBDDTO } =
       alterarDisciplinaDTO;
 
     const desciplina = await this.prisma.disciplina
       .update({
         where: {
-          codigo_disciplina: codigo_disciplina,
+          disciplina_codigo: disciplina_codigo,
         },
         data: atualizarDisciplinaBDDTO,
         select: {
-          codigo_disciplina: true,
+          disciplina_codigo: true,
         },
       })
       .catch((e) => {
@@ -52,15 +53,15 @@ export class DisciplinaService {
     const disciplina = await this.prisma.disciplina
       .findUnique({
         where: {
-          codigo_disciplina: obterDisciplinaDTO.codigo_disciplina,
+          disciplina_codigo: obterDisciplinaDTO.disciplina_codigo,
         },
         select: {
           disciplina_id: true,
-          codigo_disciplina: true,
-          nome: true,
-          curso: true,
-          periodo: true,
-          PPCA: true,
+          disciplina_codigo: true,
+          disciplina_nome: true,
+          disciplina_curso: true,
+          disciplina_periodo: true,
+          disciplina_PPCA: true,
           },
       })
       .catch((e) => {
@@ -82,10 +83,10 @@ export class DisciplinaService {
     const disciplina = await this.prisma.disciplina
       .delete({
         where: {
-          codigo_disciplina: deletarDisciplinaDTO.codigo_disciplina,
+          disciplina_codigo: deletarDisciplinaDTO.disciplina_codigo,
         },
         select: {
-          codigo_disciplina: true,
+          disciplina_codigo: true,
         },
       })
       .catch((e) => {
@@ -93,6 +94,56 @@ export class DisciplinaService {
       });
 
     return {};
+  }
+
+  async listar(listarDisciplinaDTO: ListarDisciplinaDTO): Promise<any> {
+    const disciplinas = await this.prisma.disciplina
+      .findMany({
+        where: {
+          AND: [
+            listarDisciplinaDTO.disciplina_curso
+              ? {
+                  disciplina_curso: listarDisciplinaDTO.disciplina_curso,
+                }
+              : {},
+              listarDisciplinaDTO.disciplina_codigo
+              ? {
+                  disciplina_codigo: {
+                    startsWith: listarDisciplinaDTO.disciplina_codigo,
+                  },
+                }
+              : {},
+              
+          ],
+        },
+        skip: listarDisciplinaDTO.pagina ? (listarDisciplinaDTO.pagina - 1) * 10 : undefined,
+        take: 10,
+        orderBy: {
+          disciplina_codigo: listarDisciplinaDTO.ordenacao,
+        },
+        select: {
+          disciplina_id: true,
+          disciplina_codigo: true,
+          disciplina_nome: true,
+          disciplina_curso: true,
+          disciplina_periodo: true,
+          disciplina_PPCA: true,
+          
+        },
+      })
+      .catch((e) => {
+        throw this.prisma.tratamentoErros(e);
+      });
+
+      const totalDisciplinas = await this.prisma.disciplina.count();
+
+      return {
+          total: totalDisciplinas,
+          pagina: listarDisciplinaDTO.pagina,
+          quantidade: Math.ceil(totalDisciplinas/10),
+          disciplinas: disciplinas,
+      };
+
   }
 }
 

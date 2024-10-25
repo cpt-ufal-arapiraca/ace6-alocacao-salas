@@ -11,23 +11,23 @@ CREATE TABLE `autenticacao` (
 
 CREATE TABLE `disciplina` (
   `disciplina_id` int(11) NOT NULL AUTO_INCREMENT,
-  `codigo_disciplina` varchar(50) NOT NULL,
-  `nome` varchar(100) NOT NULL,
-  `curso` varchar(100) NOT NULL,
-  `periodo` int(11) NOT NULL,
-  `PPCA` varchar(50),
+  `disciplina_codigo` varchar(50) NOT NULL,
+  `disciplina_nome` varchar(100) NOT NULL,
+  `disciplina_curso` varchar(100) NOT NULL,
+  `disciplina_periodo` int(11) NOT NULL,
+  `disciplina_PPCA` varchar(50),
   PRIMARY KEY (`disciplina_id`),
-  UNIQUE KEY `codigo_disciplina` (`codigo_disciplina`)
+  UNIQUE KEY `disciplina_codigo` (`disciplina_codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `sala` (
   `sala_id` int(11) NOT NULL AUTO_INCREMENT,
-  `codigo_sala` varchar(50) NOT NULL,
-  `tipo` varchar(20) NOT NULL,
-  `bloco` varchar(10) NOT NULL,
-  `capacidade` int(11) NOT NULL,
+  `sala_codigo` varchar(50) NOT NULL,
+  `sala_tipo` varchar(20) NOT NULL,
+  `sala_bloco` varchar(10) NOT NULL,
+  `sala_capacidade` int(11) NOT NULL,
   PRIMARY KEY (`sala_id`),
-  UNIQUE KEY `codigo_sala` (`codigo_sala`)
+  UNIQUE KEY `sala_codigo` (`sala_codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `sessao` (
@@ -54,14 +54,14 @@ INSERT INTO `tipo_usuario` (`tipo_usuario_id`, `tipo_usuario_nome`) VALUES
 
 CREATE TABLE `turma` (
   `turma_id` int(11) NOT NULL AUTO_INCREMENT,
-  `codigo_turma` varchar(50) NOT NULL,
-  `professor` varchar(100) NOT NULL,
-  `capacidade` int(11) NOT NULL,
-  `turno` varchar(20) NOT NULL,
-  `horario` date NOT NULL,
-  `tipo` varchar(20) NOT NULL,
+  `turma_codigo` varchar(50) NOT NULL,
+  `turma_professor` varchar(100) NOT NULL,
+  `turma_capacidade` int(11) NOT NULL,
+  `turma_turno` varchar(20) NOT NULL,
+  `turma_horario` date NOT NULL,
+  `turma_tipo` varchar(20) NOT NULL,
   PRIMARY KEY (`turma_id`),
-  UNIQUE KEY `codigo_turma` (`codigo_turma`)
+  UNIQUE KEY `turma_codigo` (`turma_codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `usuario` (

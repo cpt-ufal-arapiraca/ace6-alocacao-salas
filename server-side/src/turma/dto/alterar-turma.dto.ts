@@ -14,14 +14,14 @@ export class AlterarTurmaDTO {
     })
     @Generate(() => faker.string.numeric())
     @IsNumberString()
-    codigo_turma : string;
+    turma_codigo : string;
 
     @CustomApiProperty({
         description: 'Professor da turma',
         required: true,
     })
     @Generate(() => faker.person.firstName())
-    professor: string;
+    turma_professor: string;
 
     @CustomApiProperty({
         description: 'Turno da turma',
@@ -29,7 +29,7 @@ export class AlterarTurmaDTO {
     })
     @Generate(() => faker.helpers.arrayElement(Object.values(TurnoTurmaEnum).slice(Math.ceil(Object.values(TurnoTurmaEnum).length / 2))))
     @IsEnum(TurnoTurmaEnum)
-    turno : TurnoTurmaEnum;
+    turma_turno : TurnoTurmaEnum;
 
     @CustomApiProperty({
         description: 'Capacidade da turma',
@@ -38,7 +38,7 @@ export class AlterarTurmaDTO {
     @Generate(() => faker.number.int())
     @Type(() => Number)
     @IsInt()
-    capacidade : number;
+    turma_capacidade : number;
 
     @CustomApiProperty({
         description: 'Horário da turma',
@@ -47,7 +47,7 @@ export class AlterarTurmaDTO {
     @Generate(() => faker.date.anytime())
     @Type(() => Date)
     @IsDate()
-    horario : Date;
+    turma_horario : Date;
 
     @CustomApiProperty({
         description: 'Tipo da turma',
@@ -55,6 +55,6 @@ export class AlterarTurmaDTO {
     })
     @Generate(() => faker.helpers.arrayElement(Object.values(TipoTurmaEnum).slice(Math.ceil(Object.values(TipoTurmaEnum).length / 2))))
     @IsEnum(TipoTurmaEnum)
-    tipo : TipoTurmaEnum;
+    turma_tipo : TipoTurmaEnum;
 
 }

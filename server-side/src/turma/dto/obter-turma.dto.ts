@@ -13,6 +13,6 @@ export class ObterTurmaDTO {
     @Type(() => String)
     @IsOptional()
     @IsAlphanumeric()
-    codigo_turma?: string;
+    turma_codigo?: string;
 
 }

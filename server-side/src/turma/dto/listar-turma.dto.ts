@@ -21,7 +21,7 @@ export class ListarTurmaDTO {
     })
     @Generate(() => faker.number.int())
     @IsOptional()
-    codigo_turma?: string;
+    turma_codigo?: string;
 
     @CustomApiProperty({
         description: 'Tipo de Sala (Laboratorio ou Sala)',
@@ -33,7 +33,7 @@ export class ListarTurmaDTO {
     @IsOptional()
     @IsEnum(TipoTurmaEnum)
     @IsString()
-    tipo ?: TipoTurmaEnum;
+    turma_tipo ?: TipoTurmaEnum;
 
     @CustomApiProperty({
         description: 'Valor para paginação',

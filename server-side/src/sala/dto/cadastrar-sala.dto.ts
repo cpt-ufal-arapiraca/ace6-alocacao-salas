@@ -14,7 +14,7 @@ export class CadastrarSalaDTO {
     @Generate(() => faker.number.int())
     @IsNumberString()
     @IsNotEmpty()
-    codigo_sala : string;
+    sala_codigo : string;
 
     @CustomApiProperty({
         description: 'Tipo da sala',
@@ -23,7 +23,7 @@ export class CadastrarSalaDTO {
     })
     @Generate(() => faker.helpers.arrayElement(Object.values(TipoSalaEnum).slice(Math.ceil(Object.values(TipoSalaEnum).length / 2))))
     @IsEnum(TipoSalaEnum)
-    tipo: TipoSalaEnum;
+    sala_tipo: TipoSalaEnum;
 
     @CustomApiProperty({
         description: 'Bloco da Sala',
@@ -32,7 +32,7 @@ export class CadastrarSalaDTO {
     @Generate(() => faker.string.alpha())
     @IsString()
     @IsNotEmpty()
-    bloco : string;
+    sala_bloco : string;
 
     @CustomApiProperty({
         description: 'Bloco da Sala',
@@ -42,6 +42,6 @@ export class CadastrarSalaDTO {
     @Type(() => Number)
     @IsInt()
     @IsNotEmpty()
-    capacidade : number;
+    sala_capacidade : number;
 
 }

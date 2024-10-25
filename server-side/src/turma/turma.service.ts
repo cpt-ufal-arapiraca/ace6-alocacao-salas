@@ -31,10 +31,10 @@ export class TurmaService {
     const turma = await this.prisma.turma
       .delete({
         where: {
-          codigo_turma: removerTurmaDTO.codigo_turma,
+          turma_codigo: removerTurmaDTO.turma_codigo,
         },
         select: {
-          codigo_turma: true,
+          turma_codigo: true,
         },
       })
       .catch((e) => {
@@ -46,17 +46,17 @@ export class TurmaService {
 
   async alterar(alterarTurmaDTO: AlterarTurmaDTO): Promise<any> {
 
-    const { codigo_turma, ...atualizarTurmaBDDTO } =
+    const { turma_codigo, ...atualizarTurmaBDDTO } =
       alterarTurmaDTO;
 
     const turma = await this.prisma.turma
       .update({
         where: {
-          codigo_turma: codigo_turma,
+          turma_codigo: turma_codigo,
         },
         data: atualizarTurmaBDDTO,
         select: {
-          codigo_turma: true,
+          turma_codigo: true,
         },
       })
       .catch((e) => {
@@ -72,16 +72,16 @@ export class TurmaService {
     const turma = await this.prisma.turma
       .findUnique({
         where: {
-          codigo_turma: obterTurmaDTO.codigo_turma,
+          turma_codigo: obterTurmaDTO.turma_codigo,
         },
         select: {
           turma_id: true,
-          codigo_turma: true,
-          professor: true,
-          turno: true,
-          capacidade: true,
-          horario: true,
-          tipo: true,
+          turma_codigo: true,
+          turma_professor: true,
+          turma_turno: true,
+          turma_capacidade: true,
+          turma_horario: true,
+          turma_tipo: true,
 
           },
       })
@@ -105,15 +105,15 @@ export class TurmaService {
       .findMany({
         where: {
           AND: [
-            listarTurmaDTO.tipo
+            listarTurmaDTO.turma_tipo
               ? {
-                  tipo: listarTurmaDTO.tipo,
+                  turma_tipo: listarTurmaDTO.turma_tipo,
                 }
               : {},
-              listarTurmaDTO.codigo_turma
+              listarTurmaDTO.turma_codigo
               ? {
-                  codigo_turma: {
-                    startsWith: listarTurmaDTO.codigo_turma,
+                  turma_codigo: {
+                    startsWith: listarTurmaDTO.turma_codigo,
                   },
                 }
               : {},
@@ -122,15 +122,15 @@ export class TurmaService {
         skip: listarTurmaDTO.pagina ? (listarTurmaDTO.pagina - 1) * 10 : undefined,
         take: 10,
         orderBy: {
-          codigo_turma: listarTurmaDTO.ordenacao,
+          turma_codigo: listarTurmaDTO.ordenacao,
         },
         select: {
           turma_id: true,
-          codigo_turma: true,
-          professor: true,
-          capacidade: true,
-          horario: true,
-          tipo: true,
+          turma_codigo: true,
+          turma_professor: true,
+          turma_capacidade: true,
+          turma_horario: true,
+          turma_tipo: true,
           // tipo_usuario: {
           //   select: {
           //       tipo_sala_id: true,

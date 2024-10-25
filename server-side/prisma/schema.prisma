@@ -51,29 +51,29 @@ model sessao {
 }
 
 model sala {
-  sala_id     Int    @id @default(autoincrement())
-  codigo_sala String @unique(map: "codigo_sala") @db.VarChar(50)
-  tipo        String @db.VarChar(20)
-  bloco       String @db.VarChar(10)
-  capacidade  Int
+  sala_id         Int    @id @default(autoincrement())
+  sala_codigo     String @unique(map: "sala_codigo") @db.VarChar(50)
+  sala_tipo       String @db.VarChar(20)
+  sala_bloco      String @db.VarChar(10)
+  sala_capacidade Int
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model turma {
-  turma_id     Int      @id @default(autoincrement())
-  codigo_turma String   @unique(map: "codigo_turma") @db.VarChar(50)
-  professor    String   @db.VarChar(100)
-  capacidade   Int
-  turno        String   @db.VarChar(20)
-  horario      DateTime @db.Date
-  tipo         String   @db.VarChar(20)
+  turma_id         Int      @id @default(autoincrement())
+  turma_codigo     String   @unique(map: "turma_codigo") @db.VarChar(50)
+  turma_professor  String   @db.VarChar(100)
+  turma_capacidade Int
+  turma_turno      String   @db.VarChar(20)
+  turma_horario    DateTime @db.Date
+  turma_tipo       String   @db.VarChar(20)
 }
 
 model disciplina {
-  disciplina_id     Int     @id @default(autoincrement())
-  disciplina_codigo String  @unique(map: "codigo_disciplina") @db.VarChar(50)
-  disciplina_nome              String  @db.VarChar(100)
-  disciplina_curso             String  @db.VarChar(100)
-  disciplina_periodo           Int
-  disciplina_PPCA              String? @db.VarChar(50)
+  disciplina_id      Int     @id @default(autoincrement())
+  disciplina_codigo  String  @unique(map: "disciplina_codigo") @db.VarChar(50)
+  disciplina_nome    String  @db.VarChar(100)
+  disciplina_curso   String  @db.VarChar(100)
+  disciplina_periodo Int
+  disciplina_PPCA    String? @db.VarChar(50)
 }

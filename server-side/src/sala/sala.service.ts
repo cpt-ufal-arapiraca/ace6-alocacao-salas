@@ -30,10 +30,10 @@ export class SalaService {
     const sala = await this.prisma.sala
       .delete({
         where: {
-          codigo_sala: removerSalaDTO.codigo_sala,
+          sala_codigo: removerSalaDTO.sala_codigo,
         },
         select: {
-          codigo_sala: true,
+          sala_codigo: true,
         },
       })
       .catch((e) => {
@@ -45,7 +45,7 @@ export class SalaService {
 
   async alterar(alterarSalaDTO: AlterarSalaDTO): Promise<any> {
 
-    const { codigo_sala, ...atualizarSalaBDDTO } =
+    const { sala_codigo, ...atualizarSalaBDDTO } =
       alterarSalaDTO;
 
       console.log(atualizarSalaBDDTO);
@@ -53,11 +53,11 @@ export class SalaService {
     const sala = await this.prisma.sala
       .update({
         where: {
-          codigo_sala: codigo_sala,
+          sala_codigo: sala_codigo,
         },
         data: atualizarSalaBDDTO,
         select: {
-          codigo_sala: true,
+          sala_codigo: true,
         },
       })
       .catch((e) => {
@@ -73,18 +73,18 @@ export class SalaService {
     const sala = await this.prisma.sala
       .findUnique({
         where: {
-          codigo_sala: obterSalaDTO.codigo_sala,
+          sala_codigo: obterSalaDTO.sala_codigo,
         },
         select: {
           sala_id: true,
-          codigo_sala: true,
-          tipo: true,
-          bloco: true,
-          capacidade: true,
-            // tipo_usuario: {
+          sala_codigo: true,
+          sala_tipo: true,
+          sala_bloco: true,
+          sala_capacidade: true,
+            // sala_tipo_usuario: {
             //     select: {
-            //         tipo_sala_id: true,
-            //         tipo_usuario_nome: true,
+            //         sala_tipo_sala_id: true,
+            //         sala_tipo_usuario_nome: true,
             //     },
             // },
           },
@@ -109,15 +109,15 @@ export class SalaService {
       .findMany({
         where: {
           AND: [
-            listarSalaDTO.tipo
+            listarSalaDTO.sala_tipo
               ? {
-                  tipo: listarSalaDTO.tipo,
+                  sala_tipo: listarSalaDTO.sala_tipo,
                 }
               : {},
-              listarSalaDTO.codigo_sala
+              listarSalaDTO.sala_codigo
               ? {
-                  codigo_sala: {
-                    startsWith: listarSalaDTO.codigo_sala,
+                  sala_codigo: {
+                    startsWith: listarSalaDTO.sala_codigo,
                   },
                 }
               : {},
@@ -133,18 +133,18 @@ export class SalaService {
         skip: listarSalaDTO.pagina ? (listarSalaDTO.pagina - 1) * 10 : undefined,
         take: 10,
         orderBy: {
-          codigo_sala: listarSalaDTO.ordenacao,
+          sala_codigo: listarSalaDTO.ordenacao,
         },
         select: {
           sala_id: true,
-          codigo_sala: true,
-          tipo: true,
-          bloco: true,
-          capacidade: true,
-          // tipo_usuario: {
+          sala_codigo: true,
+          sala_tipo: true,
+          sala_bloco: true,
+          sala_capacidade: true,
+          // sala_tipo_usuario: {
           //   select: {
-          //       tipo_sala_id: true,
-          //       tipo_usuario_nome: true,
+          //       sala_tipo_sala_id: true,
+          //       sala_tipo_usuario_nome: true,
           //   },
           // },
         },

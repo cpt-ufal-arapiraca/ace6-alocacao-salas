@@ -12,7 +12,7 @@ export class ListarSalaDTO {
     })
     @Generate(() => faker.number.int())
     @IsOptional()
-    codigo_sala?: string;
+    sala_codigo?: string;
 
     @CustomApiProperty({
         description: 'Tipo de Sala (Laboratorio ou Sala)',
@@ -25,7 +25,7 @@ export class ListarSalaDTO {
     @IsOptional()
     @IsEnum(TipoSalaEnum)
     @IsString()
-    tipo ?: TipoSalaEnum;
+    sala_tipo ?: TipoSalaEnum;
 
     @CustomApiProperty({
         description: 'Valor para paginação',

@@ -12,7 +12,7 @@ export class RemoverTurmaDTO {
     @Generate(() => faker.string.numeric())
     @Type(() => String)
     @IsOptional()
-    codigo_turma?: string;
+    turma_codigo?: string;
 
     
 }

@@ -25,7 +25,7 @@ export class SalaController {
     }
 
  
-    @Delete(':codigo_sala')
+    @Delete(':sala_codigo')
     @RemoverSalaDocs()
     @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.GERENTE, TipoUsuarioEnum.COORDENADOR)
     async deletar(
@@ -43,7 +43,7 @@ export class SalaController {
         return await this.salaService.alterar(alterarSalaDTO);
     }
 
-    @Get(':codigo_sala')
+    @Get(':sala_codigo')
     @ObterSalaDocs()
     @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.GERENTE, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.PROFESSOR)
     async obter(

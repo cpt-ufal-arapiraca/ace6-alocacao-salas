@@ -10,25 +10,24 @@ export class ListarDisciplinaDTO {
         description: 'Codigo da disciplina',
         required: false,
     })
-    @Generate(() => faker.number.int())
     @IsOptional()
     disciplina_codigo?: string;
 
 
     @CustomApiProperty({
         description: 'Nome da disciplina',
-        required: true,
+        required: false,
     })
-    @Generate(() => faker.person.firstName())
+    @IsOptional()
     disciplina_nome: string;
 
 
     @CustomApiProperty({
         description: 'Curso da disciplina',
-        required: true,
+        required: false,
     })
-    @Generate(() => faker.lorem.words())
     @IsString()
+    @IsOptional()
     disciplina_curso : string;
 
 
@@ -36,7 +35,6 @@ export class ListarDisciplinaDTO {
         description: 'Valor para paginação',
         required: false,
     })
-    @Generate(() => faker.number.int({min:1, max: 10}))
     @Type(() => Number)
     @IsOptional()
     @IsInt()

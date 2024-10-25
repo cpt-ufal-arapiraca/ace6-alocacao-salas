@@ -13,6 +13,6 @@ export class ObterSalaDTO {
     @Type(() => String)
     @IsOptional()
     @IsAlphanumeric()
-    codigo_sala?: string;
+    sala_codigo?: string;
 
 }

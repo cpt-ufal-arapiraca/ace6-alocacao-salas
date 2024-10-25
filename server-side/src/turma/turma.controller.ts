@@ -24,7 +24,7 @@ export class TurmaController {
     }
 
  
-    @Delete(':codigo_turma')
+    @Delete(':turma_codigo')
     @RemoverTurmaDocs()
     @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.GERENTE, TipoUsuarioEnum.COORDENADOR)
     async deletar(
@@ -42,7 +42,7 @@ export class TurmaController {
         return await this.turmaService.alterar(alterarTurmaDTO);
     }
 
-    @Get(':codigo_turma')
+    @Get(':turma_codigo')
     @ObterTurmaDocs()
     @Roles(TipoUsuarioEnum.ADMIN, TipoUsuarioEnum.GERENTE, TipoUsuarioEnum.COORDENADOR, TipoUsuarioEnum.PROFESSOR)
     async obter(

@@ -12,7 +12,7 @@ export class AlterarSalaDTO {
     @Generate(() => faker.number.int({min: 1, max: 100}))
     @IsOptional()
     @IsString()
-    codigo_sala : string;
+    sala_codigo : string;
 
     @CustomApiProperty({
         description: 'Tipo da Sala',
@@ -20,7 +20,7 @@ export class AlterarSalaDTO {
     })
     @Generate(() => faker.string.alpha())
     @IsOptional()
-    tipo : string;
+    sala_tipo : string;
 
     @CustomApiProperty({
         description: 'Bloco da Sala',
@@ -29,7 +29,7 @@ export class AlterarSalaDTO {
     @Generate(() => faker.string.fromCharacters(['a', 'b', 'c']))
     @IsOptional()
     @IsString()
-    bloco : string;
+    sala_bloco : string;
 
     @CustomApiProperty({
         description: 'Capacidade da Sala',
@@ -38,7 +38,7 @@ export class AlterarSalaDTO {
     @Generate(() => faker.number.int({min: 1, max: 100}))
     @IsOptional()
     @IsInt()
-    capacidade : number;
+    sala_capacidade : number;
 
     // Sala_a_ser_alterada: string;?
 

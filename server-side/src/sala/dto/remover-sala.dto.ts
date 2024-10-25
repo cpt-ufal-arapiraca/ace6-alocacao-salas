@@ -13,7 +13,7 @@ export class RemoverSalaDTO {
     @Type(() => String)
     @IsOptional()
     @IsString()
-    codigo_sala?: string;
+    sala_codigo?: string;
 
     
 }

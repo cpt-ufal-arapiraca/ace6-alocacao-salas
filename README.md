@@ -113,7 +113,7 @@ Este guia fornece instruções detalhadas para a instalação e configuração d
 
    - Certifique-se de que o MariaDB está instalado e em execução.
    - Crie um banco de dados no MariaDB para o projeto.
-   - Renomeie o arquivo `.env.example` para `.env` na raiz do `server-side` e atualize com as informações de conexão do banco de dados.
+   - crie um arquivo  `.env` na raiz no `server-side` e atualize com as informações de conexão do banco de dados.
 
      Exemplo do arquivo `.env`:
 

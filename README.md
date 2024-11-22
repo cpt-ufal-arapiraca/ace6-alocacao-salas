@@ -158,14 +158,14 @@ Este guia fornece instruções detalhadas para a instalação e configuração d
      npm run start:dev
      ```
 
-   A aplicação estará disponível em `http://localhost:3001` (ou a porta especificada).
+   A aplicação estará disponível em `http://localhost:5555` (ou a porta especificada).
 
 7. **Acessando a Documentação Swagger:**
 
    - A documentação da API gerada pelo Swagger está disponível em:
 
      ```
-     http://localhost:3001/api
+     http://localhost:3001/docs
      ```
 
 #### Instalação e Configuração do Front-End

@@ -1,4 +1,4 @@
-CREATE DATABASE alocacao_salas;
+CREATE DATABASE IF NOT EXISTS alocacao_salas;
 
 USE alocacao_salas;
 

@@ -124,7 +124,7 @@ Este guia fornece instruções detalhadas para a instalação e configuração d
 4. **Aplicando as Migrações do Prisma:**
 
    ```bash
-   npx prisma migrate dev
+   npx prisma generate
    ```
 
 5. **Carregando Dados Iniciais:**

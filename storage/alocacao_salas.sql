@@ -2,17 +2,6 @@ CREATE DATABASE IF NOT EXISTS alocacao_salas;
 
 USE alocacao_salas;
 
-CREATE TABLE `autenticacao` (
-  `autenticacao_id` int(11) NOT NULL AUTO_INCREMENT,
-  `usuario_id_fk` int(11) NOT NULL,
-  `autenticacao_senha` varchar(255) NOT NULL,
-  `autenticacao_token` varchar(255),
-  `autenticacao_situacao` varchar(10) NOT NULL,
-  PRIMARY KEY (`autenticacao_id`),
-  UNIQUE KEY `usuario_id_fk` (`usuario_id_fk`),
-  CONSTRAINT `autenticacao_ibfk_1` FOREIGN KEY (`usuario_id_fk`) REFERENCES `usuario` (`usuario_id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 CREATE TABLE `disciplina` (
   `disciplina_id` int(11) NOT NULL AUTO_INCREMENT,
   `disciplina_codigo` varchar(50) NOT NULL,
@@ -32,19 +21,6 @@ CREATE TABLE `sala` (
   `sala_capacidade` int(11) NOT NULL,
   PRIMARY KEY (`sala_id`),
   UNIQUE KEY `sala_codigo` (`sala_codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE `sessao` (
-  `sessao_id` int(11) NOT NULL AUTO_INCREMENT,
-  `autenticacao_id_fk` int(11) NOT NULL,
-  `sessao_ip` varchar(15) NOT NULL,
-  `sessao_so` varchar(25) NOT NULL,
-  `sessao_jwt` varchar(256) NOT NULL,
-  `data_hora_login` datetime DEFAULT current_timestamp(),
-  PRIMARY KEY (`sessao_id`),
-  UNIQUE KEY `idx_jwt_UNIQUE` (`sessao_jwt`),
-  KEY `autenticacao_id_fk` (`autenticacao_id_fk`),
-  CONSTRAINT `sessao_ibfk_1` FOREIGN KEY (`autenticacao_id_fk`) REFERENCES `autenticacao` (`autenticacao_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `tipo_usuario` (
@@ -84,6 +60,30 @@ CREATE TABLE `usuario` (
   UNIQUE KEY `idx_siape_UNIQUE` (`usuario_siape`),
   KEY `tipo_usuario_id_fk` (`tipo_usuario_id_fk`),
   CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`tipo_usuario_id_fk`) REFERENCES `tipo_usuario` (`tipo_usuario_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `autenticacao` (
+  `autenticacao_id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario_id_fk` int(11) NOT NULL,
+  `autenticacao_senha` varchar(255) NOT NULL,
+  `autenticacao_token` varchar(255),
+  `autenticacao_situacao` varchar(10) NOT NULL,
+  PRIMARY KEY (`autenticacao_id`),
+  UNIQUE KEY `usuario_id_fk` (`usuario_id_fk`),
+  CONSTRAINT `autenticacao_ibfk_1` FOREIGN KEY (`usuario_id_fk`) REFERENCES `usuario` (`usuario_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `sessao` (
+  `sessao_id` int(11) NOT NULL AUTO_INCREMENT,
+  `autenticacao_id_fk` int(11) NOT NULL,
+  `sessao_ip` varchar(15) NOT NULL,
+  `sessao_so` varchar(25) NOT NULL,
+  `sessao_jwt` varchar(256) NOT NULL,
+  `data_hora_login` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`sessao_id`),
+  UNIQUE KEY `idx_jwt_UNIQUE` (`sessao_jwt`),
+  KEY `autenticacao_id_fk` (`autenticacao_id_fk`),
+  CONSTRAINT `sessao_ibfk_1` FOREIGN KEY (`autenticacao_id_fk`) REFERENCES `autenticacao` (`autenticacao_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 COMMIT;

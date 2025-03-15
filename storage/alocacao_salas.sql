@@ -1,3 +1,7 @@
+CREATE DATABASE IF NOT EXISTS alocacao_salas;
+
+USE alocacao_salas;
+
 CREATE TABLE `autenticacao` (
   `autenticacao_id` int(11) NOT NULL AUTO_INCREMENT,
   `usuario_id_fk` int(11) NOT NULL,

@@ -1,146 +1,250 @@
 # Alocação de Salas
 
-O sistema tem o objetivo de analisar/encontrar a melhor ordenação de salas com base em cadas nova turmas do ano letivo.
+O sistema tem o objetivo de analisar/encontrar a melhor ordenação de salas com base em cada nova turma do ano letivo.
 
 ## 🚀 Começando
 
 Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
 
-Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar o projeto.
+Consulte **[Implantação](#-implantação)** para saber como implantar o projeto.
 
 ### 📋 Pré-requisitos
 
-Para a execursão do sistema em maquina local, é necessário instalar alguns programas/depeondecias, elas sãos:
+Para a execução do sistema em máquina local, é necessário instalar alguns programas/dependências, elas são:
 
-Banco de Dados
-```
-MariaDb
-```
+**Banco de Dados**
 
-Back-End
-```
-Java - 17
-Spring Boot - 3.2.3
-```
+- MariaDB
 
-Front-End
-```
-Angular - 17
-Nodejs - 20
-```
+**Back-End**
+
+- Node.js - 20
+- NestJS
+- Prisma
+- Swagger
+
+**Front-End**
+
+- React
+- Node.js - 20
 
 ### 🔧 Instalação
 
-#### Instalação e Configuração do Front-end com tecnologias usadas.
+#### Estrutura do Projeto
 
-Este guia fornece instruções detalhadas para a instalação e configuração do Front-end usando (Angular, Node.js, Tailwind CSS). O Node.js é uma solução fácil e rápida para instalar todas as dependências necessárias para rodar o ambiente de desenvolvimento.
+O projeto está organizado com a seguinte estrutura de diretórios:
 
-#### Instalação do Node.js
+- `client-side`: Código do Front-End desenvolvido em React.
+- `server-side`: Código do Back-End desenvolvido com Node.js, NestJS, Prisma e Swagger.
+- `storage`: Contém o arquivo SQL do banco de dados.
+- `resources`: Recursos adicionais do projeto.
+- `INSTRUCOES.md`: Instruções adicionais.
+- `README.md`: Este arquivo.
+- `package.json` e `package-lock.json`: Arquivos de configuração do npm na raiz do projeto.
+
+#### Clonando o Repositório
+
+Faça o clone do repositório:
+
+```bash
+git clone https://github.com/cpt-ufal-arapiraca/ace6-alocacao-salas.git
+```
+
+#### Instalação e Configuração do Back-End
+
+Este guia fornece instruções detalhadas para a instalação e configuração do Back-End usando Node.js, NestJS, Prisma e Swagger.
+
+##### Instalação do Node.js
 
 1. **Download do Node.js:**
-   - Acesse [o site oficial do Node.js](https://nodejs.org/en) e faça o download da versão 20 LTS ou superior.
+
+   - Acesse [o site oficial do Node.js](https://nodejs.org/en) e faça o download da versão 20 LTS ou superior.
 
 2. **Instale o Node.js:**
-   - Após a instalação, verifique com o seguinte comando no terminal:
-   ```bash
+
+   - Após a instalação, verifique com o seguinte comando no terminal:
+
+     ```bash
      node -v
      ```
 
-#### Instalação do Angular
+##### Configurando o Back-End
 
-1. **Instalação:**
-   - Acesse [o site oficial do Angular na tela de instalação](https://angular.io/guide/setup-local), ou execute o seguinte comando no terminal.
-    ```bash
-     npm install -g @angular/cli@17
+1. **Acesse o diretório do Back-End:**
+
+   ```bash
+   cd server-side
+   ```
+
+2. **Instale as dependências:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Configuração do Banco de Dados:**
+
+   - Certifique-se de que o MariaDB/MySQL está instalado e em execução.
+   - Crie um banco de dados no MySQL para o projeto.
+   - crie um arquivo  `.env` na raiz no `server-side` e atualize com as informações de conexão do banco de dados.
+
+     Exemplo do arquivo `.env`:
+
      ```
-   - Perceba que usamos a tag '-g', isso indica que estamos instalando o Angular globalmente, em toda a máquina.
-   - Perceba que instalamos a versão 17, pois o projeto foi desenvolvido nesta versão.
+     DATABASE_URL="mysql://usuario:senha@localhost:3306/nome_do_banco"
+     ```
 
+4. **Gerando Schema do Prisma:**
 
-3. **Instalando dependências.**
-   - Após clonar este repositório, entre na pasta com o seguinte comando:
    ```bash
-     cd ace6-alocacao-salas/
-   ```
-   - Agora, execute o seguinte comando:
-   ```bash
-     npm install
-   ```
-   - Com isso, todas as dependências serão baixadas.
-
-
-5. **Execução, modo desenvolvimento:**
-   - Para executar em modo de desenvolvimento, execute o seguinte comando:
-   ```bash
-     ng server
+   npx prisma generate
    ```
 
+6. **Executando a Aplicação em Modo de Desenvolvimento:**
 
-6. **Build, modo produção:**
-   - Para fazer o Build em modo produção, execute o seguinte comando:
+   - Inicie o servidor:
+
+     ```bash
+     npm run start:dev
+     ```
+
+   A aplicação estará disponível em `http://localhost:5555` (ou a porta especificada).
+
+7. **Acessando a Documentação Swagger:**
+
+   - A documentação da API gerada pelo Swagger está disponível em:
+
+     ```
+     http://localhost:5555/docs
+     ```
+
+#### Instalação e Configuração do Front-End
+
+Este guia fornece instruções detalhadas para a instalação e configuração do Front-End usando React e Node.js.
+
+##### Instalação do Node.js
+
+Já instalado anteriormente para o Back-End.
+
+##### Configurando o Front-End
+
+1. **Acesse o diretório do Front-End:**
+
+   - Da raiz do projeto, navegue até `client-side`:
+
+     ```bash
+     cd ../client-side
+     ```
+
+2. **Instale as dependências:**
+
    ```bash
-     ng build --aot --configuration=production
+   npm install
    ```
-#
 
-#### Instalação e Configuração do Back-end com tecnologias usadas.
+3. **Configuração das Variáveis de Ambiente:**
 
-Este guia fornece instruções detalhadas para a instalação e configuração do Back-end usando (Java, Spring Boot).O Java Spring Framework (Spring Framework) é um framework bastante conhecido de nível empresarial, de software livre, para criar aplicativos independentes de nível de produção que são executados na Java Virtual Machine (JVM).
+   - Renomeie o arquivo `.env.example` para `.env` e configure a URL do Back-End se necessário.
 
-#### Instalação do Java 17
+     Exemplo do arquivo `.env`:
 
-1. **Download do Java 17**
-   - Acesse [o site oficial do Node.js](https://www.oracle.com/br/java/technologies/downloads/) e faça o download.
+     ```
+     REACT_APP_API_URL=http://localhost:5555
+     ```
 
-2. **Instale o Java 17**
-   - Siga as instruções do seu sistema operacional.
+4. **Executando o Aplicativo em Modo de Desenvolvimento:**
 
-### Instalação do Spring Boot
+   ```bash
+   npm start
+   ```
 
-Primeiramente, faça o clone do repositório:
-```
-https://github.com/cpt-ufal-arapiraca/ace6-alocacao-salas.git
-```
-Feito isso, acesse o projeto:
-```
-cd ace6-alocacao-salas/BackEnd
-```
-É preciso compilar o código e baixar as dependências do projeto:
-```
-mvn clean package
-```
-Finalizado esse passo, vamos iniciar a aplicação:
-```
-mvn spring-boot:run
-```
-Pronto. A aplicação está disponível em http://localhost:8080
-```
-Tomcat started on port(s): 8080 (http)
-Started AppConfig in xxxx seconds (JVM running for xxxx)
-```
-#
+   O aplicativo será executado em `http://localhost:3000`.
+
+5. **Build para Produção:**
+
+   Para criar uma versão otimizada para produção:
+
+   ```bash
+   npm run build
+   ```
+
+   Os arquivos de build serão gerados na pasta `build`.
+
+#### Notas Adicionais
+
+- **Conflito de Portas:** Certifique-se de que o Back-End e o Front-End estão executando em portas diferentes. Por padrão, o React usa a porta `3000`, enquanto o NestJS pode ser configurado para usar a porta `5555`.
+
+- **Recursos:** A pasta `resources` contém recursos adicionais que podem ser úteis para o desenvolvimento ou implantação do projeto.
+
+- **Instruções Adicionais:** Consulte o arquivo `INSTRUCOES.md` para instruções adicionais que possam ser relevantes.
+
+### Resumo dos Comandos
+
+- **Clonar o repositório:**
+
+  ```bash
+  git clone https://github.com/cpt-ufal-arapiraca/ace6-alocacao-salas.git
+  ```
+
+- **Instalar dependências na raiz do projeto:**
+
+  ```bash
+  cd ace6-alocacao-salas
+  npm install
+  ```
+
+- **Configurar e executar o Back-End:**
+
+  ```bash
+  cd server-side
+  npm install
+  # Configurar o .env e o banco de dados conforme instruções acima
+  npx prisma migrate dev
+  npm run start:dev
+  ```
+
+- **Importar dados do banco de dados:**
+
+  ```bash
+  cd ..
+  mysql -u usuario -p nome_do_banco < storage/dump.sql
+  ```
+
+- **Configurar e executar o Front-End:**
+
+  ```bash
+  cd client-side
+  npm install
+  # Configurar o .env conforme instruções acima
+  npm start
+  ```
 
 ## 📦 Implantação
 
+(As instruções de implantação serão adicionadas aqui.)
 
 ## 🛠️ Construído com
 
-Mencione as ferramentas que você usou para criar seu projeto
+Ferramentas e tecnologias utilizadas no desenvolvimento deste projeto:
 
-* [Maven](https://maven.apache.org/) - Gerente de Dependência
+- [Node.js](https://nodejs.org/) - Ambiente de execução JavaScript
+- [NestJS](https://nestjs.com/) - Framework para Node.js
+- [Prisma](https://www.prisma.io/) - ORM
+- [Swagger](https://swagger.io/) - Documentação de APIs
+- [React](https://reactjs.org/) - Biblioteca JavaScript para interfaces de usuário
+- [MariaDB](https://mariadb.org/) - Banco de dados relacional
 
 ## 📌 Versão
 
-Nós usamos [GitFlow](https://git-scm.com/) para controle de versão. Para as versões disponíveis, observe as [tags neste repositório](https://github.com/cpt-ufal-arapiraca/ace6-alocacao-salas/releases). 
+Nós usamos [GitFlow](https://git-scm.com/) para controle de versão. Para as versões disponíveis, observe as [tags neste repositório](https://github.com/cpt-ufal-arapiraca/ace6-alocacao-salas/releases).
 
 ## ✒️ Autores
 
-Mencione todos aqueles que ajudaram a levantar o projeto desde o seu início
+Mencione todos aqueles que ajudaram a levantar o projeto desde o seu início:
 
-* **Douglas** - *Java e Spring Boot* - [https://github.com/Douglas-Alv3s](https://github.com/Douglas-Alv3s)
-* **Roberto** - *Banco de dados* - [https://github.com/jrobertogram](https://github.com/jrobertogram)
-* **Luckas** - *Front end* - [https://github.com/Luckas-Ferreira](https://github.com/Luckas-Ferreira)
-* **Wellington** - *Documentação e UI/UX* - 
+- **Douglas** - _Back-end com Node.js e NestJS_ - [Douglas Alves](https://github.com/Douglas-Alv3s)
+- **Roberto** - _Banco de dados_ - [Roberto Gramacho](https://github.com/jrobertogram)
+- **Luckas** - _Front-end_ - [Luckas Ferreira](https://github.com/Luckas-Ferreira)
+- **Wellington** - _Documentação e UI/UX_ -
 
 Você também pode ver a lista de todos os [colaboradores](https://github.com/cpt-ufal-arapiraca/ace6-alocacao-salas/colaboradores) que participaram deste projeto.
-

@@ -76,7 +76,7 @@ CREATE TABLE `autenticacao` (
 CREATE TABLE `sessao` (
   `sessao_id` int(11) NOT NULL AUTO_INCREMENT,
   `autenticacao_id_fk` int(11) NOT NULL,
-  `sessao_ip` varchar(15) NOT NULL,
+  `sessao_ip` varchar(255) NOT NULL,
   `sessao_so` varchar(25) NOT NULL,
   `sessao_jwt` varchar(256) NOT NULL,
   `data_hora_login` datetime DEFAULT current_timestamp(),

@@ -83,7 +83,7 @@ export class AutenticacaoService {
     const sessao = await this.prisma.sessao
       .create({
         data: {
-          sessao_ip: '1234565',
+          sessao_ip: entrarAutenticacaoDTO.sessao_ip,
           sessao_so: useragent
             .parse(entrarAutenticacaoDTO.sessao_so)
             .os.toString(),
